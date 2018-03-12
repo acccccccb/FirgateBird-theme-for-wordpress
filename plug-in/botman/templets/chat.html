@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>chat</title>
+    <link rel="stylesheet" href="templets/chat.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--<script src="chat.js"></script>-->
+    <script>
+        /**
+         * Created by Administrator on 2017/7/24 0024.
+         */
+        $(document).ready(function(){
+            $('#sub').click(function(){
+                if($('.chatbox').val() == ""){
+                    return false;
+                } else {
+                    $('.result').append('<div class="chatlist"><span class="inputtit"><?php echo $sendUser.$separator ?></span>' + $('.chatbox').val() + '</div>');
+                    $('.result').scrollTop($('.result')[0].scrollHeight);
+                    $.ajax({
+                        url:'php/chat.php',
+                        type:"POST",
+                        data:$('#send').serialize(),
+                        //data:$('.chatbox').val(),
+                        async: false,
+                        dataType : 'html',
+                        success: function(data) {
+                            console.log('DATA:'+data);
+                            $('.result').append('<div class="chatlist" >' + data + '</div>');
+                            $('.result').scrollTop($('.result')[0].scrollHeight);
+                        },
+                        error:function(){
+                            console.log('false');
+                        }
+                    });
+                    $('.chatbox').val('');
+                }
+            });
+        });
+        function send() {
+            $('#sub').click();
+        }
+    </script>
+</head>
+<body>
+
+<div class="cmd">
+    <div class="result">
+        <?php echo $startMessage ?>
+    </div>
+    <div class="sendbox">
+        <form method="post" id="send" onkeydown="if(event.keyCode==13) return false;">
+            <span class="inputtit"><?php echo $sendUser.$separator ?></span><input class="chatbox" name="chatText" type="text" onkeyup="if(event.keyCode==13) send();" placeholder="<?php echo $placeholder ?>" />
+            <input type="button" id="sub" value="发送"/>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

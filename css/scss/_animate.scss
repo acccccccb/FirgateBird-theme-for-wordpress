@@ -1,0 +1,32 @@
+@keyframes pulse {
+    from {
+      -webkit-transform: translate(0,0);
+      transform: translate(0,0);
+    }
+  
+    50% {
+        -webkit-transform: translate(10px,0);
+        transform: translate(10px,0);
+    }
+  
+    to {
+        -webkit-transform: translate(0,0);
+        transform: translate(0,0);
+    }
+  }
+  @keyframes avatar {
+    from {
+        -webkit-transform: translate(0,0);
+        transform: translate(0,0);
+      }
+    
+      50% {
+          -webkit-transform: translate(0,10px);
+          transform: translate(0,10px0);
+      }
+    
+      to {
+          -webkit-transform: translate(0,0);
+          transform: translate(0,0);
+      }
+  }

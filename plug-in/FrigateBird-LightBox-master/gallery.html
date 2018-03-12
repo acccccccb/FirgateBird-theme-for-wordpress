@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>FrigateBird-LightBox</title>
+	<script src="jquery.js"></script>
+	<script src="gallery.js"></script>
+	<link rel="stylesheet" href="gallery.css"/>
+</head>
+<style>
+	body {
+		background:#333;
+	}
+	.plug-in-info {
+		width:680px;
+		color:#fff;
+		line-height:150%;
+		font-size:12px;
+		margin:20px auto;
+	}
+	.box {
+		width:680px;
+		margin:20px auto;
+		padding-left:30px;
+	}
+	.imgbox{
+		width:200px;
+		float:left;
+		margin-right:20px;
+		margin-bottom:20px;
+		border:2px solid #fff;
+		font-size:0;
+	}
+	.imgbox:hover{
+		opacity:0.9;
+	}
+	xmp {
+		padding-left:20px;
+		background:#666;
+	}
+</style>
+<body>
+	<div class="plug-in-info">
+		<p><h2>FrigateBird-LightBox</h2></p>
+		<p><strong>版本：</strong>v1.0.0</p>
+		<p><strong>作者：</strong>Futureis404</p>
+		<p><strong>网站：</strong><a style="color:#fff;decoration:underline;" href="http://www.python-pro.com">http://www.python-pro.com</a></p>
+		<p>
+		<strong>使用说明：</strong><br />
+			1.下载zip文件<br />
+			2.在head部分引入css文件
+				<xmp><link href="path/to/lightbox.css" rel="stylesheet"></xmp>
+			3.在head部分引入js文件<br />
+				<xmp><script src="jquery.js"></script></xmp>
+				<xmp><script src="gallery.js"></script></xmp>
+			4.为需要lightbox效果的图片添加 class="ViewImg" 属性
+
+		</p>
+	</div>
+	<div class="box">
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/1.jpg" alt="Picture1">
+		</div>
+
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/2.jpg" alt="Picture2">
+		</div>
+
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/3.jpg" alt="Picture3">
+		</div>
+		
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/4.jpg" alt="Picture4">
+		</div>
+
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/5.jpg" alt="Picture5">
+		</div>
+		
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/6.jpg" alt="Picture6">
+		</div>
+		
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/7.jpg" alt="Picture7">
+		</div>
+		
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/8.jpg" alt="Picture8">
+		</div>
+		
+		<div class="imgbox">
+			<img class="ViewImg" src="gallery-img/9.jpg" alt="Picture9">
+		</div>
+		<div style="clear:both;"></div>
+       </div>         
+</body>
+</html>
