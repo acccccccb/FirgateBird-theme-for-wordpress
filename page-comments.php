@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-7 col-lg-offset-1">
+			<div class="col-lg-12">
 				<?php navigation();?>
 			</div>
-			<div class="col-lg-7 col-lg-offset-1" id="ajax-box">
+			<div class="col-lg-9">
 				<?php if (have_posts()) : the_post(); update_post_caches($posts); ?>
 				<article class="border-bottom-1 index-article">
 					<div class="article-tit mb20 mt20"><?php the_title(); ?>
@@ -28,13 +28,23 @@
 				</div>
 				</article>
 				
-			<div class="col-lg-12 more-article">
+				<div class="col-lg-6 more-article mb20">
 				<div class="page-header">
 					<h2>相关文章 <small>Related articles</small></h2>
 				</div>
 				<div class="right mt20">
 					<ul class="list-unstyled">
-						<?php random_posts(); ?>
+						<?php same_posts(6); ?>
+					</ul>
+				</div><!-- 随机文章 -->
+			</div>
+			<div class="col-lg-6 more-article mb20">
+				<div class="page-header">
+					<h2>热门文章 <small>Related articles</small></h2>
+				</div>
+				<div class="right mt20">
+					<ul class="list-unstyled">
+						<?php hot_posts(6); ?>
 					</ul>
 				</div><!-- 随机文章 -->
 			</div>

@@ -246,7 +246,7 @@ if(current_user_can('level_10')){
 //排除分类
 function exclude_category_home( $query ) {
     if ( $query->is_home ) {
-        $query->set( 'cat', '-99' );//排除说说分类
+		$query->set( 'cat', '-99' );//排除说说分类
     }
     return $query;
 }
@@ -254,14 +254,25 @@ add_filter( 'pre_get_posts', 'exclude_category_home' );
 
 // 首页幻灯片
 function thumb_article() {
-	query_posts('showposts=10');
-	if ( have_posts() ) : while ( have_posts() ) : the_post();
-		if( has_post_thumbnail() ) {
+	if (have_posts() ) : while ( have_posts() ) : the_post();
+		if(has_post_thumbnail() && is_sticky() ) {
+				$description1 = get_the_excerpt();
+				$description2 = str_replace(array("\r\n", "\r", "\n","&nbsp;",'"',"<",">"),"",mb_strimwidth(strip_tags($post->post_content), 0, 200, "…", 'utf-8'));
+				// 填写自定义字段description时显示自定义字段的内容，否则使用文章内容前200字作为描述
+				$description = $description1 ? $description1 : $description2;
 				echo '<div class="item">';
 				echo '<a href="' . get_the_permalink() . '" title="'.get_the_title().'">';
-                echo the_post_thumbnail( $post_id, thumbnail,array( 'class' => 'img-responsive' ) );
+				//echo the_post_thumbnail( $post_id, thumbnail,array( 'class' => 'img-responsive-banner' ) );
+				echo '<img class="img-responsive-banner" alt=".get_the_title()." src="';
+				echo  the_post_thumbnail_url('codilight_lite_single_large' );
+				echo '">';
                 echo '</a>';
-                echo '<div class="carousel-caption">'.get_the_title().'</div>';
+				echo '<div class="carousel-caption">';
+				echo '<h1 class="hidden-xs hidden-sm text-left">'.get_the_title().'</h1>';
+				echo '<h4 class="hidden-md hidden-lg text-center">'.get_the_title().'</h4>';
+				echo '<p class="hidden-xs hidden-sm text-left" > '.$description.'</p>';
+				echo '<a class="hidden-xs hidden-sm btn btn-primary btn-lg mt20" href="'.get_the_permalink().'" role="button">阅读内容</a>';
+				echo '</div>';
                 echo '</div>';
 		}
 	endwhile; else:
@@ -283,12 +294,71 @@ function thumb_article() {
  	add_image_size( 'customized-post-thumb', 760, 180 );
  }
 //TO DO 文章评论
+// 热门文章
+function hot_posts($post_num){
+	global $post;
+	$args = array(
+	'post_password' => '',
+	'post_status' => 'publish', // 只选公开的文章.
+	'post__not_in' => array($post->ID),//排除当前文章
+	'caller_get_posts' => 1, // 排除置顶文章.
+	'orderby' => 'meta_value_num', // 依点击率排序.
+	'order'		=>	'DESC',
+	'posts_per_page' => $post_num
+	);
+	$query_posts = new WP_Query();
+	$query_posts->query($args);
+	$c = 0;
+	while( $query_posts->have_posts() ) {
+		$query_posts->the_post();
+		$c = $c+1;
+		echo '<li><span class="most-view-num most-view-num-'.$c.'">'.$c.'</span><a href="'.get_the_permalink().'">'.get_the_title().'</a></li>';
+	}
+	wp_reset_query();
+}
+//相关文章
+function same_posts($post_num){
+	global $post;
+	$post_tags = wp_get_post_tags($post->ID);
+	if ($post_tags) {
+		foreach ($post_tags as $tag) {
+		  // 获取标签列表
+		  $tag_list[] .= $tag->term_id;
+		}
+	  
+		// 随机获取标签列表中的一个标签
+		$post_tag = $tag_list[ mt_rand(0, count($tag_list) - 1) ];
+	}
+		//var_dump($post_tag);
+	$args = array(
+		'tag__in' => array($post_tag),
+		'post_password' => '',
+		'post_status' => 'publish', // 只选公开的文章.
+		'post__not_in' => array($post->ID),//排除当前文章
+		'caller_get_posts' => 1, // 排除置顶文章.
+		'orderby' => 'meta_value_num', // 依评点击量.
+		'order'		=>	'DESC',
+		'showposts' => $post_num
+
+
+
+	);
+	$query_posts = new WP_Query();
+	$query_posts->query($args);
+	while( $query_posts->have_posts() ) {
+		$query_posts->the_post();
+		echo '<li><a href="'.get_the_permalink().'">'.get_the_title().'</a></li>';
+	}
+	wp_reset_query();
+}
+
+
 
 //随机文章
 /**
  * 随机文章 相关文章
  */
-function random_posts($posts_num=6,$before='<li class="random_list">',$after='</li>'){
+function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 	global $wpdb;
 	$sql = "SELECT ID, post_title,guid
 			FROM $wpdb->posts
@@ -331,6 +401,23 @@ function random_posts($posts_num=6,$before='<li class="random_list">',$after='</
 		function my_page_tags_meta_box() {
 		add_meta_box( 'tagsdiv-post_tag', '关键字', 'post_tags_meta_box', 'page', 'side', 'core' );
 	}
+
+	// 最近更新
+	function modifiedTime() {
+		//var_dump(the_modified_time('Y-n-j G:i'));
+		//echo date("Y-m-d");
+		date_default_timezone_set('PRC');
+		$modifiedTime = strtotime(get_the_modified_time('Y-n-j G:i'));
+		$nowTime = strtotime(date("Y-m-d G:i"));
+		$modTime = ($nowTime - $modifiedTime)/3600;
+		if($modTime >= 24) {
+			$modTime = ($nowTime - $modifiedTime)/86400;
+			echo floor($modTime)."天前";
+		} else {
+			echo floor($modTime)."小时前";
+		}
+	}
+
 	// 文章缩略图
 	add_filter( 'post_thumbnail_html', 'remove_thumbnail_width_height', 10, 5 );
 	function remove_thumbnail_width_height( $html, $post_id, $post_thumbnail_id, $size, $attr ) {

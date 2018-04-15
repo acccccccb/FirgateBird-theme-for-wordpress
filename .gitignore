@@ -10,9 +10,28 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# FrigateBird
+/.vscode/
+/.idea/
 /.htaccess
 /license.txt
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
-
+/gitattributes
+/_FolderWatchConfit.jscompress
+/css/_FolderWatchConfit.jscompress
+/js/_FolderWatchConfit.jscompress
+/js/npm.js
+/js/*.map
+/css/*.map
+/*.bak
+/comments-old.php
+/img/*.tif
+/img/*.psd
+/plug-in/botman/

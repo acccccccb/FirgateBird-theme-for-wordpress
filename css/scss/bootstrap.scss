@@ -4385,9 +4385,10 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .breadcrumb {
   padding: 8px 15px;
-  margin-bottom: 17px;
+  //margin-bottom: 17px;
   list-style: none;
   border-radius: 4px;
+  margin:0!important;
 }
 .breadcrumb > li {
   display: inline-block;
@@ -4448,8 +4449,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $maincolor;
+  border-color: darken($maincolor,5%);
   cursor: default;
 }
 .pagination > .disabled > span,
@@ -5994,12 +5995,12 @@ button.close {
   position: absolute;
   left: 15%;
   right: 15%;
-  bottom: 20px;
+  bottom: 30%;
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
   color: #ffffff;
-  text-align: center;
+  text-align: left;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .carousel-caption .btn {

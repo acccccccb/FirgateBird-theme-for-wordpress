@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-7 col-lg-offset-1">
+			<div class="col-lg-12">
 				<?php navigation();?>
 			</div>
-			<div class="col-lg-7 col-lg-offset-1" id="ajax-box">
+			<div class="col-lg-9" id="ajax-box">
 			<?php if(have_posts()):?>
 				<?php while (have_posts()) : the_post(); ?>
 				<div class="col-lg-2 text-right">
@@ -30,15 +30,5 @@
 		</div>
 	</div>
 	<?php get_footer(); ?>
-	<script>
-		var sildeN = $('.carousel-inner>.item').length;
-		if (sildeN > 0) {
-			for(i=0;i<sildeN; i++) {
-				var sildeHTML = '<li data-target="#myCarousel" data-slide-to="'+ i +'"></li>';
-				$('.carousel-indicators').append(sildeHTML);
-			}
-			$('.item:eq(0),.carousel-indicators>li:eq(0)').addClass('active');
-		}
-	</script>
   </body>
 </html>
