@@ -1,7 +1,7 @@
 	<footer>
 		<div class="container-fluid footer">
 			<div class="row">
-				<div class="col-lg-11 col-lg-offset-1 footer-info text-left">
+				<div class="col-lg-12 footer-info text-left">
 					<div class="row">
 						<div class="col-lg-4 mb20">
 							<a href="<?php echo get_site_icon_url(); ?>">返回首页</a> | <a href="#top">回到顶部</a> | <a href="/comments-html">联系作者</a> | <script src="https://s22.cnzz.com/z_stat.php?id=1262730622&web_id=1262730622" language="JavaScript"></script> | 加载时间：<?php timer_stop(1); ?>s<br />
@@ -15,7 +15,7 @@
 								<?php echo get_bloginfo('description'); ?>
 							</p>
 						</div>
-						<div class="col-lg-3 mb20">
+						<div class="col-lg-4 mb20">
 							<p>
 								<span class="glyphicon glyphicon-signal"></span> 日志总数：<?php $count_posts = wp_count_posts(); echo $published_posts = $count_posts->publish;?><br>
 								<span class="glyphicon glyphicon-calendar"></span> 建站天数：<?php echo floor((time()-strtotime("2016-3-15"))/86400); ?><br>

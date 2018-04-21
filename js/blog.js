@@ -106,9 +106,9 @@ $("input[type=submit]").bind("click", function(e){
         }
     });	
     //修改评论区表情的显示位置
-	var smiley = $('.smiley').html();
-	$('.smiley').remove();
-	$('.form-group').before('<p class="smiley">' + smiley + "</p>");
+    var smiley = $('.smiley').clone();
+    $('.smiley').remove();
+    $('.form-group').before(smiley);
 	//二级导航
 	$('.menu-item-has-children').addClass('dropdown blog-nav-hover');
 	$('.menu-item-has-children>a').attr({
