@@ -28,7 +28,7 @@
 				</div>
 				</article>
 				
-				<div class="col-lg-6 more-article mb20">
+				<div class="col-lg-6 more-article mt20 mb20">
 				<div class="page-header">
 					<h2>相关文章 <small>Related articles</small></h2>
 				</div>
@@ -38,12 +38,12 @@
 					</ul>
 				</div><!-- 随机文章 -->
 			</div>
-			<div class="col-lg-6 more-article mb20">
+			<div class="col-lg-6 more-article mt20 mb20">
 				<div class="page-header">
 					<h2>热门文章 <small>Related articles</small></h2>
 				</div>
 				<div class="right mt20">
-					<ul class="list-unstyled">
+					<ul class="list-unstyled most-view">
 						<?php hot_posts(6); ?>
 					</ul>
 				</div><!-- 随机文章 -->

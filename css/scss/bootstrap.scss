@@ -892,14 +892,13 @@ th {
   box-sizing: border-box;
 }
 html {
-  font-size: 12px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  //font-family: "Microsoft JhengHei", Helvetica, Arial, sans-serif,"Microsoft Yahei",微软雅黑;
-  font-family: "Microsoft Yahei",微软雅黑, Helvetica, Arial, sans-serif;
+  font-family: "Microsoft JhengHei", Helvetica, Arial, sans-serif,"Microsoft Yahei",微软雅黑;
+  //font-family: "Microsoft Yahei",微软雅黑, Helvetica, Arial, sans-serif;
   //font-family: "Helvetica Neue","PingFang SC","Microsoft Yahei",微软雅黑,STXihei,华文细黑,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 200%;
   color: #333333;
   //background-color: #f5f5f5;
@@ -3228,7 +3227,7 @@ tbody.collapse.in {
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  font-size: 12px;
+  font-size: 14px;
   text-align: left;
   background-color: #ffffff;
   border: 1px solid #cccccc;

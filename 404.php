@@ -10,16 +10,17 @@
 					<img src="<?php echo get_template_directory_uri(); ?>/img/404.gif"  class="img-responsive"/>
 					</div>
 				</article>
-			<div class="col-lg-12 more-article">
-				<div class="alert alert-info hidden" role="alert"><p class="lead">相关文章</p></div>
-				<div class="right">
-					<h3 class="mb10">你可能也喜欢：</h3>
-					<ul class="list-unstyled">
-						<?php random_posts(); ?>
-					</ul>
-				</div><!-- 随机文章 -->
-			</div>
-				</article>
+
+                <div class="col-lg-12 more-article mt20 mb20">
+                    <div class="page-header">
+                        <h2>热门文章 <small>Related articles</small></h2>
+                    </div>
+                    <div class="right mt20">
+                        <ul class="list-unstyled most-view">
+                            <?php hot_posts(6); ?>
+                        </ul>
+                    </div><!-- 随机文章 -->
+                </div>
 			</div>
 			<?php get_sidebar(); ?>
 		</div>

@@ -78,7 +78,7 @@
     <?php wp_head(); ?>
     <!-- Bootstrap -->
     <link href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/blog.min.css" />
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/blog.min.css?v=1.0.1" />
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/plug-in/FrigateBird-LightBox-master/gallery.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,6 +88,8 @@
     <![endif]-->
 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php wp_head(); ?>
   </head>
@@ -155,16 +157,16 @@
 	</header>
 	<?php if ((is_home() || is_front_page()) && !is_paged() ) { ?>
         <?php thumb_article(); ?>
-        <script>
-            var sildeN = $('.carousel-inner>.item').length;
-            if (sildeN > 0) {
-                for(i=0;i<sildeN; i++) {
-                    var sildeHTML = '<li data-target="#carousel-example-generic" data-slide-to="'+ i +'"></li>';
-                    $('.carousel-indicators').append(sildeHTML);
-                }
-                $('.item:eq(0),.carousel-indicators>li:eq(0)').addClass('active');
-            }
-        </script>
+	<script>
+		var sildeN = $('.carousel-inner>.item').length;
+		if (sildeN > 0) {
+			for(i=0;i<sildeN; i++) {
+				var sildeHTML = '<li data-target="#carousel-example-generic" data-slide-to="'+ i +'"></li>';
+				$('.carousel-indicators').append(sildeHTML);
+			}
+			$('.item:eq(0),.carousel-indicators>li:eq(0)').addClass('active');
+		}
+	</script>
     <?php } ?>
     <div class="jumbotron index-banner hidden">
         <div class="container index-banner">

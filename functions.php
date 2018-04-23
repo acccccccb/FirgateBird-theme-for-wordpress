@@ -1,6 +1,6 @@
 <?php
 require_once( 'widgets/sidebar_default.php' );
-
+require ('widgets/theme-options.php');
 // 关闭前台顶部导航
 show_admin_bar(false);
 // 面包屑导航
@@ -177,6 +177,8 @@ function reset_emojis() {
 	remove_action('admin_print_styles', 'print_emoji_styles');
 	add_filter('the_content', 'wp_staticize_emoji');
 	add_filter('sidebar_comments', 'wp_staticize_emoji');
+	add_filter('get_comment_text', 'wp_staticize_emoji');
+	add_filter('get_comments', 'wp_staticize_emoji');
 	add_filter('comment_text', 'wp_staticize_emoji',50); //在转换为表情后再转为静态图片
 	smilies_reset();
 	add_filter('emoji_url', 'static_emoji_url');
@@ -246,7 +248,7 @@ if(current_user_can('level_10')){
 //排除分类
 function exclude_category_home( $query ) {
     if ( $query->is_home ) {
-		$query->set( 'cat', '-99' );//排除说说分类
+		$query->set( 'cat', '-14' );//排除说说分类
     }
     return $query;
 }
@@ -273,7 +275,7 @@ function thumb_article() {
                 echo '<a href="' . get_the_permalink() . '" title="'.get_the_title().'">';
                 //echo the_post_thumbnail( $post_id, thumbnail,array( 'class' => 'img-responsive-banner' ) );
                 echo '<img class="img-responsive-banner" alt=".get_the_title()." src="';
-                echo  the_post_thumbnail_url('codilight_lite_single_large' );
+                echo  the_post_thumbnail_url('full' );
                 echo '">';
                 echo '</a>';
                 echo '<div class="carousel-caption">';
@@ -311,7 +313,6 @@ function thumb_article() {
  if ( function_exists( 'add_theme_support' ) ) {
   	add_theme_support( 'post-thumbnails' );
  }
-
  if ( function_exists( 'add_image_size' ) ) {
  	add_image_size( 'customized-post-thumb', 760, 180 );
  }

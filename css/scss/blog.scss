@@ -1,5 +1,6 @@
 @import "_var";
 @import "_animate";
+@import "module/_siderbar_comments";
 .mr10 {margin-right:10px;}
 .ml10 {margin-left:10px;}
 .mt10 {margin-top:10px;}
@@ -24,6 +25,9 @@
 .no-padding{padding:0!important;}
 .border-bottom-1 {
     border-bottom:1px dotted #f1f1f1;
+}
+.border-top-1 {
+    border-top:1px dotted #f1f1f1;
 }
 body { 
     //background:url(../img/blog-head.jpg);background-size:100%;background-attachment:fixed;
@@ -136,14 +140,19 @@ header{height:50px;}
     //border-radius: 5px;
     box-shadow: 0 3px 3px rgba(0,0,0,0.1);
     padding:20px 20px;
-    margin-bottom:20px;
-    width:100%;
+    //margin:15px;
+    //width:100%;
     height:auto;
     //margin-bottom:20px;
     //border:1px solid #eee;
     .article-tit {
-        font-size:25px;
+        font-size:22px;
         line-height:150%;
+    }
+    .article-body {
+        img {
+            max-width:100%;
+        }
     }
     p {
         a {
@@ -161,7 +170,7 @@ header{height:50px;}
                 margin:10px auto;
             }
             img:hover {
-                opacity: 0.8; 
+                opacity: 0.8;
             }  
         }
         img {
@@ -212,7 +221,27 @@ header{height:50px;}
         text-decoration: underline;
     }
 }
-
+.article-list-date,.article-list-date a {
+    color:#9d9d9d;
+}
+.article-list-date a:hover {
+    color: $maincolor;
+}
+.article-list-thumbnail {
+    overflow:hidden;
+    //background:#ccc;
+    min-height:50px;
+    a {
+        text-align:center;
+        display:block;
+        margin:0 auto;
+        line-height:50px;
+        img.lazyloaded {
+            max-height:150px;
+            width:100%;
+        }
+    }
+}
 .archive-list-time {
     cursor:default;
     padding:20px 0 20px 20px;
@@ -490,8 +519,8 @@ to {transform: rotate(360deg);}
     background:$maincolor;
     color:#fff;
     font-weight:normal;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:5px;
+    padding-right:5px;
     font-size:12px;
     border-radius: 4px;
     display:block;
@@ -547,4 +576,22 @@ pre {
             color:lighten($maincolor, 50%);
         }
     }
-} 
+}
+// lazysizes
+.article-list-thumbnail {
+    background: #fff url(../img/loading.gif) no-repeat center;
+}
+.article-list-thumbnail>a>img.lazyload {
+    max-width:100%;
+}
+.lazyload {
+    opacity: 1;
+}
+.lazyloading {
+    opacity: 1;
+    transition: opacity 300ms;
+}
+.lazyloaded {
+    opacity: 1!important;
+    transition: opacity 300ms;
+}
