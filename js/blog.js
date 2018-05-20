@@ -19,9 +19,6 @@ $(document).ready(function(){
 				dataType: "html",
 				success:function(data) {  
 					console.log("成功！");
-					//console.log(data);
-					//var ajaxEgg = $("#data-target").html();
-					//console.log(ajaxEgg);
 					$("#ajax-box").html(data);
 					var ddd = $("#ajax-target").html();
 					$("#ajax-box").html(ddd);
@@ -37,7 +34,32 @@ $(document).ready(function(){
 		//console.log(data);
 		//$('#ajax-box').html(ajaxApple);
 	});
-	
+	// 下拉刷新
+    function pailie(){
+        $('#pailie').click(function(){
+            $('.masonry').masonry({
+                itemSelector: '.item',
+                gutterWidth: 20,
+                isAnimated: true,
+            });
+        });
+    }
+    function scrollDownLoading(){
+        $('#loading').click(function(){
+            console.log('loading');
+            $.ajax({
+                url:'http://127.0.0.1/wordpress/?paged=2',
+                type:'GET',
+                dataType:'html',
+                content:'body',
+                success:function(res){
+                    var data = $(res).find('.masonry').html();
+                    $('.masonry').append(data);
+                    Mymasnory();
+                }
+            });
+        });
+    } scrollDownLoading();
 	//$('.index-article>p>a>img').click(function(){
 	//	var imgUrl = $(this).parents('a').attr('href');
 	//	$('#img-url').html('<p><img src="' + imgUrl + '" class="img-thumbnail"  /></p><p><a href="'+ imgUrl +'" target="_blank" class="btn btn-default" >查看原图</a></p>');
@@ -135,17 +157,26 @@ $("input[type=submit]").bind("click", function(e){
 	});
 	//瀑布流
     function Mymasnory(){
-        $('.masonry').masonry({
+        var grid = $('.masonry').masonry({
             itemSelector: '.item',
             gutterWidth: 20,
             isAnimated: true,
-        })
+            percentPosition: true,
+            resize: true,
+            initLayout: false
+        });
+        // bind event
+        grid.masonry( 'on', 'layoutComplete', function() {
+            console.log('layout is complete');
+        });
+        // trigger initial layout
+        //grid.masonry().layout();
     }
     Mymasnory();
-    $(window).resize(function() {
-        Mymasnory();
-        console.log('Mymasnory');
-    });
+    // $(window).resize(function() {
+    //     Mymasnory();
+    //     console.log('Mymasnory');
+    // });
 	// scrollreveal
 	window.sr = ScrollReveal({
         // 'bottom', 'left', 'top', 'right'
