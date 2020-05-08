@@ -7,6 +7,11 @@
                     <?php navigation();?>
                 </div>
             </div>
+            <div class="col-xs-12">
+                <?php if(is_active_sidebar( "sidebar-2" )) { ?>
+                    <?php dynamic_sidebar( 'sidebar-2' ); ?>
+                <?php } ?>
+            </div>
 			<div class="col-lg-9" id="ajax-box">
                 <div class="row">
                     <div class="col-lg-12">
