@@ -14,7 +14,7 @@
 	<?php endif; ?>
 
 	<?php if(!is_active_sidebar( "sidebar-1" )) { ?>
-		<?php echo 'abbbbbbbbbbbbbbbbbbbbbb'; ?>
+		<?php echo '边栏1未启用'; ?>
 	<?php } ?>
 
 </div>

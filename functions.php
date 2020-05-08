@@ -1,6 +1,6 @@
 <?php
 require_once( 'widgets/sidebar_default.php' );
-
+require_once ('config/theme_options.php');
 // 关闭前台顶部导航
 show_admin_bar(false);
 // 面包屑导航
@@ -488,6 +488,16 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 			'before_title' => '<div class="sidebar-tit"><span class="glyphicon glyphicon-th-list"></span> ', // 标题的开始标签
 			'after_title' => '</div>' // 标题的结束标签
 		));
+        register_sidebar(array(
+            'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'theme-FrigateBird' ),
+            'id' => 'sidebar-2',
+            'description'   => 'FrigateBird主题的首页顶部通栏小工具',
+            'class'         => 'FrigateBird-sidebar',
+            'before_widget' => '<aside class="mb20">', // widget 的开始标签
+            'after_widget' => '</aside>', // widget 的结束标签
+            'before_title' => '<div class="sidebar-tit"><span class="glyphicon glyphicon-th-list"></span> ', // 标题的开始标签
+            'after_title' => '</div>' // 标题的结束标签
+        ));
 	}
 
 ?>
