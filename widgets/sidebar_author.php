@@ -15,6 +15,7 @@
             $about_author = $instance['about_author'];
             $about_author_tags = $instance['about_author_tags'];
             $github = $instance['github'];
+            $gitee = $instance['gitee'];
             $email = $instance['email'];
             
             if(!$instance['about_author']) {
@@ -32,7 +33,7 @@
                 <?php } ?>
                 
                 <nav class="nav pt20">
-                    <div class="site-ico col-lg-4 col-lg-offset-4 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
+                    <div class="site-ico col-lg-2 col-lg-offset-5 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
                         <a href="<?php bloginfo('url'); ?>">
                             <img src="<?php echo get_site_icon_url(); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
                         </a>
@@ -66,6 +67,10 @@
                             <?php if($github) { ?>
                                 <strong>github:</strong><br>
                                 <a href="<?php echo $github;?>"><small><?php echo $github;?></small></a><br><br>
+                            <?php } ?>
+                            <?php if($gitee) { ?>
+                                <strong>github:</strong><br>
+                                <a href="<?php echo $gitee;?>"><small><?php echo $gitee;?></small></a><br><br>
                             <?php } ?>
                             <?php if($email) { ?>
                                 <strong>E-mail:</strong><br>
@@ -114,6 +119,7 @@
             $about_author = $instance['about_author'];
             $about_author_tags = $instance['about_author_tags'];
             $github = $instance['github'];
+            $gitee = $instance['gitee'];
             $email = $instance['email'];
             $showtitle = $instance['showtitle'];
             ?>  
@@ -142,8 +148,14 @@
                 </p>
                 <p>
                     <label for="<?php echo $this->get_field_id('github'); ?>">
-                        Github链接：
+                        Github：
                         <input class="widefat" maxlength="200" id="github" name="<?php echo $this->get_field_name('github'); ?>" type="text" value="<?php echo $github; ?>">
+                    </label>
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('github'); ?>">
+                        Gitee：
+                        <input class="widefat" maxlength="200" id="gitee" name="<?php echo $this->get_field_name('gitee'); ?>" type="text" value="<?php echo $gitee; ?>">
                     </label>
                 </p>
                 <p>
