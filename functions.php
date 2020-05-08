@@ -443,7 +443,27 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 		$html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
 		return $html;
 	}
-
+//取得文章的阅读次数
+function post_views($before = ' ', $after = ' Click', $echo = 1) {
+    global $post;
+    $post_ID = $post->ID;
+    $views = (int)get_post_meta($post_ID, 'views', true);
+    if ($echo) echo $before, number_format($views), $after;
+    else return $views;
+}
+function record_visitors() {
+    if (is_singular()) {
+        global $post;
+        $post_ID = $post->ID;
+        if($post_ID) {
+            $post_views = (int)get_post_meta($post_ID, 'views', true);
+            if(!update_post_meta($post_ID, 'views', ($post_views+1))) {
+                add_post_meta($post_ID, 'views', 1, true);
+            }
+        }
+    }
+}
+add_action('wp_head', 'record_visitors');
 
 	// 侧栏小工具
 	//修改默认的小工具

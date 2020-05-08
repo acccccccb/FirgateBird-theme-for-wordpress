@@ -2,7 +2,7 @@
 if(is_page()) {
     echo '<div class="row">';
 } else {
-//    row masonry
+//    row masonry 加上此类名启用瀑布流布局
     echo '<div class="row">';
 }
 ?>
@@ -78,7 +78,7 @@ function checkStr($str,$target) {
                 </h4>
                 <div class="row">
                     <div class="col-lg-12 border-top-1 text-right article-list-date">
-                        <?php the_category(', ') ?><small> | <?php the_time('Y.n.j') ?></small>
+                        <small><?php the_category(', ') ?></small><small> | <?php the_time('Y.n.j') ?></small> <small> | <?php echo post_views(); ?></small>
                     </div>
                 </div>
             </div>
