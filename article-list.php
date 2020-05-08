@@ -78,7 +78,7 @@ function checkStr($str,$target) {
                 </h4>
                 <div class="row">
                     <div class="col-lg-12 border-top-1 text-right article-list-date">
-                        <small><?php the_category(', ') ?></small><small> | <?php the_time('Y.n.j') ?></small> <small> | <?php echo post_views(); ?></small>
+                        <small><?php $category = get_the_category(); echo $category[0]->cat_name; ?></small><small> | <?php the_time('Y.n.j') ?></small> <small> | <?php echo post_views(); ?></small>
                     </div>
                 </div>
             </div>
