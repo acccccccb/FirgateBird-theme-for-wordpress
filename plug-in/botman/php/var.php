@@ -6,9 +6,9 @@
     //输入框提示语
     $placeholder = '在此输入要发送的内容';
     //最小回复速度
-    $minReTime = 1;
+    $minReTime = 2;
     //最大回复速度
-    $maxReTime = 1;
+    $maxReTime = 4;
     //昵称
     $sendUser = 'me';
     //电脑昵称

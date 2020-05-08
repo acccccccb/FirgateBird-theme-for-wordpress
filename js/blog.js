@@ -106,9 +106,9 @@ $("input[type=submit]").bind("click", function(e){
         }
     });	
     //修改评论区表情的显示位置
-	var smiley = $('.smiley').html();
-	$('.smiley').remove();
-	$('.form-group').before('<p class="smiley">' + smiley + "</p>");
+    var smiley = $('.smiley').clone();
+    $('.smiley').remove();
+    $('.form-group').before(smiley);
 	//二级导航
 	$('.menu-item-has-children').addClass('dropdown blog-nav-hover');
 	$('.menu-item-has-children>a').attr({
@@ -133,10 +133,72 @@ $("input[type=submit]").bind("click", function(e){
 	$('.comment').mouseleave(function(){
 		$(this).find('.avatar').removeClass('avatar-antimate');
 	});
-	window.sr = ScrollReveal({ reset: true });
-        sr.reveal('.index-article,.sidebar-bg>aside,.comments-main,.more-article,.Rolling-effects',{
-         origin: 'left',
-         viewFactor: 0.01
+	//瀑布流
+    function Mymasnory(){
+        $('.masonry').masonry({
+            itemSelector: '.item',
+            gutterWidth: 220,
+            isAnimated: true,
+        })
+    }
+    Mymasnory();
+    $(window).resize(function() {
+        Mymasnory();
+        console.log('Mymasnory');
+    });
+	// scrollreveal
+	window.sr = ScrollReveal({
+        // 'bottom', 'left', 'top', 'right'
+        origin: 'bottom',
+		// Can be any valid CSS distance, e.g. '5rem', '10%', '20vw', etc.
+        distance: '0px',
+		// Time in milliseconds.
+        duration: 500,
+        delay: 0,
+		// Starting angles in degrees, will transition from these values to 0 in all axes.
+        rotate: { x: 0, y: 0, z: 0 },
+		// Starting opacity value, before transitioning to the computed opacity.
+        opacity: 0,
+		// Starting scale value, will transition from this value to 1
+        scale: 1,
+		// Accepts any valid CSS easing, e.g. 'ease', 'ease-in-out', 'linear', etc.
+        easing: 'cubic-bezier(0.6, 0.2, 0.1, 1)',
+		// `<html>` is the default reveal container. You can pass either:
+		// DOM Node, e.g. document.querySelector('.fooContainer')
+		// Selector, e.g. '.fooContainer'
+        container: window.document.documentElement,
+		// true/false to control reveal animations on mobile.
+        mobile: true,
+		// true:  reveals occur every time elements become visible
+		// false: reveals occur once as elements become visible
+        reset: true,
+		// 'always' — delay for all reveal animations
+		// 'once'   — delay only the first time reveals occur
+		// 'onload' - delay only for animations triggered by first load
+        useDelay: 'always',
+		// Change when an element is considered in the viewport. The default value
+		// of 0.20 means 20% of an element must be visible for its reveal to occur.
+        viewFactor: 0.1,
+		// Pixel values that alter the container boundaries.
+		// e.g. Set `{ top: 48 }`, if you have a 48px tall fixed toolbar.
+		// --
+		// Visual Aid: https://scrollrevealjs.org/assets/viewoffset.png
+        viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
+		// Callbacks that fire for each triggered element reveal, and reset.
+        beforeReveal: function (domEl) {},
+        beforeReset: function (domEl) {},
+		// Callbacks that fire for each completed element reveal, and reset.
+        afterReveal: function (domEl) {},
+        afterReset: function (domEl) {}
 	});
-	sr.reveal('.sidebar-bg>aside',{ origin: 'right' });
+    sr.reveal('' +
+		'.scrollreveal,' +
+		'.sidebar-bg>aside,' +
+		'.comments-main,' +
+		'.more-article,' +
+		'.Rolling-effects' +
+		'');
+	sr.reveal('.sidebar-bg>aside',{
+        origin: 'right',
+    });
 });

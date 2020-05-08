@@ -15,7 +15,7 @@
         // 语句判断
 
         // 输入新闻 显示最近的几条新闻
-        elseif( $tempChat == 's' ) {
+        elseif( $tempChat == '新闻' ) {
             $url = "http://3g.163.com/touch/all?dataversion=A&version=v_standard";
             $ch = curl_init();
             $timeout = 5;
@@ -40,7 +40,7 @@
             $re = '你的IP地址是：'.$_SERVER["REMOTE_ADDR"];
         }
         // 天气
-        else if( $tempChat == 't' ) {
+        else if( $tempChat == '天气' ) {
            $url = 'https://free-api.heweather.com/v5/weather?city=113.99.3.0&key=a056da985a9144099e0b858f2460c1ff';
            //$url = 'https://free-api.heweather.com/v5/forecast?city=113.99.3.0&key=a056da985a9144099e0b858f2460c1ff';
            $ch = curl_init();
@@ -121,8 +121,8 @@
            curl_close($ch);
         }
         //
-        else if( stristr($tempChat,'ee') == true ) {
-            $re =  'Aaaaaaaaaaaaaaa';
+        else if( stristr($tempChat,'谁是这个世界最帅的人') == true ) {
+            $re =  '是你，主人。';
         }
         // 未知命令
         else {

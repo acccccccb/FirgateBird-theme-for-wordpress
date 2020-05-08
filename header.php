@@ -22,7 +22,7 @@
 		   // 将以下引号中的内容改成你的主页description
 		   $description = get_bloginfo('description');
 		   // 将以下引号中的内容改成你的主页keywords
-		   $keywords = 'Marco,前端知识,photoshop,wordpress,jQuery,树莓派,raspberry,小程序,织梦,dedecms,php';
+		   $keywords = 'Marco,前端知识,wordpress,jQuery,树莓派,raspberry,小程序,织梦,dedecms,php,vue';
 		}
 		elseif(is_page()) {
 			$description = get_the_excerpt();
@@ -78,16 +78,18 @@
     <?php wp_head(); ?>
     <!-- Bootstrap -->
     <link href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/blog.min.css" />
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/blog.min.css?v=1.0.1" />
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/plug-in/FrigateBird-LightBox-master/gallery.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php wp_head(); ?>
   </head>
@@ -154,29 +156,8 @@
 		</nav>
 	</header>
 	<?php if ((is_home() || is_front_page()) && !is_paged() ) { ?>
-    <div class="container-fluid no-padding mt50">
-    	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    		<!-- Indicators -->
-    		<ol class="carousel-indicators">
-    		</ol>
-
-    		<!-- Wrapper for slides -->
-    		<div class="carousel-inner" role="listbox">
-    			<?php thumb_article(); ?>
-    		</div>
-    		<!-- Controls -->
-    		<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    			<span class="sr-only">Previous</span>
-    		</a>
-
-    		<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    			<span class="sr-only">Next</span>
-    		</a>
-    	</div>
-		</div>
-		<script>
+        <?php thumb_article(); ?>
+	<script>
 		var sildeN = $('.carousel-inner>.item').length;
 		if (sildeN > 0) {
 			for(i=0;i<sildeN; i++) {

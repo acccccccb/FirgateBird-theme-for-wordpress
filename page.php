@@ -24,11 +24,7 @@
 						<a href=""><img src="" alt=""  class="img-responsive"/></a>
 					</div>
 				<?php author(); ?>
-				<div class="clearboth mt20 mb20">
-					<div class="page-tags-main">
-						<?php echo the_tags('<div class="btn-group btn-group-xs"><div class="btn" disabled="disabled" ><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;tags:</div></div><div class="btn-group btn-group-xs" role="group" aria-label="tags"><div class="btn btn-default">', '</div><div class="btn btn-default">', '</div></div>'); ?>
-					</div>
-				</div>
+				
 				<div class="mt20">
 					<nav aria-label="pre-pager">
 						<ul class="pager">
@@ -39,26 +35,7 @@
 				</div>
 				</article>
 				
-				<div class="col-lg-6 more-article mb20">
-				<div class="page-header">
-					<h2>相关文章 <small>Related articles</small></h2>
-				</div>
-				<div class="right mt20">
-					<ul class="list-unstyled">
-						<?php same_posts(6); ?>
-					</ul>
-				</div><!-- 随机文章 -->
-			</div>
-			<div class="col-lg-6 more-article mb20">
-				<div class="page-header">
-					<h2>热门文章 <small>Related articles</small></h2>
-				</div>
-				<div class="right mt20">
-					<ul class="list-unstyled">
-						<?php hot_posts(6); ?>
-					</ul>
-				</div><!-- 随机文章 -->
-			</div>
+
 				<?php comments_template(); ?>
 				<?php else: ?>
 					<article class="border-bottom-1 index-article">

@@ -29,33 +29,34 @@
                     <?php echo '<div class="sidebar-tit">'.'<span class="glyphicon glyphicon-comment"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                     <ul class="list-unstyled sidebar-comment mt10">
                         <?php
-                            
 
                             $num_comments = $instance['num_comments'];//调用评论数
                             $comment_len = $instance['comment_len'];//评论长度
                             $avatar_size = $instance['avatar_size'];// 头像尺寸
+                            $comments = get_comments(array(
+                                'number' => $num_comments,
+                                'status' => 'approve',
+                                'user_id' => 'approve'
+                            ));
 
-                            $comments_query = new WP_Comment_Query();
-                            $comments = $comments_query->query(
-                                array(
-                                    'number' => $num_comments,
-                                    'status' => 'approve'
-                                ) );
-                            $comm = '';
-                            if ( $comments ) : foreach ( $comments as $comment ) :
-                                $comm .='<div class="media">';
-                                $comm .=  '<a title="发表在：'. $comment->post_title .'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
-                                $comm .=  get_avatar($comment, $avatar_size);
-                                $comm .=  '</a>';
-                                $comm .=  '<div class="media-body siderbar_comments">';
-                                $comm .=    '<h4 class="media-heading"><b>'.get_comment_author( $comment->comment_ID ).'</b></h4><p>';
-                                $comm .=    strip_tags( substr( apply_filters( 'get_comment_text', $comment->comment_content ), 0, $comment_len ) );
-                                $comm .=  '</p></div>';
-                                $comm .='</div>';
-                            endforeach; else :
-                                $comm .= '暂无评论';
-                            endif;
-                            echo $comm;
+                            if ( $comments ) {
+                                $commentHTML = '';
+                                foreach($comments as $comment) :
+                                    $commentsText = strip_tags($comment->comment_content);
+                                    $commentHTML .= '<div class="media">';
+                                    $commentHTML .= '<a title="发表在：'. $comment->post_title .'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
+                                    $commentHTML .= get_avatar($comment, $avatar_size);
+                                    $commentHTML .= '</a>';
+                                    $commentHTML .= '<div class="media-body siderbar_comments">';
+                                    $commentHTML .= '<h4 class="media-heading"><b>'.get_comment_author( $comment->comment_ID ).'</b></h4><p>';
+                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
+                                    $commentHTML .= '</p></div>';
+                                    $commentHTML .= '</div>';
+                                endforeach;
+                            } else {
+                                $commentHTML .= '暂无评论';
+                            }
+                            echo $commentHTML;
                         ?>
                     </ul>
                 <?php echo $after_widget; ?>

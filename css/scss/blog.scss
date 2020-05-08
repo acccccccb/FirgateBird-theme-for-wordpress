@@ -25,9 +25,14 @@
 .border-bottom-1 {
     border-bottom:1px dotted #f1f1f1;
 }
+.border-top-1 {
+    border-top:1px dotted #f1f1f1;
+}
 body { 
     //background:url(../img/blog-head.jpg);background-size:100%;background-attachment:fixed;
-    background:url('../img/9e6b03370b97165c9609b53770994154.jpg');background-size:100%;background-attachment:fixed;
+    background:url('../img/9e6b03370b97165c9609b53770994154.jpg');
+    background-size:100%;
+    background-attachment:fixed;
     //background:#f5f5f5;
     }
 header{height:50px;}
@@ -134,13 +139,13 @@ header{height:50px;}
     //border-radius: 5px;
     box-shadow: 0 3px 3px rgba(0,0,0,0.1);
     padding:20px 20px;
-    margin-bottom:20px;
-    width:100%;
+    //margin:15px;
+    //width:100%;
     height:auto;
     //margin-bottom:20px;
     //border:1px solid #eee;
     .article-tit {
-        font-size:25px;
+        font-size:22px;
         line-height:150%;
     }
     p {
@@ -210,7 +215,19 @@ header{height:50px;}
         text-decoration: underline;
     }
 }
-
+.article-list-date,.article-list-date a {
+    color:#9d9d9d;
+}
+.article-list-date a:hover {
+    color: $maincolor;
+}
+.article-list-thumbnail {
+    overflow:hidden;
+    img {
+        //max-height:150px;
+        width:100%;
+    }
+}
 .archive-list-time {
     cursor:default;
     padding:20px 0 20px 20px;
@@ -402,8 +419,10 @@ aside {
     background: #fff;
     padding: 10px 20px 10px 20px;
 }
-
-.index-article,.comments-main,.more-article {
+.comments-main {
+    background:$bgcolor1;
+}
+.index-article,.more-article {
     background:$bgcolor1;
     //box-shadow:0 1px 3px rgba(0, 0, 0, 0.3);
     //border-radius: 5px;
@@ -486,8 +505,8 @@ to {transform: rotate(360deg);}
     background:$maincolor;
     color:#fff;
     font-weight:normal;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:5px;
+    padding-right:5px;
     font-size:12px;
     border-radius: 4px;
     display:block;
