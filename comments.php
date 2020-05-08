@@ -30,7 +30,7 @@ if ( post_password_required() ) {
 	<ul class="new-comments media-list row">
 	    <?php function article_comments($comment, $args, $depth)
 	    { $GLOBALS['comment'] = $comment; ?>
-	    <li class="mb10 comment media list-unstyled col-xs-12" id="li-comment-<?php comment_ID(); ?>">
+	    <li class="mb10 pt10 comment media list-unstyled col-xs-12" id="li-comment-<?php comment_ID(); ?>">
 		    <a href="<?php get_comment_author_link(); ?>" class="media-left"><?php if (function_exists('get_avatar') && get_option('show_avatars')) { echo get_avatar($comment, 42); } ?></a>
 		    <div class="comment-body media-body row">
                 <div class="col-lg-12">
