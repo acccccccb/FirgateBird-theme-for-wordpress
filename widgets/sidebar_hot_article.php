@@ -30,7 +30,8 @@
                             'post_status' => 'publish', // 只选公开的文章.
                             'post__not_in' => array($post->ID),//排除当前文章
                             'caller_get_posts' => 1, // 排除置顶文章.
-                            'orderby' => 'meta_value_num', // 依点击率排序.
+                            'meta_key' => 'views',
+                            'orderby' => 'meta_value_num',
                             'order'		=>	'DESC',
                             'posts_per_page' => $ArticleNum
                         );
@@ -40,7 +41,7 @@
                         while( $query_posts->have_posts() ) {
                             $query_posts->the_post();
                             $c = $c+1;
-                            echo '<li><a style="display:inline-block!important;" href="'.get_the_permalink().'"><span class="most-view-num most-view-num-'.$c.'">'.$c.'</span>'.get_the_title().'</a></li>';
+                            echo '<li><a title="点击量:'.get_post_meta(get_the_ID(), 'views', true).'" style="display:inline-block!important;" href="'.get_the_permalink().'"><span class="most-view-num most-view-num-'.$c.'">'.$c.'</span>'.get_the_title().'</a></li>'; // get_post_meta(get_the_ID(), 'views', true)
                         }
                             wp_reset_query();
                         ?>

@@ -15,6 +15,7 @@
 							<small class="mr20"><span class="glyphicon glyphicon-folder-open"></span> <?php the_category(', ') ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('M') ?><?php the_time('d') ?></small>
 							<small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
+                            <small class="mr20"><span class="glyphicon glyphicon glyphicon-eye-open"></span> <span class="badge"></span> <?php echo get_post_meta($post->ID, 'views', true); ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
 						</h4>
 					</div>

@@ -91,7 +91,6 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
-    <?php wp_head(); ?>
   </head>
   <body>
 	<header>
