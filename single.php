@@ -25,6 +25,40 @@
 					<div class="index-thumb mt20 mb20 hidden">
 						<a href=""><img src="" alt=""  class="img-responsive"/></a>
 					</div>
+                    <div class="text-center mt20 mb20">
+                        <button onclick="iLike()" id="like_btn"  class="btn btn-danger" type="button">
+                            <i class="glyphicon glyphicon-thumbs-up"></i> 赞 （<span id="single_like" data-like="<?php echo get_post_like()?>" ><?php echo get_post_like()?></span>）
+                        </button>
+                    </div>
+                    <script>
+                        function iLike(){
+                            var iLike = <?php echo isset($_COOKIE['record_like_'.$post->ID])?'true':'false' ?>;
+                            if(iLike) {
+                                document.getElementById('like_btn').disabled = true;
+                            } else {
+                                var $el = document.getElementById('single_like');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "<?php echo admin_url( 'admin-ajax.php' );?>",    // ajaxurl为内置js变量，值为"/wp-admin/admin-ajax.php"
+                                    dataType:'json',
+                                    data: {
+                                        'action': 'record_like',    // ajax action名称
+                                        'id':<?php echo $post->ID?>
+                                    },
+                                    success: function (res) {
+                                        $el.innerHTML = res.like;
+                                        document.getElementById('like_btn').disabled = true;
+                                    }
+                                });
+                            }
+                        }
+                        (function(){
+                            var iLike = <?php echo isset($_COOKIE['record_like_'.$post->ID])?'true':'false' ?>;
+                            if(iLike) {
+                                document.getElementById('like_btn').disabled = true;
+                            }
+                        })()
+                    </script>
 				<?php author(); ?>
 				<div class="clearboth mt20 mb20">
 					<div class="page-tags-main">

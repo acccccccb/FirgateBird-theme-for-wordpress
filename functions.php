@@ -422,7 +422,6 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 		function my_page_tags_meta_box() {
 		add_meta_box( 'tagsdiv-post_tag', '关键字', 'post_tags_meta_box', 'page', 'side', 'core' );
 	}
-
 	// 最近更新
 	function modifiedTime() {
 		//var_dump(the_modified_time('Y-n-j G:i'));
@@ -462,6 +461,7 @@ function post_views($before = ' ', $after = ' Click', $echo = 1) {
     if ($echo) echo $before, number_format($views), $after;
     else return $views;
 }
+// 记录阅读数
 function record_visitors() {
     if (is_singular()) {
         global $post;
@@ -476,6 +476,40 @@ function record_visitors() {
 }
 add_action('wp_head', 'record_visitors');
 
+	// 记录点赞数
+function record_like() {
+    header("Content -Type: application/json");
+    $action = $_POST["action"];
+    $id = $_POST["id"];
+    if(!empty($id) && $action=='record_like') {
+        $post_like = (int)get_post_meta($id, 'like', true);
+        if(!update_post_meta($id, 'like', ($post_like+1))) {
+            add_post_meta($id, 'like', 1, true);
+        } else {
+            $expire = time() + 99999999;
+            $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; // make cookies work with localhost
+            setcookie('record_like_'.$id,$id,$expire,'/',$domain,false);
+            echo json_encode(array(
+                'msg'=>'success',
+                'like'=>$post_like+1,
+                'success'=>true
+            ));
+        }
+    }
+    exit;
+}
+//wp_ajax_nopriv效验用户为未登录是启用的方法
+add_action( 'wp_ajax_nopriv_record_like', 'record_like' );
+//wp_ajax_nopriv效验用户为已登录是启用的方法
+add_action( 'wp_ajax_record_like', 'record_like' );
+// 获取点赞数
+function get_post_like($before = ' ', $after = '', $echo = 1) {
+    global $post;
+    $post_ID = $post->ID;
+    $like = (int)get_post_meta($post_ID, 'like', true);
+    if ($echo) echo $before, number_format($like), $after;
+    else return $like;
+}
 	// 侧栏小工具
 	//修改默认的小工具
 	// 标签云
