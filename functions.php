@@ -433,7 +433,6 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
             $nowTime = strtotime(date("Y-m-d G:i"));
             $modTime = ($nowTime - $modifiedTime)/3600;
             if($modTime <= 0.1) {
-                $ChangeTime = $modTime*60;
                 echo "刚刚更新";
             }
             if($modTime > 0.1 && $modTime <= 1) {
