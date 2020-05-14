@@ -12,17 +12,17 @@
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );
-            if(!$instance['title']) {
+            if(empty($instance['title'])) {
                 $instance['title'] = "最新评论";
             }
-            if(!$num_comments) {
+            if(empty(($instance['num_comments']))==true) {
                 $instance['num_comments'] = 5;
             }
-            if(!$comment_len) {
+            if(empty(($instance['comment_len']))==true) {
                 $instance['comment_len'] = 80;
             }
-            if(!$avatar_size) {
-                $instance['avatar_size'] = 42;
+            if(empty(($instance['avatar_size']))==true) {
+                $instance['avatar_size'] = 32;
             }
             ?>
                 <?php echo $before_widget; ?>
@@ -41,15 +41,33 @@
 
                             if ( $comments ) {
                                 $commentHTML = '';
+                                $smiley = [':?:',':razz:',':sad:',':smile:',':oops:',':grin:',':eek:',':shock:',':cool:',':lol:',':mad:',':wink:',':neutral:',':cry:'];
+                                $smileyImg = [
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f604.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f633.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f626.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f623.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f633.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f600.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f62e.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f62f.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f60e.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f606.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f621.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f609.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f610.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f625.png"></img>',
+                                ];
                                 foreach($comments as $comment) :
                                     $commentsText = strip_tags($comment->comment_content);
                                     $commentHTML .= '<div class="media">';
-                                    $commentHTML .= '<a title="发表在：'. $comment->post_title .'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
+                                    $commentHTML .= '<a title="发表在：'. $comment->post_title .$instance['num_comments'].'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
                                     $commentHTML .= get_avatar($comment, $avatar_size);
                                     $commentHTML .= '</a>';
                                     $commentHTML .= '<div class="media-body siderbar_comments">';
                                     $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a></b></h4><p>';
-                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
+//                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
+                                    $commentHTML .= str_replace($smiley,$smileyImg,substr( $commentsText, 0, $comment_len ));
                                     $commentHTML .= '</p></div>';
                                     $commentHTML .= '</div>';
                                 endforeach;
@@ -83,7 +101,7 @@
                 </p>
                 <p>
                     <label for="<?php echo $this->get_field_id('avatar_size'); ?>">
-                        头像尺寸：(默认:42)
+                        头像尺寸：(默认:32)
                         <input maxlength="3" class="widefat" type="number" id="avatar_size" name="<?php echo $this->get_field_name('avatar_size'); ?>" type="number" value="<?php echo $avatar_size; ?>">
                     </label>
                 </p>
