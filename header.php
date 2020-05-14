@@ -73,7 +73,8 @@
     			else { wp_title('',true); } ?></title>
     <meta name="keywords" content="<?php echo $keywords; ?>" />
     <meta name="description" content="<?php echo $description; ?>" />
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+      <meta name="baidu_union_verify" content="05edd3b507831ce882fade53f20b7d38">
+      <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
     <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php wp_head(); ?>
     <!-- Bootstrap -->
@@ -91,6 +92,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
+    <script data-ad-client="ca-pub-9248990617008906" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body>
 	<header>
