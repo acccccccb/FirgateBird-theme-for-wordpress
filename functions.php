@@ -480,7 +480,11 @@ add_action('wp_head', 'record_visitors');
 function record_like() {
     header("Content -Type: application/json");
     $action = $_POST["action"];
-    $id = $_POST["id"];
+    $id = (int)$_POST["id"];
+    $nonce = $_GET['wpnonce'];
+    if (!wp_verify_nonce($nonce, 'wpnonce') ) {
+        wp_die("非法操作");
+    }
     if(!empty($id) && $action=='record_like') {
         $post_like = (int)get_post_meta($id, 'like', true);
         if(!update_post_meta($id, 'like', ($post_like+1))) {

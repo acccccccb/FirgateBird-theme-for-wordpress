@@ -17,6 +17,7 @@
 							<small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
                             <small class="mr20"><span class="glyphicon glyphicon glyphicon-eye-open"></span> <span class="badge"></span> <?php echo get_post_meta($post->ID, 'views', true); ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
+							<small class="mr20"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="badge hidden"></span> <?php echo get_post_like()?></small>
 						</h4>
 					</div>
 					<div class="article-body">
@@ -36,14 +37,15 @@
                             if(iLike) {
                                 document.getElementById('like_btn').disabled = true;
                             } else {
+                                var wpnonce = '<?php echo wp_create_nonce('wpnonce');?>';
                                 var $el = document.getElementById('single_like');
                                 $.ajax({
                                     type: 'POST',
-                                    url: "<?php echo admin_url( 'admin-ajax.php' );?>",    // ajaxurl为内置js变量，值为"/wp-admin/admin-ajax.php"
+                                    url: "<?php echo admin_url( 'admin-ajax.php' );?>?wpnonce="+wpnonce,    // ajaxurl为内置js变量，值为"/wp-admin/admin-ajax.php"
                                     dataType:'json',
                                     data: {
                                         'action': 'record_like',    // ajax action名称
-                                        'id':<?php echo $post->ID?>
+                                        'id':<?php echo $post->ID?>,
                                     },
                                     success: function (res) {
                                         $el.innerHTML = res.like;
