@@ -426,25 +426,31 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 	function modifiedTime() {
 		//var_dump(the_modified_time('Y-n-j G:i'));
 		//echo date("Y-m-d");
-		date_default_timezone_set('PRC');
-		$modifiedTime = strtotime(get_the_modified_time('Y-n-j G:i'));
-		$nowTime = strtotime(date("Y-m-d G:i"));
-		$modTime = ($nowTime - $modifiedTime)/3600;
-        if($modTime <= 0.1) {
-            $ChangeTime = $modTime*60;
-            echo $ChangeTime."刚刚更新";
-        }
-        if($modTime > 0.1 && $modTime <= 1) {
-            $ChangeTime = $modTime*60;
-            echo $ChangeTime."分钟前";
-        }
-        if($modTime>=1 && $modTime < 24) {
-            echo floor($modTime)."小时前";
-        }
-        if($modTime >= 24) {
-            $ChangeTime = ($nowTime - $modifiedTime)/86400;
-            echo floor($ChangeTime)."天前";
-        }
+        query_posts('showposts=1');
+        if ( have_posts() ) : while ( have_posts() ) : the_post();
+            date_default_timezone_set('PRC');
+            $modifiedTime = strtotime(get_the_date('Y-m-d') .' '.get_the_time());
+            $nowTime = strtotime(date("Y-m-d G:i"));
+            $modTime = ($nowTime - $modifiedTime)/3600;
+            if($modTime <= 0.1) {
+                $ChangeTime = $modTime*60;
+                echo "刚刚更新";
+            }
+            if($modTime > 0.1 && $modTime <= 1) {
+                $ChangeTime = $modTime*60;
+                echo $ChangeTime."分钟前";
+            }
+            if($modTime>=1 && $modTime < 24) {
+                echo floor($modTime)."小时前";
+            }
+            if($modTime >= 24) {
+                $ChangeTime = ($nowTime - $modifiedTime)/86400;
+                echo floor($ChangeTime)."天前";
+            }
+        endwhile; else:
+            echo '-';
+        endif;
+        wp_reset_query();
 	}
 
 	// 文章缩略图
