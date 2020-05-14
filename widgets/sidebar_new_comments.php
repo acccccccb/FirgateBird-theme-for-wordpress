@@ -61,11 +61,11 @@
                                 foreach($comments as $comment) :
                                     $commentsText = strip_tags($comment->comment_content);
                                     $commentHTML .= '<div class="media">';
-                                    $commentHTML .= '<a title="发表在：'. $comment->post_title .$instance['num_comments'].'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
+                                    $commentHTML .= '<a title="发表在：'. $comment->post_title.'" class="media-left" href="' . get_permalink($comment->comment_post_ID).'#comment-' .$comment->comment_ID . '">';
                                     $commentHTML .= get_avatar($comment, $avatar_size);
                                     $commentHTML .= '</a>';
                                     $commentHTML .= '<div class="media-body siderbar_comments">';
-                                    $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a></b></h4><p>';
+                                    $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a>'. '</b> <small>' .get_comment_date("Y-d-m H:i:s",$comment->comment_ID) .'</small></h4><p>';
 //                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
                                     $commentHTML .= str_replace($smiley,$smileyImg,substr( $commentsText, 0, $comment_len ));
                                     $commentHTML .= '</p></div>';
