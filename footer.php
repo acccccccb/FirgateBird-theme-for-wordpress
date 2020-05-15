@@ -24,19 +24,19 @@
 							</p>
 						</div>
                         <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/weixin.min.png" alt="微信公众号" class="img-responsive">
+                            <img src="<?php echo get_template_directory_uri(); ?>/static/img/weixin.min.png" alt="微信公众号" class="img-responsive">
                         </div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
-	<div id="go_top"><a href="#top"><img src="<?php echo get_template_directory_uri(); ?>/img/gotop.gif" width=81 height=91 alt="回到顶部"/></a></div>
+	<div id="go_top"><a href="#top"><img src="<?php echo get_template_directory_uri(); ?>/static/img/gotop.gif" width=81 height=91 alt="回到顶部"/></a></div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<div id="img-mask" >
 		<div id="img-url"></div>
 	</div>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/blog.min.js?v=1.0.1"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/plug-in/FrigateBird-LightBox-master/gallery.js?v=1.0.0"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/js/blog.min.js?v=1.0.1"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/FrigateBird-LightBox-master/gallery.js?v=1.0.0"></script>
     <?php wp_footer(); ?>

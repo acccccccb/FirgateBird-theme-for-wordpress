@@ -78,9 +78,9 @@
     <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php wp_head(); ?>
     <!-- Bootstrap -->
-    <link href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/blog.min.css?v=1.0.1" />
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/plug-in/FrigateBird-LightBox-master/gallery.css" />
+    <link href="<?php echo get_template_directory_uri(); ?>/static/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/css/blog.min.css?v=1.0.1" />
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/plug-in/FrigateBird-LightBox-master/gallery.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -88,9 +88,9 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
     <script data-ad-client="ca-pub-9248990617008906" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
@@ -108,7 +108,7 @@
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					      </button>
-					      <a class="navbar-brand blog-head-tit" href="<?php bloginfo('url'); ?>"><img class="mr10" alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" width="100" height="50"></a>
+					      <a class="navbar-brand blog-head-tit" href="<?php bloginfo('url'); ?>"><img class="mr10" alt="Brand" src="<?php echo get_template_directory_uri(); ?>/static/img/logo.png" width="100" height="50"></a>
 					    </div>
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

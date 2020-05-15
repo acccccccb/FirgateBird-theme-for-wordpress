@@ -43,20 +43,20 @@
                                 $commentHTML = '';
                                 $smiley = [':?:',':razz:',':sad:',':smile:',':oops:',':grin:',':eek:',':shock:',':cool:',':lol:',':mad:',':wink:',':neutral:',':cry:'];
                                 $smileyImg = [
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f604.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f633.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f626.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f623.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f633.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f600.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f62e.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f62f.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f60e.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f606.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f621.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f609.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f610.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/img/smilies/1f625.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f604.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f626.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f623.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f600.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f62e.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f62f.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f60e.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f606.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f621.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f609.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f610.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f625.png"></img>',
                                 ];
                                 foreach($comments as $comment) :
                                     $commentsText = strip_tags($comment->comment_content);

@@ -155,7 +155,7 @@ add_filter( 'comment_text' , 'ludou_comment_add_at', 20, 2);
 //emoji表情 by www.imjeff.cn/blog/448/	
 //评论表情路径
 function static_emoji_url() {
-	return get_bloginfo('template_directory').'/img/smilies/';
+	return get_bloginfo('template_directory').'/static/img/smilies/';
 }
 //首先补全wp的表情库
 function smilies_reset() {
@@ -406,7 +406,7 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 		<div class="alert author mt20 mb20">
 			<div class="author-info">
 				<div><strong>文档信息：</strong>'.get_the_title().'</div>
-				<div><strong>版权声明：</strong><a href = "https://creativecommons.org/licenses/by-nc-nd/3.0/">自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）<img src="'.get_template_directory_uri().'/img/licensebuttons.png" /></a></div>
+				<div><strong>版权声明：</strong><a href = "https://creativecommons.org/licenses/by-nc-nd/3.0/">自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）<img src="'.get_template_directory_uri().'/static/img/licensebuttons.png" /></a></div>
 				<div><strong>本文链接：</strong><a href="'.get_permalink().'" target="_self" >'.get_permalink().'</a></div>
 			</div>
 			<div class="clearfix"></div>
