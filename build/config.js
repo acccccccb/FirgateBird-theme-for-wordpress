@@ -1,5 +1,5 @@
 let config = {
-    scss:'./src/scss/',
+    scss:'./src/static/scss/',
     exportCss:'./dist/static/css/',
 };
 module.exports = {
