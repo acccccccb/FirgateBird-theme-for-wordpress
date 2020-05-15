@@ -7,7 +7,7 @@
 			<div class="col-lg-9" id="ajax-box">
 				<article class="border-bottom-1 index-article">
 					<div align="center" >
-					<img src="<?php echo get_template_directory_uri(); ?>/img/404.gif"  class="img-responsive"/>
+					<img src="<?php echo get_template_directory_uri(); ?>/static/img/404.gif"  class="img-responsive"/>
 					</div>
 				</article>
 

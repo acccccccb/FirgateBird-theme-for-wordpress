@@ -1,0 +1,43 @@
+//自定义bootstrap颜色
+body {
+  font-family: "Microsoft JhengHei","Microsoft Yahei",微软雅黑, Helvetica, Arial, sans-serif;
+  //font-family: "Helvetica Neue","PingFang SC","Microsoft Yahei",微软雅黑,STXihei,华文细黑,sans-serif;
+  font-size: 16px;
+  line-height: 200%;
+  color: #333333;
+}
+a,a:link,a:visited {
+  color:$maincolor;
+}
+a:hover {
+  color:lighten($maincolor,10%);
+  text-decoration: none;
+}
+.btn-primary {
+  background-color:$maincolor;
+  border-color:darken($maincolor,10%);
+}
+.btn-primary:hover {
+  background-color:lighten($maincolor,10%);
+}
+.dropdown-menu>li>a:hover {
+  background-color:$maincolor;
+  color:#fff;
+}
+.pagination > li > a {
+  color:$maincolor;
+}
+.pagination > .active > span {
+  background:$maincolor;
+  color:#fff;
+  border-color:darken($maincolor,10%);
+}
+// other fix
+.breadcrumb {
+  margin-top:0;
+  margin-bottom:0;
+}
+.navbar-brand {
+  padding-top:0;
+  padding-bottom:0;
+}

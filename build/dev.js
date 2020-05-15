@@ -1,41 +1,36 @@
-process.stdout.write('\n');
-console.log('Watching scss...');
+'use strict';
+const { config } = require('./config');
+const { build } = require('./build');
 const sass = require('node-sass');
 const watch = require('node-watch');
 const fs = require('fs-extra');
+console.log('Watching...');
 let dev = {
-    created:function(){
-        watch('./css/scss',{
+    init:function(){
+        watch(config.scss,{
             recursive: true,
             filter: /\.scss$/,
         }, function(event, name) {
             if(event == 'update') {
-                let input = name;
-                let output = name.replace('.scss');
-                let map = output+'.map';
-                sass.render({
-                    file:`${input}`,
-                    options:{
-                        sourceMap: true,
-                        outFile:`${output}`,
-                    },
-                },(err,result)=>{
-                    if(!err) {
-                        fs.writeFile(`./${output}`,result.css,function(error){
-                            if(error) {
-                                console.log('compress-error:' + input);
-                            } else {
-                                console.log('compress-success:' + output);
-                            }
-                        });
-                    } else {
-                        console.log('compress-error');
-                    }
-                })
+                let arr = name.split('\\');
+                let filePath = arr.join('/');
+                let fileName = arr[arr.length-1];
+                // 判断文件名是否以_开头，如果是 则重新编译所有的scss文件
+                if(fileName.indexOf('_')==0) {
+                    build.methods.buildingCss();
+                } else {
+                    build.methods.scssToCss('./' + filePath,config.exportCss);
+                }
+            }
+        });
+        watch('./static',{
+            recursive: true,
+        }, function(event, name) {
+            console.log(event);
+            if(event == 'update') {
+
             }
         });
     },
 };
-dev.created();
-
-
+dev.init();

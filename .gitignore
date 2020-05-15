@@ -25,15 +25,26 @@ Desktop.ini
 /sitemap.xml.gz
 /gitattributes
 _FolderWatchConfit.jscompress
+/dist/static/js/npm.js
 /static/js/npm.js
 *.map
 *.map
 *.bak
-/comments-old.php
+comments-old.php
 *.tif
 *.tiff
 *.psd
+/dist/static/plug-in/botman/
 /static/plug-in/botman/
 
 # Node.js
 node_modules/
+
+#static
+
+#dist
+/dist/static/css/
+/dist/static/fonts/
+/dist/static/img/
+/dist/static/js/
+/dist/static/plug-in/

@@ -23,9 +23,9 @@
 								<span class="glyphicon glyphicon-pencil"></span> 最近更新：<?php modifiedTime(); ?>
 							</p>
 						</div>
-                        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-                            <img src="<?php echo get_template_directory_uri(); ?>/static/img/weixin.min.png" alt="微信公众号" class="img-responsive">
-                        </div>
+<!--                        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">-->
+<!--                            <img src="--><?php //echo get_template_directory_uri(); ?><!--/static/img/weixin.min.png" alt="微信公众号" class="img-responsive">-->
+<!--                        </div>-->
 					</div>
 				</div>
 			</div>

@@ -1,10 +1,10 @@
-@import "_var";
-@import "_animate";
+@import "module/_var";
+@import "module/_animate";
+@import "module/_fixBootstrap";
 .mr10 {margin-right:10px;}
 .ml10 {margin-left:10px;}
 .mt10 {margin-top:10px;}
 .mb10 {margin-bottom:10px;}
-
 .mr20 {margin-right:20px;}
 .ml20 {margin-left:20px;}
 .mt20 {margin-top:20px;}
@@ -30,10 +30,10 @@
 }
 body { 
     //background:url(../img/blog-head.jpg);background-size:100%;background-attachment:fixed;
-    background:url('../img/9e6b03370b97165c9609b53770994154.jpg');
+    //background:url('../img/9e6b03370b97165c9609b53770994154.jpg');
     background-size:100%;
     background-attachment:fixed;
-    //background:#f5f5f5;
+    background:#f5f5f5;
     }
 header{height:50px;}
 .navbar-default {
@@ -120,7 +120,7 @@ header{height:50px;}
         transform: translate(0px,0px);
     }
 }
-.index-article:hover, {
+.index-article:hover {
     //animation: action1 1s;
     box-shadow: 0 5px 5px rgba(0,0,0,0.1);
 }
