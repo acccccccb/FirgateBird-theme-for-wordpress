@@ -6,38 +6,82 @@ const fs = require('fs-extra');
 let build = {
     init(){
         this.methods.copyFile();
-        this.methods.buildingCss();
+        // this.methods.buildingCss();
+        // this.methods.copyPhp();
     },
     methods:{
+        copyPhp(){
+            let _this = this;
+            let loop = function(path){
+                fs.readdir(path).then((res)=>{
+                    res.forEach((item)=>{
+                        let sourceFolder = path+item;
+                        let newFolder = sourceFolder.replace(config.phpPath,'');
+                        if(_this.isDir(path + item)) {
+                            if(item.indexOf('static')==-1) {
+                                fs.ensureDir('./dist/'+newFolder)
+                                    .then(() => {})
+                                    .catch(err => {
+                                        console.error(err);
+                                        return false;
+                                    });
+                                loop(path + item + '/');
+                            }
+                        } else {
+                            fs.copy(sourceFolder, './dist/' + newFolder)
+                                .then(() => {})
+                                .catch(err => console.error(err))
+                        }
+                    });
+                }).catch((e)=>{
+                    console.log(e.toString());
+                    return false;
+                });
+            };
+            loop(config.phpPath);
+        },
         copyFile(){
-            fs.remove('./dist/static/plug-in')
+            fs.remove('./dist/static')
                 .then(() => {
-                    fs.copy('./static/plug-in', './dist/static/plug-in',{ filter: this.filterFunc })
-                        .then(() => console.log('copy plug-in success!'))
-                        .catch(err => console.error(err))
+                    console.log('success');
                 })
                 .catch(err => {
                     console.error(err)
                 })
-            fs.remove('./dist/static/fonts')
-                .then(() => {
-                    fs.copy('./node_modules/bootstrap-sass/assets/fonts/bootstrap', './dist/static/fonts/bootstrap',{ filter: this.filterFunc })
-                        .then(() => console.log('copy fonts success!'))
-                        .catch(err => console.error(err))
-                })
-                .catch(err => {
-                    console.error(err)
-                })
-
-            fs.remove('./dist/static/img')
-                .then(() => {
-                    fs.copy('./static/img', './dist/static/img',{ filter: this.filterFunc })
-                        .then(() => console.log('copy img success!'))
-                        .catch(err => console.error(err))
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            // fs.ensureDir('./dist/static/plug-in/').then((res)=>{
+            //
+            // }).catch((e)=>{
+            //     console.log(e.toString());
+            //     return false;
+            // });
+            // fs.remove('./dist/static/plug-in')
+            //     .then(() => {
+            //         fs.copy('./static/plug-in', './dist/static/plug-in',{ filter: this.filterFunc })
+            //             .then(() => console.log('copy plug-in success!'))
+            //             .catch((err) => console.error(err))
+            //     })
+            //     .catch(err => {
+            //         console.error(err)
+            //     })
+            // fs.remove('./dist/static/fonts')
+            //     .then(() => {
+            //         fs.copy('./node_modules/bootstrap-sass/assets/fonts/bootstrap', './dist/static/fonts/bootstrap',{ filter: this.filterFunc })
+            //             .then(() => console.log('copy fonts success!'))
+            //             .catch(err => console.error(err))
+            //     })
+            //     .catch(err => {
+            //         console.error(err)
+            //     })
+            //
+            // fs.remove('./dist/static/img')
+            //     .then(() => {
+            //         fs.copy('./static/img', './dist/static/img',{ filter: this.filterFunc })
+            //             .then(() => console.log('copy img success!'))
+            //             .catch(err => console.error(err))
+            //     })
+            //     .catch(err => {
+            //         console.error(err)
+            //     })
         },
         scssToCss(input,outPut){
             // @param input 输入文件路径
@@ -78,7 +122,6 @@ let build = {
             }).catch((e)=>{
                 console.log(e.toString());
             });
-
         },
         filterFunc(src, dest){
             let reg = new RegExp(/^[^.]+$|\.(?!(tiff|tif|psd|thumb)$)([^.]+$)/); //自己的匹配规则

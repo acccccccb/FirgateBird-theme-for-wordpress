@@ -43,8 +43,4 @@ node_modules/
 #static
 
 #dist
-/dist/static/css/
-/dist/static/fonts/
-/dist/static/img/
-/dist/static/js/
-/dist/static/plug-in/
+/dist
