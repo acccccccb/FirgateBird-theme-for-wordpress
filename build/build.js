@@ -103,8 +103,8 @@ let build = {
                             });
                         };
                         loop(config.jsPath);
-                        fs.copy('./node_modules/bootstrap/dist/js', config.exportJs,{ filter: this.filterFunc })
-                            .then(() => console.log('copy:./node_modules/bootstrap/dist/js'.green))
+                        fs.copy('./node_modules/bootstrap/dist/js/bootstrap.min.js', config.exportJs + 'bootstrap.min.js',{ filter: this.filterFunc })
+                            .then(() => console.log('copy:./node_modules/bootstrap/dist/js/bootstrap.min.js'.green))
                             .catch(err => console.error(err));
                     })
                     .catch(err => {
