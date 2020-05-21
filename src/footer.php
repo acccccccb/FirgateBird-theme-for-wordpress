@@ -5,7 +5,7 @@
 					<div class="row">
 						
 				
-						<div class="col-lg-3 mb20">
+						<div class="col-lg-3 col-lg-offset-1 mb20">
 							<p>
 								<strong><span class="glyphicon glyphicon-home"></span> 关于本站：</strong><br>
 								<?php echo get_bloginfo('description'); ?>

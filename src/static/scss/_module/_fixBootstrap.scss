@@ -8,10 +8,46 @@ body {
 }
 a,a:link,a:visited {
   color:$maincolor;
+  text-decoration: none;
 }
 a:hover {
   color:lighten($maincolor,10%);
   text-decoration: none;
+}
+.navbar-inverse {
+  background:$maincolor;
+  border-color:darken($maincolor,10%);
+  .navbar-nav>li>a {
+    color:#fff;
+  }
+}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  background-color:darken($maincolor,10%);
+  color:#fff;
+}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+  background:darken($maincolor,10%);
+}
+.navbar-inverse .navbar-toggle {
+  border-color:#fff;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color:darken($maincolor,10%);
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+  color:$maincolor;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+  color:#fff;
+}
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color:#fff;
+  }
+}
+.fix-row {
+  margin-left:0;
+  margin-right:0;
 }
 .btn-primary {
   background-color:$maincolor;

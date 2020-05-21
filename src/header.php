@@ -87,7 +87,7 @@
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/static/js/jquery.min.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>

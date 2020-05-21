@@ -1,6 +1,7 @@
 @import "_module/_var";
 @import "_module/_animate";
 @import "_module/_fixBootstrap";
+@import "_module/_aiowps";
 .mr10 {margin-right:10px;}
 .ml10 {margin-left:10px;}
 .mt10 {margin-top:10px;}
@@ -85,8 +86,16 @@ header{height:50px;}
         background:#FFFFEE;
     }
 }
+.comment-notes {
+    font-size:0.8em;
+    color:#999;
+}
 .comments-body {
     margin-left:30px;
+}
+.comment-respond {
+    padding:20px;
+    background:#f5f5f5;
 }
 @keyframes action1
 {

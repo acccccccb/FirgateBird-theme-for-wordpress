@@ -10,7 +10,6 @@ $(document).ready(function(){
 	//$(".blog-nav-hover").hover(function(){
 	//	$(this).children(".dropdown-toggle").click();
 	//});
-
 	$(".ajax-article-delete").click(function(){
 		var ajaxLink = $(this).attr("data-link");
 		var ajaxHtml = $.ajax({
@@ -18,15 +17,11 @@ $(document).ready(function(){
 				url: "" + ajaxLink + "",
 				dataType: "html",
 				success:function(data) {  
-					console.log("成功！");
-					//console.log(data);
 					//var ajaxEgg = $("#data-target").html();
-					//console.log(ajaxEgg);
 					$("#ajax-box").html(data);
 					var ddd = $("#ajax-target").html();
 					$("#ajax-box").html(ddd);
-					console.log(ddd);
-				},  
+				},
 				error:function() {   
 					console.log("异常！");  
 				}
@@ -34,7 +29,6 @@ $(document).ready(function(){
 		//var ajaxOrange = ajaxHtml.html();
 		//var ajaxApple = $(ajaxHtml.html).attr("#ajax-target").html();
 		//$("#ajax-box").html(ajaxHtml.responseHTML);				
-		//console.log(data);
 		//$('#ajax-box').html(ajaxApple);
 	});
 	
@@ -91,7 +85,6 @@ $("input[type=submit]").bind("click", function(e){
             $(this).closest("form").submit();
         } else {
             //验证失败时执行
-            $('#myModal').modal();
             console.info("必填项没有填写");
         }
     });
@@ -118,7 +111,6 @@ $("input[type=submit]").bind("click", function(e){
 	$('.sub-menu').addClass('dropdown-menu').attr('row','menu');
 	
 	$('.article-body>p>a').hover(function(){
-		console.log('tips');
 		$(this).attr({
 			"data-toggle":"tooltip",
 			"data-original-title":"LinkTo: " + $(this).attr('href')
@@ -144,7 +136,6 @@ $("input[type=submit]").bind("click", function(e){
     Mymasnory();
     $(window).resize(function() {
         Mymasnory();
-        console.log('Mymasnory');
     });
 	// scrollreveal
 	window.sr = ScrollReveal({

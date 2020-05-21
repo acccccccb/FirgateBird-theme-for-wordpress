@@ -29,6 +29,7 @@ let dev = {
             let arr = name.split('\\');
             let input = './'+arr.join('/');
             let outPut = input.replace(config.jsPath,config.exportJs);
+            outPut = outPut.substr(0,outPut.length-3) + '.min.js';
             build.methods.jsToMinJs(input,outPut);
         });
         watch('./src',{
