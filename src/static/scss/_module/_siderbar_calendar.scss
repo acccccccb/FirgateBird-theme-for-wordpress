@@ -1,0 +1,31 @@
+#wp-calendar {
+  thead {
+    tr {
+      th {
+        text-align:center;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        text-align:center;
+        border:none;
+        a {
+          color:$maincolor;
+        }
+      }
+      td:hover {
+        background:$grayBg1;
+        color:#333;
+      }
+      #today {
+        background:$maincolor;
+        color:#fff;
+        a {
+          color:#fff;
+        }
+      }
+    }
+  }
+}
