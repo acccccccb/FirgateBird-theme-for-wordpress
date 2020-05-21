@@ -96,7 +96,7 @@
   </head>
   <body>
 	<header>
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<nav class="navbar <?php echo get_option('firgatebird_menu_type'); ?> navbar-fixed-top" role="navigation">
 	  		<div class="container-fluid">
 		    	<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="row">
