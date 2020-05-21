@@ -14,11 +14,26 @@ a:hover {
   color:lighten($maincolor,10%);
   text-decoration: none;
 }
+
+.navbar-default .navbar-nav {
+  .current-menu-item,.current-menu-parent {
+    background:$maincolor;
+  }
+  .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover {
+    color:#fff;
+  }
+}
+.navbar-inverse .navbar-nav>li>a {
+  color:#fff;
+}
 .navbar-inverse {
   background:$maincolor;
   border-color:darken($maincolor,10%);
-  .navbar-nav>li>a {
-    color:#fff;
+  .current-menu-item,.current-menu-parent {
+    background:lighten($maincolor,10%)!important;
+  }
+  .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover {
+    color:#fff!important;
   }
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
