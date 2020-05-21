@@ -41,7 +41,6 @@
                                 echo '<li><a href="'.wp_login_url().'"><span class="glyphicon glyphicon-off"></span> 登陆</a></li>';
                         }
                     ?>
-                    <li><a href="http://www.ihtmlcss.com">www.ihtmlcss.com</a></li>
                 </ul>
                 <?php echo $after_widget; ?>
             <?php
