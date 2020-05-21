@@ -23,11 +23,12 @@
   },
   "homepage": "https://github.com/acccccccb/FirgateBird-theme-for-wordpress#readme",
   "devDependencies": {
-    "bootstrap-sass": "^3.4.1",
-    "bootstrap-scss": "^4.4.1",
+    "bootstrap": "^3.4.1",
+    "colors": "^1.4.0",
     "fs-extra": "^9.0.0",
     "node-sass": "^4.14.1",
-    "node-watch": "^0.6.4"
+    "node-watch": "^0.6.4",
+    "uglify-es": "^3.3.9"
   },
   "dependencies": {}
 }

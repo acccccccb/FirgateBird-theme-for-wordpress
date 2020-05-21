@@ -1,13 +1,17 @@
 'use strict';
-const { config } = require('./config');
+const { config,distPath,srcPath } = require('./config');
 const sass = require('node-sass');
 const fs = require('fs-extra');
+const colors = require('colors');
+const uglifyEs = require('uglify-es');
 
 let build = {
     init(){
-        this.methods.copyFile();
-        // this.methods.buildingCss();
-        // this.methods.copyPhp();
+        this.methods.copyFile(()=>{
+            this.methods.copyPhp();
+            this.methods.buildingCss();
+            this.methods.buildingJs();
+        });
     },
     methods:{
         copyPhp(){
@@ -19,69 +23,95 @@ let build = {
                         let newFolder = sourceFolder.replace(config.phpPath,'');
                         if(_this.isDir(path + item)) {
                             if(item.indexOf('static')==-1) {
-                                fs.ensureDir('./dist/'+newFolder)
+                                fs.ensureDir(distPath + '/'+newFolder)
                                     .then(() => {})
                                     .catch(err => {
-                                        console.error(err);
+                                        console.error(err.red);
                                         return false;
                                     });
                                 loop(path + item + '/');
                             }
                         } else {
-                            fs.copy(sourceFolder, './dist/' + newFolder)
-                                .then(() => {})
-                                .catch(err => console.error(err))
+                            fs.copy(sourceFolder, distPath + '/' + newFolder)
+                                .then(() => {
+                                    console.log(('copy:' + sourceFolder).green);
+                                })
+                                .catch(err => console.error(err.red))
                         }
                     });
                 }).catch((e)=>{
-                    console.log(e.toString());
+                    console.log(e.toString().red);
                     return false;
                 });
             };
             loop(config.phpPath);
         },
-        copyFile(){
-            fs.remove('./dist/static')
+        copyFile(callback){
+            fs.remove(distPath + '/static')
                 .then(() => {
-                    console.log('success');
+                    fs.copy('./static/plug-in', distPath + '/static/plug-in',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./static/plug-in'.green))
+                        .catch((err) => console.error(err.red));
+                    fs.copy('./static/img', distPath + '/static/img',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./static/img'.green))
+                        .catch(err => console.error(err.red));
+                    if(callback && typeof callback === 'function') {
+                        callback();
+                    }
                 })
                 .catch(err => {
                     console.error(err)
                 })
-            // fs.ensureDir('./dist/static/plug-in/').then((res)=>{
-            //
-            // }).catch((e)=>{
-            //     console.log(e.toString());
-            //     return false;
-            // });
-            // fs.remove('./dist/static/plug-in')
-            //     .then(() => {
-            //         fs.copy('./static/plug-in', './dist/static/plug-in',{ filter: this.filterFunc })
-            //             .then(() => console.log('copy plug-in success!'))
-            //             .catch((err) => console.error(err))
-            //     })
-            //     .catch(err => {
-            //         console.error(err)
-            //     })
-            // fs.remove('./dist/static/fonts')
-            //     .then(() => {
-            //         fs.copy('./node_modules/bootstrap-sass/assets/fonts/bootstrap', './dist/static/fonts/bootstrap',{ filter: this.filterFunc })
-            //             .then(() => console.log('copy fonts success!'))
-            //             .catch(err => console.error(err))
-            //     })
-            //     .catch(err => {
-            //         console.error(err)
-            //     })
-            //
-            // fs.remove('./dist/static/img')
-            //     .then(() => {
-            //         fs.copy('./static/img', './dist/static/img',{ filter: this.filterFunc })
-            //             .then(() => console.log('copy img success!'))
-            //             .catch(err => console.error(err))
-            //     })
-            //     .catch(err => {
-            //         console.error(err)
-            //     })
+        },
+        jsToMinJs(input,outPut){
+            let obj = {};
+            obj[outPut] = fs.readFileSync(input, "utf8");
+            fs.writeFile(outPut, uglifyEs.minify(obj).code, "utf8").then(()=>{
+                console.log(('compress:' + outPut).green);
+            });
+        },
+        buildingJs(){
+            let _this = this;
+            fs.remove(config.exportJs).then(()=>{
+                fs.ensureDir(config.exportJs)
+                    .then(() => {
+                        let loop = function(path){
+                            fs.readdir(path).then((res)=>{
+                                res.forEach((item)=>{
+                                    let input = path+item;
+                                    let outPut = input.replace(config.jsPath,config.exportJs);
+                                    outPut = outPut.substring(0,outPut.length-3) + '.min.js';
+                                    if(_this.isDir(path + item)) {
+                                        if(item.indexOf('static')==-1) {
+                                            fs.ensureDir(outPut)
+                                                .then(() => {})
+                                                .catch(err => {
+                                                    console.error(err);
+                                                    return false;
+                                                });
+                                            loop(path + item + '/');
+                                        }
+                                    } else {
+                                        fs.ensureDir(config.exportJs).then(()=>{
+                                            _this.jsToMinJs(input,outPut);
+                                        }).catch(e=>{console.log(e)});
+                                    }
+                                });
+                            }).catch((e)=>{
+                                console.log(e.toString());
+                                return false;
+                            });
+                        };
+                        loop(config.jsPath);
+                        fs.copy('./node_modules/bootstrap/dist/js', config.exportJs,{ filter: this.filterFunc })
+                            .then(() => console.log('copy:./node_modules/bootstrap/dist/js'.green))
+                            .catch(err => console.error(err));
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        return false;
+                    });
+            }).catch(e=>{console.log(e)})
         },
         scssToCss(input,outPut){
             // @param input 输入文件路径
@@ -102,25 +132,41 @@ let build = {
                 if(!err) {
                     fs.writeFile(outPut + fileName + `.min.css`,result.css,function(error){
                         if(error) {
-                            console.log('compress-error:' + input);
+                            console.log(('compress-error:' + input).red);
                         } else {
-                            console.log('compress-success:' + outPut + fileName + `.min.css`);
+                            console.log(('compress:' + outPut + fileName + `.min.css`).green);
                         }
                     });
                 } else {
-                    console.log('compress-error:' + input);
+                    console.log(('compress-error:' + input).red);
                 }
             })
         },
         buildingCss(){
-            fs.readdir(config.scss).then((res)=>{
-                res.forEach(item=>{
-                    if(!this.isDir(config.scss + item)) {
-                        this.scssToCss(config.scss + item,config.exportCss);
-                    }
+            fs.ensureDir(config.exportCss).then(()=>{
+                fs.readdir(config.scss).then((res)=>{
+                    res.forEach(item=>{
+                        if(!this.isDir(config.scss + item)) {
+                            this.scssToCss(config.scss + item,config.exportCss);
+                        } else {
+                            if(item.indexOf('_')!==0) {
+                                fs.ensureDir(config.exportCss + item);
+                            }
+                        }
+                    });
+                    // copy bootstrap
+                    fs.copy('./node_modules/bootstrap/dist/fonts', distPath + '/static/fonts',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./node_modules/bootstrap/dist/fonts'.green))
+                        .catch(err => console.error(err.red));
+                    fs.copy('./node_modules/bootstrap/dist/css/bootstrap.min.css', config.exportCss + 'bootstrap.min.css',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./node_modules/bootstrap/dist/css/bootstrap.min.css'.green))
+                        .catch(err => console.error(err.red));
+                    fs.copy('./node_modules/bootstrap/dist/css/bootstrap-theme.min.css', config.exportCss + 'bootstrap-theme.min.css',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./node_modules/bootstrap/dist/css/bootstrap-theme.min.css'.green))
+                        .catch(err => console.error(err.red));
+                }).catch((e)=>{
+                    console.log(e.toString().red);
                 });
-            }).catch((e)=>{
-                console.log(e.toString());
             });
         },
         filterFunc(src, dest){
@@ -128,7 +174,7 @@ let build = {
             if (reg.test(src)) {
                 return true; //通过过滤条件，该目录允许复制到dest目录
             } else {
-                console.log('ignore:'+ src);
+                console.log(('ignore:'+ src).gray);
                 return false; //丢弃，不复制到dest目录
             };
         },

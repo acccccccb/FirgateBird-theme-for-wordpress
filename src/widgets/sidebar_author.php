@@ -69,7 +69,7 @@
                                 <a href="<?php echo $github;?>"><small><?php echo $github;?></small></a><br><br>
                             <?php } ?>
                             <?php if($gitee) { ?>
-                                <strong>github:</strong><br>
+                                <strong>gitee:</strong><br>
                                 <a href="<?php echo $gitee;?>"><small><?php echo $gitee;?></small></a><br><br>
                             <?php } ?>
                             <?php if($email) { ?>
