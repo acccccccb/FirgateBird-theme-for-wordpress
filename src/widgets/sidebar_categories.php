@@ -5,10 +5,13 @@
    * */
     class sidebar_categories extends WP_Widget {
         /** 构造函数 */
-        function sidebar_categories() {
-            parent::WP_Widget(false, $name = 'Theme:文章分类');	
+//        function sidebar_categories() {
+//            parent::WP_Widget(false, $name = 'Theme:文章分类');
+//        }
+        function __construct(){
+            $widget_ops = array('description' => __('Theme:文章分类','bb10'));
+            parent::__construct('sidebar_categories' ,__('Theme:文章分类','bb10'), $widget_ops);
         }
-
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );

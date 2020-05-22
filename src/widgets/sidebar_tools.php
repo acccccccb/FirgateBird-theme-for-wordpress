@@ -5,10 +5,13 @@
    * */
     class sidebar_tools extends WP_Widget {
         /** 构造函数 */
-        function sidebar_tools() {
-            parent::WP_Widget(false, $name = 'Theme:工具');	
+//        function sidebar_tools() {
+//            parent::WP_Widget(false, $name = 'Theme:工具');
+//        }
+        function __construct(){
+            $widget_ops = array('description' => __('Theme:工具','bb10'));
+            parent::__construct('sidebar_tools' ,__('Theme:工具','bb10'), $widget_ops);
         }
-
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );

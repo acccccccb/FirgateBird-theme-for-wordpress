@@ -5,7 +5,7 @@
  * Date: 2020/5/8
  * Time: 15:45
  */
-function test_function(){
+function firgatebird_option_function(){
     //page_titile-title标签的内容
     //menu_title-显示在后台左边菜单的标题
     //capability-访问这个页面需要的权限
@@ -37,7 +37,7 @@ function test_function(){
     <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
 
 <?php } ?>
-<?php add_action('admin_menu', 'test_function');?>
+<?php add_action('admin_menu', 'firgatebird_option_function');?>
 <script>
     function formOnSubmit(){
         document.getElementById('rfFrame').onload = function(res){

@@ -5,10 +5,13 @@
    * */
     class sidebar_new_article extends WP_Widget {
         /** 构造函数 */
-        function sidebar_new_article() {
-            parent::WP_Widget(false, $name = 'Theme:最新文章');	
+//        function sidebar_new_article() {
+//            parent::WP_Widget(false, $name = 'Theme:最新文章');
+//        }
+        function __construct(){
+            $widget_ops = array('description' => __('Theme:最新文章','bb10'));
+            parent::__construct('sidebar_new_article' ,__('Theme:最新文章','bb10'), $widget_ops);
         }
-
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );

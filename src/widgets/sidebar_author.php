@@ -5,10 +5,13 @@
    * */
     class sidebar_author extends WP_Widget {
         /** 构造函数 */
-        function sidebar_author() {
-            parent::WP_Widget(false, $name = 'Theme:作者介绍');	
+//        function sidebar_author() {
+//            parent::WP_Widget(false, $name = 'Theme:作者介绍');
+//        }
+        function __construct(){
+            $widget_ops = array('description' => __('Theme:作者介绍','bb10'));
+            parent::__construct('sidebar_author' ,__('Theme:作者介绍','bb10'), $widget_ops);
         }
-
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );

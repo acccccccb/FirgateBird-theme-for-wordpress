@@ -5,10 +5,13 @@
    * */
     class sidebar_hot_article extends WP_Widget {
         /** 构造函数 */
-        function sidebar_hot_article() {
-            parent::WP_Widget(false, $name = 'Theme:热门文章');
+//        function sidebar_hot_article() {
+//            parent::WP_Widget(false, $name = 'Theme:热门文章');
+//        }
+        function __construct(){
+            $widget_ops = array('description' => __('Theme:热门文章','bb10'));
+            parent::__construct('sidebar_hot_article' ,__('Theme:热门文章','bb10'), $widget_ops);
         }
-
         /** @see WP_Widget::widget */
         function widget($args, $instance) {		
             extract( $args );
