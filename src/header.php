@@ -141,14 +141,13 @@
 						      </ul>
 							<form id="search" class="navbar-form navbar-right" role="search" action="<?php bloginfo('url'); ?>" method="get">
 									<div class="container-fluid">
-									    <div class="input-group">
-									      <input id="s" name="s"  type="text" class="form-control" placeholder="输入关键字搜索" >
-									      <span class="input-group-btn">
-										  <button type="submit" class="btn btn-primary" value="Search"><span class="glyphicon glyphicon-search"></span></button>
-									      </span>
-									    </div><!-- /input-group -->
+                                        <div class="input-group">
+                                            <input type="text"  id="s" name="s" class="form-control" placeholder="Search for...">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="submit">Search</button>
+                                            </span>
+                                        </div><!-- /input-group -->
 								    </div>
-
 					    	</form>
 					    </div><!-- /.navbar-collapse -->
 					</div>

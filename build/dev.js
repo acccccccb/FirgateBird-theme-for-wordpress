@@ -39,7 +39,6 @@ let dev = {
             let arr = name.split('\\');
             let filePath = './'+arr.join('/');
             let outPut = filePath.replace(srcPath,distPath);
-            let now = new Date();
             if(event == 'update') {
                 const data = fs.readFileSync(filePath, 'utf8');
                 fs.outputFile(outPut, data, function(err) {
