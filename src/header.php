@@ -156,7 +156,68 @@
 		</nav>
 	</header>
 	<?php if ((is_home() || is_front_page()) && !is_paged() ) { ?>
-        <?php thumb_article(); ?>
+        <?php
+        if (have_posts()&& is_sticky() ) {
+            ?>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators"></ol>
+        <div class="carousel-inner" role="listbox">
+            <?php
+            while ( have_posts() ) {
+                the_post();
+                if(is_sticky() ) { // has_post_thumbnail() &&
+                    $description1 = get_the_excerpt();
+                    $description2 = str_replace(array("\r\n", "\r", "\n","&nbsp;",'"',"<",">"),"",mb_strimwidth(strip_tags($post->post_content), 0, 200, "…", 'utf-8'));
+                    // 填写自定义字段description时显示自定义字段的内容，否则使用文章内容前200字作为描述
+                    $description = $description1 ? $description1 : $description2;
+            ?>
+                        <div class="item listBoxItem">
+<!--                            <a href="--><?php //get_the_permalink();?><!--" title="--><?php //echo get_the_title();?><!--">-->
+<!--                                <img class="img-responsive-banner" alt="--><?php //echo get_the_title();  ?><!--" src="--><?php //echo the_post_thumbnail_url('codilight_lite_single_large' );?><!--">-->
+<!--                            </a>-->
+                            <div class="carousel-caption">
+                                <h1 class="hidden-xs hidden-sm text-left"><?php echo get_the_title();?></h1>
+                                <h4 class="hidden-md hidden-lg text-center">
+                                    <a style="text-decoration: none;color:#fff;" href="<?php echo get_the_permalink();?>"><?php echo  get_the_title();?></a>
+                                </h4>
+                                <p class="hidden-xs hidden-sm text-left" > <?php echo $description;?></p>
+                                <a class="hidden-xs hidden-sm btn btn-default btn-md mt20" href="<?php echo get_the_permalink();?>" role="button">阅读内容</a>
+                            </div>
+                        </div>
+                        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                            <defs>
+                                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                            </defs>
+                            <g class="parallax">
+                                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                                <use xlink:href="#gentle-wave" x="48" y="7" fill="#f5f5f5" />
+                            </g>
+                        </svg>
+                    <?php
+
+                }
+            }
+            ?>
+                </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            <?php
+        } else {
+            ?>
+
+            <?php
+        }
+            wp_reset_query();
+        ?>
 	<script>
 		var sildeN = $('.carousel-inner>.item').length;
 		if (sildeN > 0) {
@@ -168,8 +229,3 @@
 		}
 	</script>
     <?php } ?>
-    <div class="jumbotron index-banner hidden">
-        <div class="container index-banner">
-
-        </div>
-    </div>

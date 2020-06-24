@@ -17,10 +17,12 @@ a:hover {
 
 .navbar-default .navbar-nav {
   .current-menu-item,.current-menu-parent {
-    background:$maincolor;
+    //background:$maincolor;
+    background:#fff;
+    border-bottom:3px solid $maincolor;
   }
   .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover {
-    color:#fff;
+    color:$maincolor;
   }
 }
 .navbar-inverse .navbar-nav>li>a {
@@ -91,4 +93,8 @@ a:hover {
 .navbar-brand {
   padding-top:0;
   padding-bottom:0;
+}
+// banner
+.carousel-control {
+  background-image:none!important;
 }
