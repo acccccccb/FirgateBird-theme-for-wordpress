@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-12">
-				<?php navigation();?>
-			</div>
-			<div class="col-lg-9">
+            <div class="col-lg-10 col-lg-offset-1">
+                <?php navigation();?>
+            </div>
+            <div class="col-lg-7 col-lg-offset-1" id="ajax-box">
 				<?php if (have_posts()) : the_post(); update_post_caches($posts); ?>
 				<article class="border-bottom-1 index-article">
 					<div class="article-tit mb20 mt20"><?php the_title(); ?>

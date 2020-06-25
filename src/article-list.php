@@ -30,7 +30,7 @@ function checkStr($str,$target) {
                 if ( has_post_thumbnail()) { // check if the post has a Post Thumbnail assigned to it.
                     $theThumbnail = get_the_post_thumbnail( $post_id, thumbnail,array( 'class' => 'lazyload','alt' => get_the_title(),'size'=>'thumbnail' ));
                     $theThumbnail = str_replace('srcset="','data-srcset="',$theThumbnail);
-                    $theThumbnail = str_replace('src="','data-src="',$theThumbnail);
+                    $theThumbnail = str_replace('src="','srcset="',$theThumbnail);
                     echo '<div class="article-list-thumbnail">';
                     echo '<a href="'.get_the_permalink().'" title="'.get_the_title().'">';
                     echo $theThumbnail;

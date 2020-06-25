@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 	<div class="container-fluid">
 		<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-10 col-lg-offset-1">
 			<?php navigation();?>
 		</div>
-			<div class="col-lg-9" id="ajax-box">
+			<div class="col-lg-7 col-lg-offset-1" id="ajax-box">
 				<article class="border-bottom-1 index-article">
 					<div align="center" >
 					<img src="<?php echo get_template_directory_uri(); ?>/static/img/404.gif"  class="img-responsive"/>
