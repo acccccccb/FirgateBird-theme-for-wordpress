@@ -483,7 +483,7 @@ add_action('wp_head', 'record_visitors');
 
 	// 记录点赞数
 function record_like() {
-    header("Content -Type: application/json");
+    header('Content-Type:application/json; charset=utf-8');
     $action = $_POST["action"];
     $id = (int)$_POST["id"];
     $nonce = $_GET['wpnonce'];

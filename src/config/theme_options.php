@@ -37,15 +37,14 @@ function firgatebird_option_function(){
         </div>
     </form>
     <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
-
+    <script>
+        function formOnSubmit(){
+            document.getElementById('rfFrame').onload = function(res){
+                if(res.returnValue) {
+                    alert('保存成功');
+                }
+            };
+        }
+    </script>
 <?php } ?>
 <?php add_action('admin_menu', 'firgatebird_option_function');?>
-<script>
-    function formOnSubmit(){
-        document.getElementById('rfFrame').onload = function(res){
-            if(res.returnValue) {
-                alert('保存成功');
-            }
-        };
-    }
-</script>
