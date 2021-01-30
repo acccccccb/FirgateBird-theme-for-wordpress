@@ -144,7 +144,9 @@
                                         <div class="input-group">
                                             <input type="text"  id="s" name="s" class="form-control" placeholder="Search for...">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-default" type="submit">Search</button>
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
                                             </span>
                                         </div><!-- /input-group -->
 								    </div>

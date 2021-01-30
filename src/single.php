@@ -69,9 +69,9 @@
 				</div>
 				<div class="mt20">
 					<nav aria-label="pre-pager">
-						<ul class="pager">
-							<li class="previous col-lg-6 col-md-6 col-sm-12 col-xs-12"><?php if (get_previous_post()) { previous_post_link('%link','上一篇:%title');} else {echo '<span>已是最后文章</span>';} ?></li>
-							<li class="next col-lg-6 col-md-6 col-sm-12 col-xs-12"><?php if (get_next_post()) { next_post_link('%link','下一篇:%title');} else {echo "<span>已是最新文章</span>";} ?></li>
+						<ul style="padding-left: 0;">
+							<li><?php if (get_previous_post()) { previous_post_link('%link','上一篇：%title');} else {echo '<span>已是最后文章</span>';} ?></li>
+							<li><?php if (get_next_post()) { next_post_link('%link','下一篇：%title');} else {echo "<span>已是最新文章</span>";} ?></li>
 						</ul>
 					</nav>
 				</div>
