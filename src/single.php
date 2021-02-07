@@ -63,20 +63,20 @@
                     </script>
 				<?php author(); ?>
 				<div class="clearboth mt20 mb20">
-					<div class="page-tags-main">
-						<?php echo the_tags('<div class="btn-group btn-group-xs"><div class="btn" disabled="disabled" ><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;tags:</div></div><div class="btn-group btn-group-xs" role="group" aria-label="tags"><div class="btn btn-default">', '</div><div class="btn btn-default">', '</div></div>'); ?>
+					<div class="article-list-meta">
+                        <?php echo the_tags('<div><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签：#', '#', '</div>')?>
 					</div>
 				</div>
 				<div class="mt20">
 					<nav aria-label="pre-pager">
 						<ul style="padding-left: 0;">
-							<li><?php if (get_previous_post()) { previous_post_link('%link','上一篇：%title');} else {echo '<span>已是最后文章</span>';} ?></li>
-							<li><?php if (get_next_post()) { next_post_link('%link','下一篇：%title');} else {echo "<span>已是最新文章</span>";} ?></li>
+							<li><?php if (get_previous_post()) { previous_post_link('%link','上一篇：%title');} else {echo '<span class="article-last">已是最后文章</span>';} ?></li>
+							<li><?php if (get_next_post()) { next_post_link('%link','下一篇：%title');} else {echo "<span class='article-first'>已是最新文章</span>";} ?></li>
 						</ul>
 					</nav>
 				</div>
 				</article>
-				
+
 			<div class="col-lg-6 more-article mt20 mb20">
 				<div class="page-header">
 					<h2>相关文章 <small>Related articles</small></h2>

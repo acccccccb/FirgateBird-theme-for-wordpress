@@ -3,8 +3,8 @@
 			<div class="row">
 				<div class="col-lg-12 footer-info text-left">
 					<div class="row">
-						
-				
+
+
 						<div class="col-lg-3 col-lg-offset-1 mb20">
 							<p>
 								<strong><span class="glyphicon glyphicon-home"></span> 关于本站：</strong><br>
@@ -12,9 +12,21 @@
 							</p>
 						</div>
 						<div class="col-lg-4 mb20">
-							<a href="<?php echo site_url(); ?>">返回首页</a> | <a href="#top">回到顶部</a> | <a href="/comments-html">联系作者</a> | <script src="https://s22.cnzz.com/z_stat.php?id=1262730622&web_id=1262730622" language="JavaScript"></script> | 加载时间：<?php timer_stop(1); ?>s<br />
-							Powered by wordpress | Theme: <a href="http://www.ihtmlcss.com/wordpress-theme-frigatebird-html/">FrigateBird</a> design by <a href="http://www.ihtmlcss.com">Marco</a><br />
-							Copyright © 2016-<?php echo date('Y');?> <a href="http://www.ihtmlcss.com">www.ihtmlcss.com</a> | <a href="http://www.beian.miit.gov.cn" rel="external nofollow" target="_blank"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
+							<a href="<?php echo site_url(); ?>">返回首页</a>
+                            | <a href="#top">回到顶部</a>
+                            | <a href="/comments-html">联系作者</a>
+                            <?php if(!empty(get_option( 'firgatebird_stats_code' ))) { ?>
+                                | <?php echo get_option( 'firgatebird_stats_code' ); ?>
+                            <?php } ?>
+                            | 加载时间：<?php timer_stop(1); ?>s<br />
+							Powered by wordpress | Theme: <a href="http://www.ihtmlcss.com/wordpress-theme-frigatebird-html/">FrigateBird</a>
+                            design by <a href="http://www.ihtmlcss.com">Marco</a><br />
+							Copyright © 2016-<?php echo date('Y');?> <a href="http://www.ihtmlcss.com">www.ihtmlcss.com</a>
+                            <?php if(!empty(get_option( 'zh_cn_l10n_icp_num' ))) { ?>
+                                | <a href="http://www.beian.miit.gov.cn" rel="external nofollow" target="_blank">
+                                    <?php echo get_option( 'zh_cn_l10n_icp_num' ); ?>
+                                </a>
+                            <?php } ?>
 						</div>
 						<div class="col-lg-2 mb20">
 							<p>
@@ -39,4 +51,5 @@
     <script src="<?php echo get_template_directory_uri(); ?>/static/js/bootstrap.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/static/js/blog.min.js?v=1.0.1"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/FrigateBird-LightBox-master/gallery.js?v=1.0.0"></script>
+    <?php echo get_option('firgatebird_custom_code'); ?>
     <?php wp_footer(); ?>

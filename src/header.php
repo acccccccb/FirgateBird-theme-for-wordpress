@@ -96,7 +96,7 @@
   </head>
   <body>
 	<header>
-		<nav class="navbar <?php echo get_option('firgatebird_menu_type'); ?> navbar-fixed-top" role="navigation">
+		<nav class="navbar <?php echo !empty(get_option('firgatebird_menu_type')) ? get_option('firgatebird_menu_type') : 'navbar-default'; ?> navbar-fixed-top" role="navigation">
 	  		<div class="container-fluid">
 		    	<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="row">
@@ -108,11 +108,13 @@
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					      </button>
-					      <a class="navbar-brand blog-head-tit" href="<?php bloginfo('url'); ?>"><img class="mr10" alt="Brand" src="<?php echo get_template_directory_uri(); ?>/static/img/logo.png" width="100" height="50"></a>
+					      <a class="navbar-brand blog-head-tit" href="<?php bloginfo('url'); ?>">
+                              <img class="mr10" alt="Brand" src="<?php echo !empty(get_option('firgatebird_logo_img')) ? get_option('firgatebird_logo_img') : (get_template_directory_uri() . '/static/img/logo.png'); ?>" width="100" height="50">
+                          </a>
 					    </div>
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						        <?php 
+						        <?php
 								    // 列出顶部导航菜单，菜单名称为mymenu，只列出一级菜单
 								    wp_nav_menu( array(
 										'container' => 'ul',
