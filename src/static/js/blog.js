@@ -1,45 +1,34 @@
 $(document).ready(function(){
-	//播放音乐
-	var audioHTML = '<audio id="BgSound" src = "http://www.ihtmlcss.com/wp-content/uploads/2017/10/STEEL_BEAST_6BEETS.mp3" autoplay></audio>';
-	$('.sidebar-site-img').mouseover(function(){
-		$('body').append(audioHTML);
-	});
-	$('.sidebar-site-img').mouseout(function(){
-		$('#BgSound').remove();
-	});
-	//$(".blog-nav-hover").hover(function(){
-	//	$(this).children(".dropdown-toggle").click();
-	//});
 	$(".ajax-article-delete").click(function(){
-		var ajaxLink = $(this).attr("data-link");
-		var ajaxHtml = $.ajax({
+		let ajaxLink = $(this).attr("data-link");
+		let ajaxHtml = $.ajax({
 				type: "GET",
 				url: "" + ajaxLink + "",
 				dataType: "html",
 				success:function(data) {  
-					//var ajaxEgg = $("#data-target").html();
+					//let ajaxEgg = $("#data-target").html();
 					$("#ajax-box").html(data);
-					var ddd = $("#ajax-target").html();
+					let ddd = $("#ajax-target").html();
 					$("#ajax-box").html(ddd);
 				},
 				error:function() {   
 					console.log("异常！");  
 				}
 			});
-		//var ajaxOrange = ajaxHtml.html();
-		//var ajaxApple = $(ajaxHtml.html).attr("#ajax-target").html();
+		//let ajaxOrange = ajaxHtml.html();
+		//let ajaxApple = $(ajaxHtml.html).attr("#ajax-target").html();
 		//$("#ajax-box").html(ajaxHtml.responseHTML);				
 		//$('#ajax-box').html(ajaxApple);
 	});
 	
 	//$('.index-article>p>a>img').click(function(){
-	//	var imgUrl = $(this).parents('a').attr('href');
+	//	let imgUrl = $(this).parents('a').attr('href');
 	//	$('#img-url').html('<p><img src="' + imgUrl + '" class="img-thumbnail"  /></p><p><a href="'+ imgUrl +'" target="_blank" class="btn btn-default" >查看原图</a></p>');
 	//	$('#img-mask').fadeIn(300);
 	//	return false;
 	//});
 	//$('.index-article>p>img').click(function(){
-	//	var imgSrc = $(this).attr('src');
+	//	let imgSrc = $(this).attr('src');
 	//	$('#img-url').html('<p><img src="' + imgSrc + '" class="img-thumbnail" /></p><p><a href="'+ imgSrc +'" target="_blank" class="btn btn-default btn-xs" >查看原图</a></p>');
 	//	$('#img-mask').fadeIn(300);
 	//	return false;
@@ -72,14 +61,14 @@ $(document).ready(function(){
 	
 $("input[type=submit]").bind("click", function(e){
         $("input[required=required],textarea[required=required]").trigger("blur");
-        var inputV = [];
+        let inputV = [];
         //遍历input[type=required]的value长度并填入数组
             $("input[required=required],textarea[required=required]").each(function(){
-            var inputLeng = $(this).val().length;
+            let inputLeng = $(this).val().length;
             inputV.push(inputLeng);
         });
         //判断数组中是否包含数值0
-        var KeyNum = inputV.indexOf(0);
+        let KeyNum = inputV.indexOf(0);
         if(KeyNum==-1){
             //验证成功时提交当前表单
             $(this).closest("form").submit();
@@ -91,7 +80,7 @@ $("input[type=submit]").bind("click", function(e){
 
     //失去焦点时验证表单
     $("input[required=required],textarea[required=required]").blur(function(){
-        var inputValue = $(this).val().length;
+        let inputValue = $(this).val().length;
         if(inputValue == 0) {
             $(this).css("border-color","#F64646");
         } else {
@@ -99,7 +88,7 @@ $("input[type=submit]").bind("click", function(e){
         }
     });	
     //修改评论区表情的显示位置
-    var smiley = $('.smiley').clone();
+    let smiley = $('.smiley').clone();
     $('.smiley').remove();
     $('.form-group').before(smiley);
 	//二级导航

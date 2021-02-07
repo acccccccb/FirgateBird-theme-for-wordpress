@@ -36,7 +36,7 @@
                 <?php } ?>
 
                 <nav class="nav pt20">
-                    <div class="site-ico col-lg-2 col-lg-offset-5 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
+                    <div class="site-ico col-lg-4 col-lg-offset-4 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
                         <a href="<?php bloginfo('url'); ?>">
                             <img src="<?php echo get_site_icon_url(); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
                         </a>

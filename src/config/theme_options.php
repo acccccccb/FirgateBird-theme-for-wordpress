@@ -11,7 +11,7 @@ function firgatebird_option_function(){
     //capability-访问这个页面需要的权限
     //menu_slug-别名，需要独一无二哦
     //function-执行的函数
-    add_theme_page( 'title标题', '主题设置', 'administrator', 'firgatebird_slug','display_function');
+    add_theme_page( '主题设置', '主题设置', 'administrator', 'firgatebird_slug','display_function');
 }
 ?>
 <?php function display_function(){ ?>
@@ -73,6 +73,36 @@ function firgatebird_option_function(){
                 </select>
             </div>
             <div class="form-field term-description-wrap">
+                <label for="firgatebird_live2d">
+                    <div style="margin-bottom: 10px;">是否显示看板娘：</div>
+                </label>
+                <select
+                    style="width: 630px;"
+                    class="postform"
+                    name="firgatebird_live2d"
+                    id="firgatebird_live2d"
+                    value="<?php echo get_option('firgatebird_live2d'); ?>"
+                >
+                    <option value="1" <?php echo get_option('firgatebird_live2d')=='1'?'selected':'' ?> >是</option>
+                    <option value="" <?php echo get_option('firgatebird_live2d')==''?'selected':'' ?> >否</option>
+                </select>
+            </div>
+            <div class="form-field term-description-wrap">
+                <div style="margin-bottom: 10px;">
+                    <label for="firgatebird_live2d_message">
+                        点击看板娘时说的话：
+                    </label>
+                </div>
+                <p class="description">点击看板娘时说的话，每行一句</p>
+                <textarea
+                    name="firgatebird_live2d_message"
+                    id="firgatebird_live2d_message"
+                    cols="100"
+                    rows="5"
+                    placeholder="点击看板娘时说的话，每行一句"
+                ><?php echo get_option('firgatebird_live2d_message'); ?></textarea>
+            </div>
+            <div class="form-field term-description-wrap">
                 <div style="margin-bottom: 10px;">
                     <label for="firgatebird_home_keyword">首页关键词：</label>
                     <p class="description">首页的keyword字段值，用英文逗号隔开</p>
@@ -126,7 +156,7 @@ function firgatebird_option_function(){
             <input
                 type="hidden"
                 name="page_options"
-                value="firgatebird_stats_code,firgatebird_logo_img,firgatebird_menu_type,firgatebird_custom_code,firgatebird_custom_head,firgatebird_color,firgatebird_home_keyword,firgatebird_font_color"
+                value="firgatebird_stats_code,firgatebird_logo_img,firgatebird_menu_type,firgatebird_custom_code,firgatebird_custom_head,firgatebird_color,firgatebird_home_keyword,firgatebird_font_color,firgatebird_live2d,firgatebird_live2d_message"
             />
             <p class="submit">
                 <button class="button button-primary" id="firgatebird_submit" type="submit" name="option_save" >保存设置</button>

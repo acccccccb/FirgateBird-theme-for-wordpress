@@ -50,6 +50,47 @@
 	</div>
     <script src="<?php echo get_template_directory_uri(); ?>/static/js/bootstrap.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/static/js/blog.min.js?v=1.0.1"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/FrigateBird-LightBox-master/gallery.js?v=1.0.0"></script>
+
+    <?php if (!empty(get_option('firgatebird_live2d'))) {?>
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/plug-in/Live2D-master/live2d/css/live2d.css">
+        <div id="landlord" style="position:fixed;left:20px;bottom:0;">
+            <div class="message" style="opacity:0"></div>
+            <canvas id="live2d" width="280" height="250" class="live2d" ></canvas>
+            <div class="hide-button">隐藏</div>
+        </div>
+        <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/static/plug-in/Live2D-master/live2d/js/live2d.js"></script>
+        <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/static/plug-in/Live2D-master/live2d/js/message.js"></script>
+        <script>
+            <?php
+                $message = get_option('firgatebird_live2d_message');
+                $message = trim($message);
+                $message = explode(PHP_EOL, $message);
+                $message = json_encode($message);
+            ?>
+            let messageList = {
+                "mouseover": [
+                    {
+                        "selector": ".title a",
+                        "text": ["要看看 {text} 么？"]
+                    },
+                    {
+                        "selector": ".searchbox",
+                        "text": ["在找什么东西呢，需要帮忙吗？"]
+                    }
+                ],
+                "click": [
+                    {
+                        "selector": "#landlord #live2d",
+                        "text": <?php echo $message; ?>
+                    }
+                ]
+            };
+            let home_Path = '<?php bloginfo('url'); ?>/';
+            initTips(messageList);
+            initMessage(home_Path);
+            loadlive2d("live2d", "<?php echo get_template_directory_uri(); ?>/static/plug-in/Live2D-master/live2d/model/tia/model.json");
+            initLive2d ();
+        </script>
+    <?php }?>
     <?php echo get_option('firgatebird_custom_code'); ?>
     <?php wp_footer(); ?>

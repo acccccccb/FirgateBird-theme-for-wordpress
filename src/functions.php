@@ -434,7 +434,7 @@ function thumb_article() {
  }
 //TO DO 文章评论
 // 热门文章
-function hot_posts($post_num=6){
+function hot_posts($post_num=7){
 	global $post;
 	$args = array(
 	'post_password' => '',
@@ -457,7 +457,7 @@ function hot_posts($post_num=6){
 	wp_reset_query();
 }
 //相关文章
-function same_posts($post_num=6){
+function same_posts($post_num=7){
 	global $post;
     $post_category = get_the_category($post->ID);
 	$args = array(
