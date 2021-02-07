@@ -166,6 +166,9 @@ header{
         font-size:22px;
         line-height:150%;
     }
+    .article-info small {
+        color: #9d9d9d;
+    }
     p {
         a {
             img {
@@ -223,11 +226,18 @@ header{
     }
 
 }
-
+.article-list-meta {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    line-height: 32px;
+    height: 32px;
+}
 .the-article-info,.article-list-meta, .article-first, .article-last {
     color:#999;
     a {
-        color:#999;
+        color:#999!important;
     }
     a:hover {
         text-decoration: underline;
@@ -235,10 +245,7 @@ header{
     font-size: 12px;
 }
 .article-list-date,.article-list-date a {
-    color:#9d9d9d;
-}
-.article-list-date a:hover {
-    color: $maincolor;
+    color:#999;
 }
 .article-list-thumbnail {
     overflow:hidden;
@@ -361,8 +368,16 @@ header{
             text-overflow:ellipsis;
             white-space: nowrap;
         }
-        .most-view-num-1,.most-view-num-2,.most-view-num-3 {
-            background:#c40000!important;
+        .most-view-num-1 {
+            background:#df4f11!important;
+            color:#fff;
+        }
+        .most-view-num-2 {
+            background: #f49f1d !important;
+            color:#fff;
+        }
+        .most-view-num-3 {
+            background: #65e024 !important;
             color:#fff;
         }
     }
@@ -379,6 +394,9 @@ header{
     }
 }
 //文章评论
+.comment-reply-title {
+    margin-top: 0;
+}
 .comment-author {
     width:49%;
     display:inline-block;
@@ -496,6 +514,7 @@ to {transform: rotate(360deg);}
 //相关文章
 .more-article {
     padding:20px 20px;
+    min-height: 367px;
 }
 .more-article-img {
     width:64px;
@@ -522,7 +541,6 @@ to {transform: rotate(360deg);}
 }
 .more-link {
     float:right;
-    background:$maincolor;
     color:#fff;
     font-weight:normal;
     padding-left:5px;
@@ -534,8 +552,6 @@ to {transform: rotate(360deg);}
 }
 .more-link:hover {
     color:#fff;
-    background:lighten($maincolor,10%);
-
 }
 //作者
 .author {
@@ -543,11 +559,8 @@ to {transform: rotate(360deg);}
     background:#fcfcfc;
     -ms-word-break: break-all;
     word-break: break-all;
-    //border-left:3px solid $maincolor;
-    //border-right:3px solid $maincolor;
     border:1px dotted #dedede;
     font-size:12px;
-    //color:$maincolor;
     color:#9d9d9d;
     a {
         color:#9d9d9d;
@@ -566,22 +579,10 @@ pre {
 }
 // 底部
 .footer {
-    background:url('../img/foot-bg.png') no-repeat 80% bottom $maincolor;
+    background:url('../img/foot-bg.png') no-repeat 80% bottom;
     .footer-info {
         font-size:0.8em;
-        //color:#999!important;
-        color:lighten($maincolor, 40%);
-        //padding-top:50px;
         padding-bottom:10px;
         padding-top:30px;
-        a {
-            //color:#999!important;
-            color:lighten($maincolor, 40%);
-            //text-decoration: underline;
-        }
-        a:hover {
-            //color:#fff!important;
-            color:lighten($maincolor, 50%);
-        }
     }
 }

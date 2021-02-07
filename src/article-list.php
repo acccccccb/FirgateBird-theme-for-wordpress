@@ -54,31 +54,19 @@ function checkStr($str,$target) {
 
                 <div class="article-body">
                     <?php
-                    //$content = get_the_content();
-                    //$trimmed_content = wp_trim_words( $content, 300, '<a href="'. get_permalink() .'"> ...阅读更多</a>' );
-                    //echo $trimmed_content;
-                    //the_content('');
-
-//                    $checking = checkStr('<img class=',$content);
-//                    if($checking==1) {
-//                        $content =str_replace('<img class="','<img class="lazyload img-responsive',get_the_content(''));
-//                    } else {
-//                        $content =str_replace('<img src=','<img class="lazyload img-responsive" data-src=',get_the_content(''));
-//                    }
-                    $content = preg_replace('(<img class=\")','<img class="lazyload img-responsive ',get_the_content(''));
-                    $content = preg_replace('(<img src=\")','<img class="lazyload img-responsive" data-src="',$content);
-                    //$content =str_replace('<img class="','<img class="lazyload img-responsive',get_the_content(''));
-                    //$content =str_replace('<img src=','<img class="lazyload img-responsive" data-src=',get_the_content(''));
-                   echo $content;
+                        $content = preg_replace('(<img class=\")','<img class="lazyload img-responsive ',get_the_content(''));
+                        $content = preg_replace('(<img src=\")','<img class="lazyload img-responsive" data-src="',$content);
+                        echo $content;
                     ?>
                 </div>
-
-                <h4 class="mb20">
-                    <small class="mr20 article-list-meta"><span class="glyphicon glyphicon-tag mr10"></span><?php the_tags('标签： #', '  #' , ''); ?></small>
-                </h4>
-                <div class="row">
-                    <div class="col-lg-12 border-top-1 text-right article-list-date">
-                        <small><?php $category = get_the_category(); echo $category[0]->cat_name; ?></small><small> | <?php the_time('Y.n.j') ?></small> <small> | <?php echo post_views(); ?></small>
+                <div class="row border-top-1 mt20">
+                    <div class="col-lg-8 col-xs-12 article-list-meta">
+                        <small><?php the_tags('#', '  #' , ''); ?></small>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 text-right article-list-date">
+                        <small><?php $category = get_the_category(); echo $category[0]->cat_name; ?></small>
+                        <small> | <?php the_time('Y.n.j') ?></small>
+                        <small> | <?php echo post_views(); ?></small>
                     </div>
                 </div>
             </div>

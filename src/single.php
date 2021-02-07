@@ -17,7 +17,7 @@
 							<small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
                             <small class="mr20"><span class="glyphicon glyphicon glyphicon-eye-open"></span> <span class="badge"></span> <?php echo get_post_meta($post->ID, 'views', true); ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
-							<small class="mr20"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="badge hidden"></span> <?php echo get_post_like()?></small>
+							<small class="mr20"><span class="glyphicon glyphicon-heart"></span> <span class="badge hidden"></span> <?php echo get_post_like()?></small>
 						</h4>
 					</div>
 					<div class="article-body">
@@ -28,7 +28,7 @@
 					</div>
                     <div class="text-center mt20 mb20">
                         <button onclick="iLike()" id="like_btn"  class="btn btn-danger" type="button">
-                            <i class="glyphicon glyphicon-thumbs-up"></i> 赞 （<span id="single_like" data-like="<?php echo get_post_like()?>" ><?php echo get_post_like()?></span>）
+                            <i class="glyphicon glyphicon-heart"></i> 赞 （<span id="single_like" data-like="<?php echo get_post_like()?>" ><?php echo get_post_like()?></span>）
                         </button>
                     </div>
                     <script>
@@ -64,7 +64,7 @@
 				<?php author(); ?>
 				<div class="clearboth mt20 mb20">
 					<div class="article-list-meta">
-                        <?php echo the_tags('<div><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签：#', '#', '</div>')?>
+                        <?php echo the_tags('<div>#', '#', '</div>')?>
 					</div>
 				</div>
 				<div class="mt20">

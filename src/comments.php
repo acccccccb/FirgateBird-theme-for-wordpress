@@ -1,16 +1,17 @@
 <?php
-    if (isset($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
+    if (isset($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME'])) {
         die ('Please do not load this page directly. Thanks!');
+    }
+    if ( post_password_required() ) {
+        die();
+    }
 ?>
-<?php
-if ( post_password_required() ) {
-	return;
-}
-?>
-<?php echo '&nbsp;'/*fix a bug*/; ?>
+<div style="clear: both;"></div>
 <div class="comments comments-main">
-	<div class="page-header">
-		<h2><i class="glyphicon glyphicon-comment"></i> 文章评论
+	<div class="page-header" style="margin-top: 0;">
+		<h3 style="margin-top: 0;">
+            <i class="glyphicon glyphicon-comment" style="opacity: .3"></i>
+            文章评论
             <small>
                 <?php
                     if( have_comments() && comments_open() ) {
@@ -25,7 +26,7 @@ if ( post_password_required() ) {
                     }
                 ?>
             </small>
-        </h2>
+        </h3>
 	</div>
 	<div class="row fix-row">
         <ul class="new-comments media-list">
@@ -39,8 +40,7 @@ if ( post_password_required() ) {
                                 <?php printf(__('<b>%s</b>'), get_comment_author_link()); ?>
                                 <small>
                                     发表于<?php echo get_comment_time('Y-m-d H:i'); ?>
-                                    <span class="comments-edit"><?php edit_comment_link('修改'); ?>
-                            </span>
+                                    <span class="comments-edit"><?php edit_comment_link('修改'); ?></span>
                                     <?php echo get_comment_reply_link(
                                         array_merge( $args, array(
                                                 'before'=>' | ',
@@ -117,7 +117,7 @@ if ( post_password_required() ) {
             'id_submit' => 'submit',
 //            'submit_before' => '<span class="glyphicon glyphicon-ok"></span>',
 		    'label_submit'=>'提交评论',
-		    'submit_field'=>'<div class="form-submit col-lg-12">%1$s %2$s</div>',
+		    'submit_field'=>'<div class="form-submit col-xs-12">%1$s %2$s</div>',
 		    'class_submit'=>'btn btn-primary btn-md',
 		    'comment_field'=>'
                 <div class="form-group col-lg-6 col-xs-12">
@@ -134,7 +134,7 @@ if ( post_password_required() ) {
 		    sprintf(
 		      __( '你可以使用这些<abbr title="HyperText Markup Language">HTML</abbr>标签: %s' ),
 		      ' <code>' . allowed_tags() . '</code>'
-		    ) 
+		    )
 		    . '</div>',
 		    'cancel_reply_link' => __( '<div class="btn btn-danger btn-xs col-lg-1 col-lg-offset-11 col-xs-2 col-xs-offset-10">取消</div><div class="clearfix"></div>' ),
 		    'logged_in_as' => '<div class="col-lg-12">' .

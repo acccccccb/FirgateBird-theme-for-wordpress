@@ -20,6 +20,30 @@ function firgatebird_option_function(){
         <div class="widget-content" style="margin-top:50px;">
             <div class="form-field term-description-wrap">
                 <div style="margin-bottom: 10px;">
+                    <label for="firgatebird_color">主题色：</label>
+                </div>
+                <input
+                    type="color"
+                    name="firgatebird_color"
+                    id="firgatebird_color"
+                    value="<?php echo get_option('firgatebird_color'); ?>"
+                    placeholder="主题色"
+                >
+            </div>
+            <div class="form-field term-description-wrap">
+                <div style="margin-bottom: 10px;">
+                    <label for="firgatebird_font_color">正文颜色：</label>
+                </div>
+                <input
+                    type="color"
+                    name="firgatebird_font_color"
+                    id="firgatebird_font_color"
+                    value="<?php echo get_option('firgatebird_font_color'); ?>"
+                    placeholder="正文颜色"
+                >
+            </div>
+            <div class="form-field term-description-wrap">
+                <div style="margin-bottom: 10px;">
                     <label for="firgatebird_logo_img">LOGO设置(100 x 50)：</label>
                 </div>
                 <div style="margin-bottom: 10px;">
@@ -35,7 +59,7 @@ function firgatebird_option_function(){
             </div>
             <div class="form-field term-description-wrap">
                 <label for="firgatebird_menu_type">
-                    <div style="margin-bottom: 10px;">导航设置：</div>
+                    <div style="margin-bottom: 10px;">导航样式：</div>
                 </label>
                 <select
                     style="width: 630px;"
@@ -47,6 +71,31 @@ function firgatebird_option_function(){
                     <option value="navbar-default" <?php echo get_option('firgatebird_menu_type')=='navbar-default'?'selected':'' ?> >浅色</option>
                     <option value="navbar-inverse" <?php echo get_option('firgatebird_menu_type')=='navbar-inverse'?'selected':'' ?> >深色</option>
                 </select>
+            </div>
+            <div class="form-field term-description-wrap">
+                <div style="margin-bottom: 10px;">
+                    <label for="firgatebird_home_keyword">首页关键词：</label>
+                    <p class="description">首页的keyword字段值，用英文逗号隔开</p>
+                </div>
+                <input
+                    type="text"
+                    name="firgatebird_home_keyword"
+                    id="firgatebird_home_keyword"
+                    value="<?php echo get_option('firgatebird_home_keyword'); ?>"
+                    placeholder="首页关键词"
+                >
+            </div>
+            <div class="form-field term-description-wrap">
+                <label for="firgatebird_custom_head">
+                    <div style="margin-bottom: 10px;">插入head标签的代码：</div>
+                </label>
+                <textarea
+                    name="firgatebird_custom_head"
+                    id="firgatebird_custom_head"
+                    cols="100"
+                    rows="5"
+                    placeholder="插入head标签的代码"
+                ><?php echo get_option('firgatebird_custom_head'); ?></textarea>
             </div>
             <div class="form-field term-description-wrap">
                 <label for="firgatebird_stats_code">
@@ -62,7 +111,7 @@ function firgatebird_option_function(){
             </div>
             <div class="form-field term-description-wrap">
                 <label for="firgatebird_stats_code">
-                    <div style="margin-bottom: 10px;">自定义HTML：</div>
+                    <div style="margin-bottom: 10px;">自定义HTML(插入到页面最下方)：</div>
                 </label>
                 <textarea
                     name="firgatebird_custom_code"
@@ -77,7 +126,7 @@ function firgatebird_option_function(){
             <input
                 type="hidden"
                 name="page_options"
-                value="firgatebird_stats_code,firgatebird_logo_img,firgatebird_menu_type,firgatebird_custom_code"
+                value="firgatebird_stats_code,firgatebird_logo_img,firgatebird_menu_type,firgatebird_custom_code,firgatebird_custom_head,firgatebird_color,firgatebird_home_keyword,firgatebird_font_color"
             />
             <p class="submit">
                 <button class="button button-primary" id="firgatebird_submit" type="submit" name="option_save" >保存设置</button>
@@ -96,10 +145,16 @@ function firgatebird_option_function(){
         label {
             font-weight: bold;
         }
+        .form-field {
+            margin-bottom: 20px;
+        }
         #firgatebird_message {
             color: green;
             display: inline-block;
             margin-left: 10px;
+        }
+        .description {
+            color: #999;
         }
     </style>
     <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>

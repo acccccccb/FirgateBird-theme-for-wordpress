@@ -13,6 +13,112 @@ require_once ('config/theme_options.php');
 //remove_action( ‘wp_head’, ‘wp_generator’ ); // Display the XHTML generator that is generated on the wp_head hook, WP version
 // 关闭前台顶部导航
 show_admin_bar(false);
+// 主题色设置
+function themeColor() {
+    $themeColor = !empty(get_option('firgatebird_color')) ? get_option('firgatebird_color') : '#b93a00';
+    $fontColor = !empty(get_option('firgatebird_font_color')) ? get_option('firgatebird_font_color') : '#333333';
+    function afterColor($color, $val = 1) {
+        $color = str_replace('#','',$color);
+        $rgb = array(
+            'r' => hexdec(substr($color,0,2)),
+            'g' => hexdec(substr($color,2,2)),
+            'b' => hexdec(substr($color,4,2))
+        );
+        $r = round($rgb['r'] * $val);
+        $g = round($rgb['g'] * $val);
+        $b = round($rgb['b'] * $val);
+
+        if($r < 0) { $r = 0; };
+        if($g < 0) { $g = 0; };
+        if($b < 0) { $b = 0; };
+
+        if($r > 255) { $r = 255; };
+        if($g > 255) { $g = 255; };
+        if($b > 255) { $b = 255; };
+
+        return $color = 'rgb('. $r .','. $g .','. $b .')';
+    }
+    echo '
+        <style>
+            .article-body,
+            body {
+                color: '. afterColor($fontColor) .'!important;
+            }
+            .footer,
+            .navbar-inverse,
+            .dropdown-menu>li>a:hover,
+            .btn-primary,
+            .pagination > .active > span,
+            .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover,
+            .more-link {
+                background-color: '. afterColor($themeColor) .';
+            }
+             .navbar-default .navbar-nav .current-menu-item,
+             .navbar-default .navbar-nav .current-menu-parent {
+                border-color: '. afterColor($themeColor) .';
+             }
+            .navbar-default .navbar-nav .current-menu-item,
+             .navbar-default .navbar-nav .current-menu-parent,
+            .pagination>.active>a,
+            .pagination>.active>a:focus,
+            .pagination>.active>a:hover,
+            .pagination>.active>span,
+            .pagination>.active>span:focus,
+            .pagination>.active>span:hover,
+            .current-menu-item,
+            .current-menu-parent, {
+                border-color: '. afterColor($themeColor) .';
+            }
+            a,
+            a:link,
+            a:visited,
+            .pagination > li > a,
+            .navbar-default .navbar-nav > li > a,
+            .navbar-default .navbar-nav > li > a:focus,
+            .navbar-default .navbar-nav>li > a:hover,
+            .navbar-inverse .navbar-nav .open .dropdown-menu>li>a,
+            .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover,
+            .article-list-date a:hover {
+                color: '. afterColor($themeColor) .';
+            }
+            .footer-info,
+            .footer-info a {
+                color: '. afterColor($themeColor, 2) .';
+            }
+            .footer-info a:hover {
+                color: '. afterColor($themeColor, 2.5) .';
+            }
+            .navbar-inverse .current-menu-item,
+            .navbar-inverse .current-menu-parent,
+            .more-link:hover {
+                background: '. afterColor($themeColor, 1.1) .';
+            }
+            .navbar-inverse,
+            .btn-primary,
+            .pagination > .active > span,
+            .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+                border-color: '. afterColor($themeColor, 0.9) .';
+            }
+            .btn-primary:hover {
+                border-color: '. afterColor($themeColor, 1.1) .';
+                background: '. afterColor($themeColor, 1.1) .';
+            }
+            .navbar-inverse .navbar-toggle:focus,
+            .navbar-inverse .navbar-toggle:hover,
+            .navbar-inverse .navbar-nav>.open>a,
+            .navbar-inverse .navbar-nav>.open>a:focus,
+            .navbar-inverse .navbar-nav>.open>a:hover {
+                background-color: '. afterColor($themeColor, 0.9) .';
+            }
+            #wp-calendar tbody tr td a {
+                color: '. afterColor($themeColor) .';
+            }
+            #wp-calendar #today {
+                background-color: '. afterColor($themeColor) .';
+            }
+        </style>
+    ';
+}
 // 面包屑导航
 function navigation(){
 	$blogurl = get_bloginfo('url');
@@ -86,7 +192,7 @@ function par_pagenavi($range = 6){
 					}
 				}
 			}
-				
+
 			elseif($paged >= $range && $paged < ($max_page - ceil(($range/2)))){
 				for($i = ($paged - ceil($range/2)); $i <= ($paged + ceil(($range/2))); $i++){
 					if($i==$paged) {
@@ -111,17 +217,17 @@ function par_pagenavi($range = 6){
 		echo "</li>";
 	}
 }
-	
+
 
 //评论数
-/*   获取文章的评论人数 by zwwooooo | zww.me 
+/*   获取文章的评论人数 by zwwooooo | zww.me
 	*调用方法：
 	*<?php echo zfunc_comments_users($postid); ?>
 	*参数说明：$postid 是需要获取评论人数的文章ID
 	*一般用法：在一般主题的loop里面可以这样用：
 	*<?php echo zfunc_comments_users($post->ID); ?>
 	*PS：还可以输出评论总数，用法：
-	*<?php echo zfunc_comments_users($postid, 1); ?> 
+	*<?php echo zfunc_comments_users($postid, 1); ?>
 */
 function zfunc_comments_users($postid=0,$which=0) {
 	$comments = get_comments('status=approve&type=comment&post_id='.$postid); //获取文章的所有评论
@@ -141,7 +247,7 @@ function zfunc_comments_users($postid=0,$which=0) {
 	}
 	return 0; //没有评论返回0
 }
-	
+
 // 评论添加@，by Ludou
 function ludou_comment_add_at( $comment_text, $comment = '') {
 	if( $comment->comment_parent > 0) {
@@ -152,7 +258,7 @@ function ludou_comment_add_at( $comment_text, $comment = '') {
 }
 add_filter( 'comment_text' , 'ludou_comment_add_at', 20, 2);
 
-//emoji表情 by www.imjeff.cn/blog/448/	
+//emoji表情 by www.imjeff.cn/blog/448/
 //评论表情路径
 function static_emoji_url() {
 	return get_bloginfo('template_directory').'/static/img/smilies/';
@@ -243,11 +349,11 @@ function show_edit_button($id) {
 if(current_user_can('level_10')){
 		$url = get_bloginfo('url');
 		echo '
-			<div class="btn-group">
+			<div class="btn-group" style="float: right;">
 			  <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			   操作<span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu">
+			  <ul class="dropdown-menu" style="right: 0!important;left: auto!important;">
 				<li><a href="'.home_url().'/wp-admin/post.php?post=' . $id . '&action=edit"><span class="glyphicon glyphicon-edit"></span> 编辑</a></li>
 				<li><a href="'.wp_nonce_url("$url/wp-admin/post.php?action=trash&post=$id", 'trash-post_' . $id).'"><span class="glyphicon glyphicon-trash"></span> 移至回收站</a></li>
 			  </ul>

@@ -1,7 +1,7 @@
 <?php
  /**
    * 最新评论
-   * 
+   *
    * */
     class sidebar_author extends WP_Widget {
         /** 构造函数 */
@@ -13,14 +13,14 @@
             parent::__construct('sidebar_author' ,__('Theme:作者介绍','bb10'), $widget_ops);
         }
         /** @see WP_Widget::widget */
-        function widget($args, $instance) {		
+        function widget($args, $instance) {
             extract( $args );
             $about_author = $instance['about_author'];
             $about_author_tags = $instance['about_author_tags'];
             $github = $instance['github'];
             $gitee = $instance['gitee'];
             $email = $instance['email'];
-            
+
             if(!$instance['about_author']) {
                 $about_author = get_the_author_meta( 'description', 0  );
             }
@@ -34,7 +34,7 @@
                 <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
                     <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-user"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                 <?php } ?>
-                
+
                 <nav class="nav pt20">
                     <div class="site-ico col-lg-2 col-lg-offset-5 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
                         <a href="<?php bloginfo('url'); ?>">
@@ -45,25 +45,25 @@
                         <h3 class="text-center"><?php the_author_meta( 'nickname', 0  );?></h3>
                         <div class="col-lg-12 text-center mb10">
                             <?php
-                                function randrgb() {   
-                                    $str='456789BCD';   
-                                    $estr='#';   
-                                    $len=strlen($str);   
-                                    for($i=1;$i<=6;$i++)   
-                                    {   
-                                        $num=rand(0,$len-1);     
-                                        $estr=$estr.$str[$num];    
-                                    }   
-                                    return $estr;   
-                                } 
+                                function randrgb() {
+                                    $str='456789BCD';
+                                    $estr='#';
+                                    $len=strlen($str);
+                                    for($i=1;$i<=6;$i++)
+                                    {
+                                        $num=rand(0,$len-1);
+                                        $estr=$estr.$str[$num];
+                                    }
+                                    return $estr;
+                                }
                                 $AuthorArray = explode(" ",$about_author_tags);
                                 foreach ($AuthorArray as $val) {
                                     print('<span class="label" style="background:'.randrgb().';">'.$val.'</span> ');
                                 }
                             ?>
                         </div>
-                        
-                        
+
+
                         <p><?php echo $about_author;?></p>
                         <hr>
                         <address class="mt10">
@@ -79,32 +79,7 @@
                                 <strong>E-mail:</strong><br>
                                 <a href="mailto:<?php echo $email;?>"><small><?php echo $email;?></small></a><br><br>
                             <?php } ?>
-
                         </address>
-                        <?php  
-                            $args=array(  
-                                'category_name' => 说说,   // 分类名称 
-                                'posts_per_page' => 1, // 显示篇数  
-                            );  
-                            query_posts($args);
-                        ?> 
-                        <?php if(have_posts()) : while (have_posts()) : the_post();?>
-                            <blockquote class="text-left">
-                                    <h4 style="color:#999; ">
-                                    <?php the_title(); ?>
-                                    <?php
-                                    if(current_user_can('level_10')){
-                                        echo '<a class="btn btn-xs btn-default" href="'.home_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit">编辑 <span class="glyphicon glyphicon-pencil"></span></a>';
-                                        }									
-                                    ?>		
-                                    </h4>
-                                <footer><?php the_time('M') ?><?php the_time('d') ?>日</footer>
-                            </blockquote>	
-                        <?php endwhile; ?>
-                            <?php else : ?>
-                                <!-- 新建名为[说说]的分类，这里将显示该分类最新一篇内容的标题 -->
-                        <?php endif; ?>
-                        <?php wp_reset_query(); ?>
                     </div>
                 </nav>
                 <?php echo $after_widget; ?>
@@ -112,12 +87,12 @@
         }
 
         /** @see WP_Widget::update 后台保存内容 */
-        function update($new_instance, $old_instance) {				
+        function update($new_instance, $old_instance) {
             return $new_instance;
         }
 
         /** @see WP_Widget::form 输出设置菜单 */
-        function form($instance) {				
+        function form($instance) {
             $title = esc_attr($instance['title']);
             $about_author = $instance['about_author'];
             $about_author_tags = $instance['about_author_tags'];
@@ -125,7 +100,7 @@
             $gitee = $instance['gitee'];
             $email = $instance['email'];
             $showtitle = $instance['showtitle'];
-            ?>  
+            ?>
                 <p>
                     <label for="<?php echo $this->get_field_id('title'); ?>">
                         <?php _e('Title:'); ?>
@@ -167,8 +142,8 @@
                         <input class="widefat" type="text" maxlength="50" id="email" name="<?php echo $this->get_field_name('email'); ?>" type="text" value="<?php echo $email; ?>">
                     </label>
                 </p>
-                
-            <?php 
+
+            <?php
         }
 
     } // class FooWidget

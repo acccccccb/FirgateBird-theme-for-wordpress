@@ -23,7 +23,7 @@
 				<?php author(); ?>
 				<div class="clearboth mt20 mb20">
                     <div class="article-list-meta">
-                        <?php echo the_tags('<div><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签：#', '#', '</div>')?>
+                        <?php echo the_tags('<div>#', '#', '</div>')?>
                     </div>
 				</div>
 				</article>

@@ -22,7 +22,7 @@
 		   // 将以下引号中的内容改成你的主页description
 		   $description = get_bloginfo('description');
 		   // 将以下引号中的内容改成你的主页keywords
-		   $keywords = 'Marco,前端知识,wordpress,jQuery,树莓派,raspberry,小程序,织梦,dedecms,php,vue';
+		   $keywords = get_option('firgatebird_home_keyword');
 		}
 		elseif(is_page()) {
 			$description = get_the_excerpt();
@@ -73,7 +73,6 @@
     			else { wp_title('',true); } ?></title>
     <meta name="keywords" content="<?php echo $keywords; ?>" />
     <meta name="description" content="<?php echo $description; ?>" />
-      <meta name="baidu_union_verify" content="05edd3b507831ce882fade53f20b7d38">
       <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
     <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php wp_head(); ?>
@@ -92,7 +91,8 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
-    <script data-ad-client="ca-pub-9248990617008906" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <?php echo get_option('firgatebird_custom_head'); ?>
+    <?php themeColor() ?>
   </head>
   <body>
 	<header>

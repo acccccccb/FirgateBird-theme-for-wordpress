@@ -1,59 +1,42 @@
 //自定义bootstrap颜色
 body {
-  font-family: "Microsoft JhengHei","Microsoft Yahei",微软雅黑, Helvetica, Arial, sans-serif;
+  font-family: "Microsoft JhengHei","Microsoft Yahei", Helvetica, Arial, sans-serif;
   //font-family: "Helvetica Neue","PingFang SC","Microsoft Yahei",微软雅黑,STXihei,华文细黑,sans-serif;
   font-size: 16px;
   line-height: 200%;
-  color: #333333;
 }
 a,a:link,a:visited {
-  color:$maincolor;
   text-decoration: none;
 }
 a:hover {
-  color:lighten($maincolor,10%);
   text-decoration: none;
 }
-
+.glyphicon {
+    opacity: .3;
+    margin-right: 5px;
+}
 .navbar-default .navbar-nav {
   .current-menu-item,.current-menu-parent {
-    //background:$maincolor;
     background:#fff;
-    border-bottom:3px solid $maincolor;
-  }
-  .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover {
-    color:$maincolor;
+    border-bottom:3px solid;
   }
 }
 .navbar-inverse .navbar-nav>li>a {
   color:#fff;
 }
 .navbar-inverse {
-  background:$maincolor;
-  border-color:darken($maincolor,10%);
-  .current-menu-item,.current-menu-parent {
-    background:lighten($maincolor,10%)!important;
-  }
   .current-menu-item>a,.current-menu-parent>a,.current-menu-item>a:hover,.current-menu-parent>a:hover {
     color:#fff!important;
   }
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
-  background-color:darken($maincolor,10%);
   color:#fff;
 }
-.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
-  background:darken($maincolor,10%);
-}
+
 .navbar-inverse .navbar-toggle {
   border-color:#fff;
 }
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color:darken($maincolor,10%);
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-  color:$maincolor;
-}
+
 .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
   color:#fff;
 }
@@ -66,24 +49,11 @@ a:hover {
   margin-left:0;
   margin-right:0;
 }
-.btn-primary {
-  background-color:$maincolor;
-  border-color:darken($maincolor,10%);
-}
-.btn-primary:hover {
-  background-color:lighten($maincolor,10%);
-}
 .dropdown-menu>li>a:hover {
-  background-color:$maincolor;
   color:#fff;
-}
-.pagination > li > a {
-  color:$maincolor;
 }
 .pagination > .active > span {
-  background:$maincolor;
   color:#fff;
-  border-color:darken($maincolor,10%);
 }
 // other fix
 .breadcrumb {
