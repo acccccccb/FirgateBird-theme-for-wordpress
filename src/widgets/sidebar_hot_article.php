@@ -49,7 +49,7 @@
                                     <a title="'.get_the_title().'" style="display:inline-block!important;vertical-align: middle;overflow: hidden;width: calc(100% - 100px);" href="'.get_the_permalink().'">
                                         <span class="most-view-num most-view-num-'.$c.'">'.$c.'</span>'.get_the_title().'
                                     </a>
-                                    <span style="display:inline-block!important;vertical-align: middle;text-align: right;width: 96px;overflow: hidden;">
+                                    <span style="display:inline-block!important;vertical-align: middle;text-align: right;width: 96px;overflow: hidden;font-size: 12px;">
                                         '.get_post_meta(get_the_ID(), 'views', true).'
                                     </span>
                                 </li>
