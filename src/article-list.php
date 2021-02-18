@@ -21,9 +21,9 @@ function checkStr($str,$target) {
     <?php if(!is_sticky()) {?>
         <?php
             if(is_page()) {
-                echo '<div class="border-bottom-1 scrollreveal col-lg-12 mb20">';
+                echo '<div class="scrollreveal col-lg-12 mb20">';
             } else {
-                echo '<div class="border-bottom-1 scrollreveal col-lg-12 item mb20">';
+                echo '<div class="scrollreveal col-lg-12 item mb20">';
             }
         ?>
             <?php
@@ -46,7 +46,7 @@ function checkStr($str,$target) {
                 <div class="the-article-info hidden">
                     <h4 class="mb10">
                         <small class="mr20"><span class="glyphicon glyphicon-folder-open"></span> <?php the_category(', ') ?></small>
-                        <small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('M') ?><?php the_time('d') ?></small>
+                        <small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('Y.n.j') ?></small>
                         <small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
                         <small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
                     </h4>
@@ -59,14 +59,15 @@ function checkStr($str,$target) {
                         echo $content;
                     ?>
                 </div>
-                <div class="row border-top-1 mt20">
+                <div class="row border-top-1 mt20 article-list-info">
                     <div class="col-lg-8 col-xs-12 article-list-meta">
                         <small><?php the_tags('#', '  #' , ''); ?></small>
                     </div>
                     <div class="col-lg-4 col-xs-12 text-right article-list-date">
-                        <small><?php $category = get_the_category(); echo $category[0]->cat_name; ?></small>
-                        <small> | <?php the_time('Y.n.j') ?></small>
-                        <small> | <?php echo post_views(); ?></small>
+                        <small class="mr10"><span class="glyphicon glyphicon-folder-open"></span> <?php $category = get_the_category(); echo $category[0]->cat_name; ?></small>
+                        <small class="mr10"><span class="glyphicon glyphicon-calendar"></span> <?php the_time('Y.n.j') ?></small>
+                        <small class="mr10"><span class="glyphicon glyphicon-fire"></span> <?php echo post_views(); ?></small>
+                        <small><span class="glyphicon glyphicon-comment"></span> <?php echo zfunc_comments_users(get_the_ID()); ?></small>
                     </div>
                 </div>
             </div>
@@ -75,7 +76,7 @@ function checkStr($str,$target) {
     <?php endwhile; ?>
 <?php else: ?>
     <?php if(is_search()): ?>
-        <div class="col-lg-12 border-bottom-1 ">
+        <div class="col-lg-12">
             <div class="index-article">
                 <h3 class="mb20">该分类下没有文章</h3>
             </div>

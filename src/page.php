@@ -12,7 +12,7 @@
 					</div>
 					<div class="article-info">
 						<h4 class="mb20">
-							<small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('M') ?><?php the_time('d') ?></small>
+							<small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('Y.n.j') ?></small>
 							<small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
 						</h4>
@@ -24,19 +24,18 @@
 						<a href=""><img src="" alt=""  class="img-responsive"/></a>
 					</div>
 				<?php author(); ?>
-				
-				<div class="mt20">
-					<nav aria-label="pre-pager">
-						<ul class="pager">
-							<li class="previous col-lg-6 col-md-6 col-sm-12 col-xs-12"><?php if (get_previous_post()) { previous_post_link('%link','上一篇:%title');} else {echo '<span>已是最后文章</span>';} ?></li>
-							<li class="next col-lg-6 col-md-6 col-sm-12 col-xs-12"><?php if (get_next_post()) { next_post_link('%link','下一篇:%title');} else {echo "<span>已是最新文章</span>";} ?></li>
-						</ul>
-					</nav>
-				</div>
+                <div class="mt20">
+                    <nav aria-label="pre-pager">
+                        <ul style="padding-left: 0;">
+                            <li><?php if (get_previous_post()) { previous_post_link('%link','上一篇：%title');} else {echo '<span class="article-last">已是最后文章</span>';} ?></li>
+                            <li><?php if (get_next_post()) { next_post_link('%link','下一篇：%title');} else {echo "<span class='article-first'>已是最新文章</span>";} ?></li>
+                        </ul>
+                    </nav>
+                </div>
 				</article>
-				
-
-				<?php comments_template(); ?>
+                <div class="mt20">
+                    <?php comments_template(); ?>
+                </div>
 				<?php else: ?>
 					<article class="border-bottom-1 index-article">
 					<h3 class="mb20">没有文章</h3>

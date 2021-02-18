@@ -1,7 +1,7 @@
 <?php
  /**
    * 最热文章
-   * 
+   *
    * */
     class sidebar_hot_article extends WP_Widget {
         /** 构造函数 */
@@ -13,13 +13,13 @@
             parent::__construct('sidebar_hot_article' ,__('Theme:热门文章','bb10'), $widget_ops);
         }
         /** @see WP_Widget::widget */
-        function widget($args, $instance) {		
+        function widget($args, $instance) {
             extract( $args );
             if(!$instance['title']) {
                 $instance['title'] = "热门文章";
             }
             if(!$instance['ArticleNum']) {
-                $instance['ArticleNum'] = 10; 
+                $instance['ArticleNum'] = 10;
             }
             ?>
                 <?php echo '<aside class="mb20">' ?>
@@ -44,7 +44,16 @@
                         while( $query_posts->have_posts() ) {
                             $query_posts->the_post();
                             $c = $c+1;
-                            echo '<li><a title="点击量:'.get_post_meta(get_the_ID(), 'views', true).'" style="display:inline-block!important;" href="'.get_the_permalink().'"><span class="most-view-num most-view-num-'.$c.'">'.$c.'</span>'.get_the_title().'</a></li>'; // get_post_meta(get_the_ID(), 'views', true)
+                            echo '
+                                <li>
+                                    <a title="'.get_the_title().'" style="display:inline-block!important;vertical-align: middle;overflow: hidden;width: calc(100% - 100px);" href="'.get_the_permalink().'">
+                                        <span class="most-view-num most-view-num-'.$c.'">'.$c.'</span>'.get_the_title().'
+                                    </a>
+                                    <span style="display:inline-block!important;vertical-align: middle;text-align: right;width: 96px;overflow: hidden;">
+                                        '.get_post_meta(get_the_ID(), 'views', true).'
+                                    </span>
+                                </li>
+                            '; // get_post_meta(get_the_ID(), 'views', true)
                         }
                             wp_reset_query();
                         ?>
@@ -54,12 +63,12 @@
         }
 
         /** @see WP_Widget::update 后台保存内容 */
-        function update($new_instance, $old_instance) {				
+        function update($new_instance, $old_instance) {
             return $new_instance;
         }
 
         /** @see WP_Widget::form 输出设置菜单 */
-        function form($instance) {				
+        function form($instance) {
             $title = esc_attr($instance['title']);
             $ArticleNum = $instance['ArticleNum'];
             ?>
@@ -75,7 +84,7 @@
                         <input class="widefat" type="text" maxlength="2" id="ArticleNum" name="<?php echo $this->get_field_name('ArticleNum'); ?>" type="number" value="<?php echo $ArticleNum; ?>">
                     </label>
                 </p>
-            <?php 
+            <?php
         }
 
     } // class FooWidget

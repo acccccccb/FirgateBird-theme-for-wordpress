@@ -13,9 +13,9 @@
 					<div class="article-info">
 						<h4 class="mb20">
 							<small class="mr20"><span class="glyphicon glyphicon-folder-open"></span> <?php the_category(', ') ?></small>
-							<small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('M') ?><?php the_time('d') ?></small>
+							<small class="mr20"><span class="glyphicon glyphicon-calendar"></span><?php the_time('Y.n.j') ?></small>
 							<small class="mr20 hidden"><span class="glyphicon glyphicon-user"></span><?php _e('Author'); ?>：<?php the_author(', ') ?></small>
-                            <small class="mr20"><span class="glyphicon glyphicon glyphicon-eye-open"></span> <span class="badge"></span> <?php echo get_post_meta($post->ID, 'views', true); ?></small>
+                            <small class="mr20"><span class="glyphicon glyphicon glyphicon-fire"></span> <span class="badge"></span> <?php echo get_post_meta($post->ID, 'views', true); ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-comment"></span> <span class="badge hidden"></span> <?php echo zfunc_comments_users($post->ID); ?></small>
 							<small class="mr20"><span class="glyphicon glyphicon-heart"></span> <span class="badge hidden"></span> <?php echo get_post_like()?></small>
 						</h4>
@@ -97,8 +97,6 @@
 					</ul>
 				</div><!-- 随机文章 -->
 			</div>
-
-
 				<?php comments_template(); ?>
 				<?php else: ?>
 					<article class="border-bottom-1 index-article">

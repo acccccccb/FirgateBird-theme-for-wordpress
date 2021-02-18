@@ -3,9 +3,7 @@
 	<div class="container-fluid">
 		<div class="row">
             <div class="col-lg-10 col-lg-offset-1">
-                <div class="row">
-                    <?php navigation();?>
-                </div>
+                <?php navigation();?>
             </div>
             <div class="col-lg-10 col-lg-offset-1">
                 <?php if(is_active_sidebar( "sidebar-2" )) { ?>

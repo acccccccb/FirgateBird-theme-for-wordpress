@@ -14,159 +14,46 @@ function firgatebird_option_function(){
     add_theme_page( '主题设置', '主题设置', 'administrator', 'firgatebird_slug','display_function');
 }
 ?>
-<?php function display_function(){ ?>
+
+<?php function display_function() {?>
     <form method="post" name="firgatebird_form" id="firgatebird_form" target="rfFrame" onsubmit="formOnSubmit()" action="options.php" class="validate">
-        <h1>主题设置</h1>
         <div class="widget-content" style="margin-top:50px;">
-            <div class="form-field term-description-wrap">
-                <div style="margin-bottom: 10px;">
-                    <label for="firgatebird_color">主题色：</label>
-                </div>
-                <input
-                    type="color"
-                    name="firgatebird_color"
-                    id="firgatebird_color"
-                    value="<?php echo get_option('firgatebird_color'); ?>"
-                    placeholder="主题色"
-                >
+            <h1>主题设置</h1>
+            <div style="display: block; height: 26px;">
+                <ul class="subsubsub">
+                    <li class="all"><a href="javascript: void(0);" id="tab_0" onclick="showTab(this)" data-index="0" data-name="base_option" class="current">基本设置</a> |</li>
+                    <li class="all"><a href="javascript: void(0);" id="tab_1" onclick="showTab(this)" data-index="1" data-name="high_level_option">高级设置</a> |</li>
+                    <li class="all"><a href="javascript: void(0);" id="tab_2" onclick="showTab(this)" data-index="2" data-name="board_option">看板</a></li>
+                </ul>
             </div>
-            <div class="form-field term-description-wrap">
-                <div style="margin-bottom: 10px;">
-                    <label for="firgatebird_font_color">正文颜色：</label>
-                </div>
-                <input
-                    type="color"
-                    name="firgatebird_font_color"
-                    id="firgatebird_font_color"
-                    value="<?php echo get_option('firgatebird_font_color'); ?>"
-                    placeholder="正文颜色"
-                >
+
+            <div class="tabs_body card" data-index="0" style="max-width: 100%;">
+                <?php require_once( 'model/base_option.php' );?>
             </div>
-            <div class="form-field term-description-wrap">
-                <div style="margin-bottom: 10px;">
-                    <label for="firgatebird_logo_img">LOGO设置(100 x 50)：</label>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <img class="mr10" alt="Brand" src="<?php echo !empty(get_option('firgatebird_logo_img')) ? get_option('firgatebird_logo_img') : (get_template_directory_uri() . '/static/img/logo.png'); ?>" width="100" height="50">
-                </div>
-                <input
-                    type="text"
-                    name="firgatebird_logo_img"
-                    id="firgatebird_logo_img"
-                    value="<?php echo get_option('firgatebird_logo_img'); ?>"
-                    placeholder="顶部导航logo图片地址(100 x 50)"
-                >
+            <div class="tabs_body card" data-index="1" style="display: none;max-width: 100%;">
+                <?php require_once( 'model/high_level_option.php' );?>
             </div>
-            <div class="form-field term-description-wrap">
-                <label for="firgatebird_menu_type">
-                    <div style="margin-bottom: 10px;">导航样式：</div>
-                </label>
-                <select
-                    style="width: 630px;"
-                    class="postform"
-                    name="firgatebird_menu_type"
-                    id="firgatebird_menu_type"
-                    value="<?php echo get_option('firgatebird_menu_type'); ?>"
-                >
-                    <option value="navbar-default" <?php echo get_option('firgatebird_menu_type')=='navbar-default'?'selected':'' ?> >浅色</option>
-                    <option value="navbar-inverse" <?php echo get_option('firgatebird_menu_type')=='navbar-inverse'?'selected':'' ?> >深色</option>
-                </select>
+            <div class="tabs_body card" data-index="1" style="display: none;max-width: 100%;">
+                <?php require_once( 'model/board_option.php' );?>
             </div>
-            <div class="form-field term-description-wrap">
-                <label for="firgatebird_live2d">
-                    <div style="margin-bottom: 10px;">是否显示看板娘：</div>
-                </label>
-                <select
-                    style="width: 630px;"
-                    class="postform"
-                    name="firgatebird_live2d"
-                    id="firgatebird_live2d"
-                    value="<?php echo get_option('firgatebird_live2d'); ?>"
-                >
-                    <option value="1" <?php echo get_option('firgatebird_live2d')=='1'?'selected':'' ?> >是</option>
-                    <option value="" <?php echo get_option('firgatebird_live2d')==''?'selected':'' ?> >否</option>
-                </select>
-            </div>
-            <div class="form-field term-description-wrap">
-                <div style="margin-bottom: 10px;">
-                    <label for="firgatebird_live2d_message">
-                        点击看板娘时说的话：
-                    </label>
-                </div>
-                <p class="description">点击看板娘时说的话，每行一句</p>
-                <textarea
-                    name="firgatebird_live2d_message"
-                    id="firgatebird_live2d_message"
-                    cols="100"
-                    rows="5"
-                    placeholder="点击看板娘时说的话，每行一句"
-                ><?php echo get_option('firgatebird_live2d_message'); ?></textarea>
-            </div>
-            <div class="form-field term-description-wrap">
-                <div style="margin-bottom: 10px;">
-                    <label for="firgatebird_home_keyword">首页关键词：</label>
-                    <p class="description">首页的keyword字段值，用英文逗号隔开</p>
-                </div>
-                <input
-                    type="text"
-                    name="firgatebird_home_keyword"
-                    id="firgatebird_home_keyword"
-                    value="<?php echo get_option('firgatebird_home_keyword'); ?>"
-                    placeholder="首页关键词"
-                >
-            </div>
-            <div class="form-field term-description-wrap">
-                <label for="firgatebird_custom_head">
-                    <div style="margin-bottom: 10px;">插入head标签的代码：</div>
-                </label>
-                <textarea
-                    name="firgatebird_custom_head"
-                    id="firgatebird_custom_head"
-                    cols="100"
-                    rows="5"
-                    placeholder="插入head标签的代码"
-                ><?php echo get_option('firgatebird_custom_head'); ?></textarea>
-            </div>
-            <div class="form-field term-description-wrap">
-                <label for="firgatebird_stats_code">
-                    <div style="margin-bottom: 10px;">统计代码：</div>
-                </label>
-                <textarea
-                    name="firgatebird_stats_code"
-                    id="firgatebird_stats_code"
-                    cols="100"
-                    rows="5"
-                    placeholder="页面底部统计代码"
-                ><?php echo get_option('firgatebird_stats_code'); ?></textarea>
-            </div>
-            <div class="form-field term-description-wrap">
-                <label for="firgatebird_stats_code">
-                    <div style="margin-bottom: 10px;">自定义HTML(插入到页面最下方)：</div>
-                </label>
-                <textarea
-                    name="firgatebird_custom_code"
-                    id="firgatebird_custom_code"
-                    cols="100"
-                    rows="5"
-                    placeholder="自定义HTML代码"
-                ><?php echo get_option('firgatebird_custom_code'); ?></textarea>
-            </div>
-            <?php wp_nonce_field('update-options'); ?>
+
             <input type="hidden" name="action" value="update" />
             <input
+                id="page_options"
                 type="hidden"
                 name="page_options"
-                value="firgatebird_stats_code,firgatebird_logo_img,firgatebird_menu_type,firgatebird_custom_code,firgatebird_custom_head,firgatebird_color,firgatebird_home_keyword,firgatebird_font_color,firgatebird_live2d,firgatebird_live2d_message"
+                value=""
             />
             <p class="submit">
                 <button class="button button-primary" id="firgatebird_submit" type="submit" name="option_save" >保存设置</button>
                 <span id="firgatebird_message" style="display: none;">保存成功</span>
             </p>
         </div>
+        <?php wp_nonce_field('update-options'); ?>
     </form>
     <style>
         .validate {
-            max-width: 600px;
+            max-width: 800px;
         }
         .term-description-wrap {
             margin: 1em 0;
@@ -189,14 +76,39 @@ function firgatebird_option_function(){
     </style>
     <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
     <script>
+        let currentTab = 'base_option';
+        function showTab(e) {
+            document.getElementById('tab_0').classList = '';
+            document.getElementById('tab_1').classList = '';
+            document.getElementById('tab_2').classList = '';
+            e.classList = 'current';
+            const index = Number(e.dataset.index);
+            const $tabs = document.getElementsByClassName('tabs_body');
+            currentTab = e.dataset.name;
+            document.getElementById('firgatebird_message').style.display = 'none';
+            for(let i = 0; i< $tabs.length; i++) {
+                if(index === i) {
+                    $tabs[i].style.display = 'block';
+                } else {
+                    $tabs[i].style.display = 'none';
+                }
+            }
+        }
         function formOnSubmit(){
+            const $pageOptions = document.getElementById('page_options');
+            const params = {
+                base_option: ['firgatebird_color', 'firgatebird_font_color','firgatebird_logo_img', 'firgatebird_menu_type','firgatebird_bg_img','firgatebird_bg_attachment', 'firgatebird_bg_repeat', 'firgatebird_bg_size'],
+                high_level_option: ['firgatebird_stats_code', 'firgatebird_home_keyword','firgatebird_custom_head', 'firgatebird_custom_code'],
+                board_option: ['firgatebird_live2d', 'firgatebird_live2d_message'],
+            };
+            $pageOptions.value = params[currentTab].join(',');
             document.getElementById('firgatebird_message').style.display = 'none';
             document.getElementById('firgatebird_submit').innerText = '正在保存...';
             document.getElementById('firgatebird_submit').disabled = true;
             document.getElementById('rfFrame').onload = function(res){
                 if(res.returnValue) {
                     document.getElementById('firgatebird_message').style.display = 'inline-block';
-                    window.location.reload();
+                    // window.location.reload();
                 } else {
                     window.alert('保存失败');
                 }
@@ -205,5 +117,6 @@ function firgatebird_option_function(){
             };
         }
     </script>
-<?php } ?>
+<?php }?>
+
 <?php add_action('admin_menu', 'firgatebird_option_function');?>

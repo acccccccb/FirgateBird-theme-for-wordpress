@@ -16,7 +16,7 @@
                             <div class="col-lg-10">
                                 <article class="border-bottom-1 archive-list Rolling-effects">
                                     <a href="<?php the_permalink() ?>" data-link="<?php the_permalink() ?>"  class="ajax-article" title="<?php the_title(); ?>">
-                                        <p><?php the_title(); ?></p>
+                                        <p style="margin-bottom: 0;"><?php the_title(); ?></p>
                                     </a>
                                 </article>
                             </div>

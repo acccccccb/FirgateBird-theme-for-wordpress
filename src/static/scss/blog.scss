@@ -35,10 +35,7 @@
 html, body {
         //background:url(../img/blog-head.jpg);background-size:100%;background-attachment:fixed;
         //background:url('../img/9e6b03370b97165c9609b53770994154.jpg');
-        background-size:100%;
-        background-attachment:fixed;
-        background:#f5f5f5;
-        height: 100%;
+        background-color: #f5f5f5;
     }
 header{
     height:50px;
@@ -139,15 +136,17 @@ header{
     }
 }
 .index-article:hover {
-    //animation: action1 1s;
     box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+    transition: box-shadow .5s;
 }
 .sidebar-bg>aside,.more-article,.comments-main,#myCarousel {
-    //animation: action3 1s;
     box-shadow: 0 3px 3px rgba(0,0,0,0.1);
     cursor:default;
 }
 .index-article {
+    .article-list-info {
+        padding: 8px 0;
+    }
     //opacity: 1;
     //animation: action2 1s;
     //transform: translate(0px,0px);
@@ -156,12 +155,13 @@ header{
     //box-shadow:0 1px 3px rgba(0, 0, 0, 0.3);
     //border-radius: 5px;
     box-shadow: 0 3px 3px rgba(0,0,0,0.1);
-    padding:20px 20px;
+    padding:20px 20px 0 20px;
     //margin:15px;
     //width:100%;
     height:auto;
     //margin-bottom:20px;
     //border:1px solid #eee;
+    transition: box-shadow .5s;
     .article-tit {
         font-size:22px;
         line-height:150%;
@@ -394,6 +394,16 @@ header{
     }
 }
 //文章评论
+.comments-action {
+    opacity: .3;
+    float: right;
+    line-height: 19px;
+    transition: opacity .5s;
+}
+.comments-action:hover {
+    opacity: 1;
+    transition: opacity .5s;
+}
 .comment-reply-title {
     margin-top: 0;
 }
@@ -448,10 +458,6 @@ ul.children {
     padding-bottom:10px;
     margin-bottom:10px;
     border-bottom:1px solid #f1f1f1;
-}
-.sidebar-bg {
-    //padding:20px;
-    margin-bottom:20px;
 }
 aside {
     background: #fff;

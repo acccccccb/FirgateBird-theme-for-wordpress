@@ -59,6 +59,9 @@ a:hover {
 .breadcrumb {
   margin-top:0;
   margin-bottom:0;
+    padding-left: 0;
+    border-radius: 0;
+    background: none!important;
 }
 .navbar-brand {
   padding-top:0;
@@ -67,4 +70,9 @@ a:hover {
 // banner
 .carousel-control {
   background-image:none!important;
+}
+.media-left {
+    img.avatar {
+        border-radius: 50%;
+    }
 }

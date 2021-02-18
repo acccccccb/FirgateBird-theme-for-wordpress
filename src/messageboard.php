@@ -24,7 +24,9 @@ Template Name: 留言板
                     </div>
                     <div class="clearboth"></div>
                 </article>
-                <?php comments_template(); ?>
+                <div class="mt20">
+                    <?php comments_template(); ?>
+                </div>
             <?php else: ?>
                 <article class="border-bottom-1 index-article">
                     <h3 class="mb20">没有文章</h3>

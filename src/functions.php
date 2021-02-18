@@ -17,6 +17,10 @@ show_admin_bar(false);
 function themeColor() {
     $themeColor = !empty(get_option('firgatebird_color')) ? get_option('firgatebird_color') : '#b93a00';
     $fontColor = !empty(get_option('firgatebird_font_color')) ? get_option('firgatebird_font_color') : '#333333';
+    $bg = !empty(get_option('firgatebird_bg_img')) ? 'background-image: url('. get_option('firgatebird_bg_img') .');' : '';
+    $firgatebird_bg_attachment = !empty(get_option('firgatebird_bg_attachment')) ? get_option('firgatebird_bg_attachment') : 'scroll';
+    $firgatebird_bg_repeat = !empty(get_option('firgatebird_bg_repeat')) ? get_option('firgatebird_bg_repeat') : 'repeat';
+    $firgatebird_bg_size = !empty(get_option('firgatebird_bg_size')) ? get_option('firgatebird_bg_size') : 'auto';
     function afterColor($color, $val = 1) {
         $color = str_replace('#','',$color);
         $rgb = array(
@@ -40,9 +44,19 @@ function themeColor() {
     }
     echo '
         <style>
+            body {
+                '. $bg .'
+                background-position: center top;
+                background-repeat: '. $firgatebird_bg_repeat .';
+                background-size: '. $firgatebird_bg_size .';
+                background-attachment: '. $firgatebird_bg_attachment .';
+            }
             .article-body,
             body {
                 color: '. afterColor($fontColor) .'!important;
+            }
+            .article-tit {
+                color: '. afterColor($themeColor) .'!important;
             }
             .footer,
             .navbar-inverse,
@@ -334,9 +348,11 @@ add_action('init', 'coolwp_remove_open_sans_from_wp_core');
 function comment_manage_link($id) {
 	global $comment, $post;
 	$id = $comment->comment_ID;
+    $before = '<span class="comments-action">';
+    $after = '</span>';
 	if(current_user_can( 'moderate_comments', $post->ID )){
-		if ( null === $link ) $link = __('编辑');
-		$link = '<a class="comment-edit-link" href="' . get_edit_comment_link( $comment->comment_ID ) . '" title="' . __( '编辑评论' ) . '">' . $link . '</a>';
+		$link = __('编辑');
+		$link = '<a class="comment-edit-link" href="' . get_edit_comment_link( $comment->comment_ID ) . '">' . $link . '</a>';
 		$link = $link . ' | <a href="'.admin_url("comment.php?action=cdc&c=$id").'">删除</a> ';
 		$link = $link . ' | <a href="'.admin_url("comment.php?action=cdc&dt=spam&c=$id").'">标识为垃圾</a>';
 		$link = $before . $link . $after;
@@ -565,7 +581,7 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 		return $html;
 	}
 //取得文章的阅读次数
-function post_views($before = ' ', $after = ' Click', $echo = 1) {
+function post_views($before = '', $after = '', $echo = 1) {
     global $post;
     $post_ID = $post->ID;
     $views = (int)get_post_meta($post_ID, 'views', true);

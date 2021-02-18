@@ -12,8 +12,8 @@
 				</article>
 
                 <div class="col-lg-12 more-article mt20 mb20">
-                    <div class="page-header">
-                        <h2>热门文章 <small>Related articles</small></h2>
+                    <div class="page-header" style="margin-top: 0;">
+                        <h3 style="margin-top: 0;">热门文章</h3>
                     </div>
                     <div class="right mt20">
                         <ul class="list-unstyled most-view">
