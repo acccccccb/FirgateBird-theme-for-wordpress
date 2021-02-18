@@ -60,10 +60,10 @@ function checkStr($str,$target) {
                     ?>
                 </div>
                 <div class="row border-top-1 mt20 article-list-info">
-                    <div class="col-lg-8 col-xs-12 article-list-meta">
+                    <div class="col-lg-6 col-xs-12 article-list-meta">
                         <small><?php the_tags('#', '  #' , ''); ?></small>
                     </div>
-                    <div class="col-lg-4 col-xs-12 text-right article-list-date">
+                    <div class="col-lg-6 col-xs-12 text-right article-list-date">
                         <small class="mr10"><span class="glyphicon glyphicon-folder-open"></span> <?php $category = get_the_category(); echo $category[0]->cat_name; ?></small>
                         <small class="mr10"><span class="glyphicon glyphicon-calendar"></span> <?php the_time('Y.n.j') ?></small>
                         <small class="mr10"><span class="glyphicon glyphicon-fire"></span> <?php echo post_views(); ?></small>
