@@ -6,6 +6,7 @@
  require_once( 'sidebar_tools.php' );
  require_once( 'sidebar_author.php' );
  require_once( 'sidebar_calendar.php' );
+ require_once( 'sidebar_light_word.php' );
  /*
  *注销wp默认侧边栏小工具
  */
