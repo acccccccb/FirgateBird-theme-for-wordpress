@@ -328,11 +328,11 @@ function fa_get_wpsmiliestrans(){
 }
 
 //替换头像路径（多说挂了 暂时不用这个）
-// function fox_get_https_avatar($avatar) {
-//     $avatar = str_replace(array('www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'gravatar.duoshuo.com', $avatar);
-//     return $avatar;
-// }
-//add_filter('get_avatar', 'fox_get_https_avatar');
+ function fox_get_https_avatar($avatar) {
+     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'cn.gravatar.com', $avatar);
+     return $avatar;
+ }
+add_filter('get_avatar', 'fox_get_https_avatar');
 
 //清除谷歌字体
 function coolwp_remove_open_sans_from_wp_core(){
