@@ -11,28 +11,49 @@ function firgatebird_light_word_function(){
     //capability-访问这个页面需要的权限
     //menu_slug-别名，需要独一无二哦
     //function-执行的函数
-    $init_data = $_GET['init_data'];
-    global $table_prefix;
-    $table = $table_prefix . 'firgatebird_light_word';
-    if($init_data === 'true') {
-        create_table($table);
-        die();
-    }
-    if($_GET['add'] === 'true') {
-        add_item($table);
-        die();
-    }
-    if($_GET['delete'] === 'true') {
-        if(!empty($_POST['id'])) {
-            delete_item($table, $_POST['id']);
+    $user = wp_get_current_user();
+    $allowed_roles = array( 'administrator' );
+    if ( array_intersect( $allowed_roles, $user->roles ) ) {
+        date_default_timezone_set('PRC');
+        global $table_prefix;
+        $table = $table_prefix . 'firgatebird_light_word';
+        if($_GET['init_data'] === 'true') {
+            create_table($table);
+            die();
         }
+        if($_GET['add'] === 'true') {
+            add_item($table);
+            die();
+        }
+        if($_GET['delete'] === 'true') {
+            if(!empty($_POST['id'])) {
+                delete_item($table, $_POST['id']);
+            }
+            die();
+        }
+        if($_GET['update'] === 'true') {
+            if(!empty($_POST['id'])) {
+                update_item($table, $_POST['id']);
+            }
+            die();
+        }
+        if($_GET['clear'] === 'true') {
+            if($_POST['clear'] == "clear-all-data") {
+                clear_item($table);
+            }
+            die();
+        }
+    } else {
         die();
     }
-    add_theme_page( '轻言', '轻言', 'administrator', 'firgatebird_light_word','firgatebird_light_word_display');
+    if(get_option('firgatebird_light_word') == 1) {
+        add_submenu_page( 'edit.php', '轻言', '轻言', 'administrator', 'firgatebird_light_word','firgatebird_light_word_display');
+    }
 }
 ?>
 <?php
     function create_table($table) {
+        global $wpdb;
         $sql = 'CREATE TABLE IF NOT EXISTS `'. $table .'` (
 			`id` int(11) NOT NULL auto_increment,
 			`content` text,
@@ -41,12 +62,12 @@ function firgatebird_light_word_function(){
             `create_time` datetime default NULL,
 			UNIQUE KEY `id` (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta($sql);
+        $wpdb->query(
+            $wpdb->prepare($sql)
+        );
     }
     function add_item($table) {
         global $wpdb;
-        $wpdb->show_errors();
         $wpdb->insert(
             $table . '',
             array(
@@ -65,12 +86,35 @@ function firgatebird_light_word_function(){
     }
     function delete_item($table, $id) {
         global $wpdb;
-        $wpdb->delete( $table.'', array( 'ID' => $id ) );
+        $wpdb->delete( $table.'', array( 'id' => $id ) );
+    }
+    function clear_item($table) {
+        global $wpdb;
+        $wpdb->query(
+            $wpdb->prepare( "DROP TABLE " . $table)
+        );
+    }
+    function update_item($table, $id) {
+        global $wpdb;
+        $wpdb->update(
+            $table . '',
+            array(
+                'content' => $_POST['content'],
+                'status' => $_POST['status'],
+                'show' => $_POST['show'],
+            ),
+            array( 'id' => $id ),
+            array(
+                '%s',
+                '%d',
+                '%d',
+            )
+        );
     }
 ?>
 <?php function firgatebird_light_word_display() {?>
     <div class="wrap">
-        <h1 class="wp-heading-inline">设置</h1>
+        <h1 class="wp-heading-inline">轻言</h1>
         <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
         <?php
         global $wpdb;
@@ -83,17 +127,20 @@ function firgatebird_light_word_function(){
         $total_page = ceil($count / $page_size);
         if($count === NULL) {
         ?>
-            <div>
-                <p>暂无数据</p>
-                <form method="post" name="firgatebird_form" id="firgatebird_form" target="rfFrame" onsubmit="initData()" action="themes.php?page=firgatebird_light_word&init_data=true" class="validate">
-                    <button id="start-install-btn" type="submit" class="button button-primary">初始化</button>
+            <div style="margin-top: 20px;">
+                <p>这是一个类似微博的小工具，可以在主题自带的小工具里显示简短的信息，支持HTML代码</p>
+                <form method="post" name="firgatebird_form" id="firgatebird_form" target="rfFrame" onsubmit="initData()" action="edit.php?page=firgatebird_light_word&init_data=true" class="validate">
+                    <div style="border: 2px dashed #b4b9be;margin-bottom: 20px;padding: 16px;">
+                        <p><strong>此功能尚未启用，继续操作前请先 <span style="color: red;">备份数据库</span>。</strong></p>
+                        <button id="start-install-btn" type="submit" class="button button-primary">开启轻言</button>
+                    </div>
                 </form>
             </div>
         <?php } else { ?>
             <div class="tablenav top">
-                <form method="post" name="firgatebird_form_add_item" id="firgatebird_form_add_item" target="rfFrame" onsubmit="addItem()" action="themes.php?page=firgatebird_light_word&add=true" class="validate">
+                <form method="post" name="firgatebird_form_add_item" id="firgatebird_form_add_item" target="rfFrame" onsubmit="addItem()" action="edit.php?page=firgatebird_light_word&add=true" class="validate">
                     <div class="alignleft actions">
-                        <input name="content" type="text" width="200" placeholder="快速添加条目" value="快速添加条目">
+                        <input name="content" type="text" style="width: 300px;" placeholder="正文" value="">
                     </div>
                     <div class="alignleft actions">
                         <select name="status">
@@ -113,6 +160,13 @@ function firgatebird_light_word_function(){
                         <button type="submit" class="button button-primary">添加</button>
                     </div>
                 </form>
+                <div class="alignright actions">
+                    <form method="post" target="rfFrame" onsubmit="submitClearAll()" action="edit.php?page=firgatebird_light_word&clear=true" class="validate hidden">
+                        <input name="clear" type="text" value="clear-all-data">
+                        <button type="submit" id="firgatebird_form_clear_btn" class="button button-link" style="display: none;">清空数据</button>
+                    </form>
+                    <button type="button" onclick="clearAllData()" class="button button-link">清空数据</button>
+                </div>
             </div>
             <table class="wp-list-table widefat fixed striped table-view-list posts">
                 <thead>
@@ -134,19 +188,64 @@ function firgatebird_light_word_function(){
                           ORDER BY id DESC
                           LIMIT {$start}, {$page_size}
                         ", ARRAY_A);
-                        foreach ($list as $item) {
+
                     ?>
+                    <?php if(count($list) == 0) {?>
                         <tr>
-                            <td><?php echo $item['id']?></td>
-                            <td><?php echo $item['content']?></td>
-                            <td><?php echo $item['status']?></td>
-                            <td><?php echo $item['show']?></td>
-                            <td><?php echo $item['create_time']?></td>
+                            <td></td>
+                            <td style="text-align: center;">准备工作已经完成，现在试着添加一条内容吧。也可以去站点页面的轻言小工具处新增/删除内容</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <?php } ?>
+                    <?php foreach ($list as $item) { ?>
+                        <tr>
                             <td>
-                                <form method="post" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="themes.php?page=firgatebird_light_word&delete=true" class="validate">
+                                <?php echo $item['id']?>
+                                <input type="text" style="display: none;" value="<?php echo $item['id']?>">
+                            </td>
+                            <td id="td_content_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                <span><?php echo htmlspecialchars($item['content'])?></span>
+                                <input id="edit_content_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo htmlspecialchars($item['content'])?>">
+                            </td>
+                            <td id="td_status_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                <span><?php echo $item['status']?></span>
+                                <select id="edit_status_<?php echo $item['id']?>" name="status" style="width: 100%;">
+                                    <option value="0" <?php echo $item['show'] == 0 ? 'selected' : ''?>>无状态</option>
+                                    <option value="1" <?php echo $item['status'] == 1 ? 'selected' : ''?>>1</option>
+                                    <option value="2" <?php echo $item['status'] == 1 ? 'selected' : ''?>>2</option>
+                                    <option value="3" <?php echo $item['status'] == 1 ? 'selected' : ''?>>3</option>
+                                </select>
+                            </td>
+                            <td id="td_show_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                <span><?php echo $item['show'] == 1 ? '显示' : '隐藏'?></span>
+                                <select id="edit_show_<?php echo $item['id']?>" name="show" style="width: 100%;">
+                                    <option value="1" <?php echo $item['show'] == 1 ? 'selected' : ''?>>显示</option>
+                                    <option value="0" <?php echo $item['show'] == 0 ? 'selected' : ''?>>隐藏</option>
+                                </select>
+                            </td>
+                            <td>
+                                <?php echo $item['create_time']?>
+                            </td>
+                            <td>
+                                <form style="display: none;" method="post" id="firgatebird_form_update_item_<?php echo $item['id']?>" name="firgatebird_form_update_item_<?php echo $item['id']?>" target="rfFrame" onsubmit="updateItem()" action="edit.php?page=firgatebird_light_word&update=true" class="validate">
                                     <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
-                                    <button type="submit" class="button">删除</button>
+                                    <input id="update_content_<?php echo $item['id']?>" name="content" style="display: none;" type="text" value="<?php echo htmlspecialchars($item['content']) ?>">
+                                    <input id="update_show_<?php echo $item['id']?>" name="show" style="display: none;" type="text" value="<?php echo $item['show']?>">
+                                    <input id="update_status_<?php echo $item['id']?>" name="status" style="display: none;" type="text" value="<?php echo $item['status']?>">
+                                    <button type="submit" id="firgatebird_form_update_item_btn_<?php echo $item['id']?>" style="display: none;">保存</button>
                                 </form>
+                                <a href="javascript:void(0);" style="display: none;" id="save_<?php echo $item['id']?>" onclick="submitUpdate(<?php echo $item['id']?>)">保存</a>
+                                <a href="javascript:void(0);" id="update_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, true)">修改</a>
+                                <a href="javascript:void(0);" style="display: none;" id="cancel_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, false)">取消</a>
+
+                                <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="edit.php?page=firgatebird_light_word&delete=true" class="validate">
+                                    <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
+                                    <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
+                                </form>
+                                <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -159,10 +258,10 @@ function firgatebird_light_word_function(){
                         <?php echo $count;?>个项目
                     </span>
                     <?php if($current_page > 1) {?>
-                        <a class="pagination-links" href="/wp-admin/themes.php?page=firgatebird_light_word&current_page=1">
+                        <a class="pagination-links" href="edit.php?page=firgatebird_light_word&current_page=1">
                             <span class="tablenav-pages-navspan button" aria-hidden="true">«</span>
                         </a>
-                        <a class="tablenav-pages-navspan button" aria-hidden="true" href="/wp-admin/themes.php?page=firgatebird_light_word&current_page=<?php echo $current_page-1; ?>">‹</a>
+                        <a class="tablenav-pages-navspan button" aria-hidden="true" href="edit.php?page=firgatebird_light_word&current_page=<?php echo $current_page-1; ?>">‹</a>
                     <?php } else { ?>
                         <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
                         <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
@@ -175,11 +274,11 @@ function firgatebird_light_word_function(){
                         </span>
                     </span>
                     <?php if($current_page < $total_page) {?>
-                        <a class="next-page button" href="/wp-admin/themes.php?page=firgatebird_light_word&current_page=<?php echo $current_page+1; ?>">
+                        <a class="next-page button" href="edit.php?page=firgatebird_light_word&current_page=<?php echo $current_page+1; ?>">
                             <span class="screen-reader-text">下一页</span>
                             <span aria-hidden="true">›</span>
                         </a>
-                        <a class="tablenav-pages-navspan button disabled" aria-hidden="true" href="/wp-admin/themes.php?page=firgatebird_light_word&current_page=<?php echo $total_page; ?>">
+                        <a class="tablenav-pages-navspan button disabled" aria-hidden="true" href="edit.php?page=firgatebird_light_word&current_page=<?php echo $total_page; ?>">
                             »
                         </a>
                     <?php } else { ?>
@@ -204,8 +303,6 @@ function firgatebird_light_word_function(){
                 } else {
                     window.alert('数据初始化失败');
                 }
-                document.getElementById('start-install-btn').innerHTML = '初始化';
-                document.getElementById('start-install-btn').disabled = false;
             };
         }
         function addItem() {
@@ -217,6 +314,57 @@ function firgatebird_light_word_function(){
                 }
             };
         }
+
+        function toggleEdit(id, action) {
+            const classList = action === true ? 'td_edit_true' : 'td_edit_false';
+            document.getElementById('td_content_edit_' + id).classList = classList;
+            document.getElementById('td_status_edit_' + id).classList = classList;
+            document.getElementById('td_show_edit_' + id).classList = classList;
+
+            document.getElementById('save_' + id).style.display = action === true ? 'inline-block' : 'none';
+            document.getElementById('cancel_' + id).style.display = action === true ? 'inline-block' : 'none';
+            document.getElementById('update_' + id).style.display = action === true ? 'none' : 'inline-block';
+            document.getElementById('delete_' + id).style.display = action === true ? 'none' : 'inline-block';
+        }
+
+        function submitUpdate(id) {
+            document.getElementById('update_content_' + id).value = document.getElementById('edit_content_' + id).value;
+            document.getElementById('update_show_' + id).value = document.getElementById('edit_show_' + id).value;
+            document.getElementById('update_status_' + id).value = document.getElementById('edit_status_' + id).value;
+            document.getElementById('firgatebird_form_update_item_btn_' + id).click();
+        }
+        function updateItem() {
+            document.getElementById('rfFrame').onload = function(res){
+                if(res.returnValue) {
+                    window.location.reload();
+                } else {
+                    window.alert('修改失败');
+                }
+            };
+        }
+
+        function clearAllData() {
+            const  r = confirm("将会删除所有轻言内容？此操作不可恢复");
+            if (r == true){
+                document.getElementById('firgatebird_form_clear_btn').click();
+            }
+        }
+        function submitClearAll() {
+            document.getElementById('rfFrame').onload = function(res){
+                if(res.returnValue) {
+                    window.location.reload();
+                } else {
+                    window.alert('清空失败');
+                }
+            };
+        }
+
+        function submitDelete(id) {
+            const  r = confirm("确认要删除吗？");
+            if (r == true){
+                document.getElementById('firgatebird_form_delete_item_btn_' + id).click();
+            }
+        }
         function deleteItem() {
             document.getElementById('rfFrame').onload = function(res){
                 if(res.returnValue) {
@@ -227,5 +375,20 @@ function firgatebird_light_word_function(){
             };
         }
     </script>
+    <style>
+        .td_edit_false span {
+            display: block;
+        }
+        .td_edit_false input, .td_edit_false select {
+            display: none!important;
+        }
+
+        .td_edit_true span {
+            display: none;
+        }
+        .td_edit_true input, .td_edit_false select {
+            display: block;
+        }
+    </style>
 <?php }?>
 <?php add_action('admin_menu', 'firgatebird_light_word_function');?>

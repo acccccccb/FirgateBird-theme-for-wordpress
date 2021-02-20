@@ -1,7 +1,7 @@
 <?php
  /**
    * 最新评论
-   * 
+   *
    * */
     class sidebar_new_comments extends WP_Widget {
         /** 构造函数 */
@@ -13,7 +13,7 @@
             parent::__construct('sidebar_new_comments' ,__('Theme:最新评论','bb10'), $widget_ops);
         }
         /** @see WP_Widget::widget */
-        function widget($args, $instance) {		
+        function widget($args, $instance) {
             extract( $args );
             if(empty($instance['title'])) {
                 $instance['title'] = "最新评论";
@@ -49,7 +49,7 @@
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f604.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f626.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f623.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f603.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f600.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f62e.png"></img>',
@@ -70,7 +70,7 @@
                                     $commentHTML .= '<div class="media-body siderbar_comments">';
                                     $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a>'. '</b> <small>' .get_comment_date("Y-d-m H:i:s",$comment->comment_ID) .'</small></h4><p>';
 //                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
-                                    $commentHTML .= str_replace($smiley,$smileyImg,substr( $commentsText, 0, $comment_len ));
+                                    $commentHTML .= str_replace($smiley,$smileyImg,mb_substr( $commentsText, 0, $comment_len ));
                                     $commentHTML .= '</p></div>';
                                     $commentHTML .= '</div>';
                                 endforeach;
@@ -85,12 +85,12 @@
         }
 
         /** @see WP_Widget::update 后台保存内容 */
-        function update($new_instance, $old_instance) {				
+        function update($new_instance, $old_instance) {
             return $new_instance;
         }
 
         /** @see WP_Widget::form 输出设置菜单 */
-        function form($instance) {				
+        function form($instance) {
             $title = esc_attr($instance['title']);
             $avatar_size = $instance['avatar_size'];
             $num_comments = $instance['num_comments'];
@@ -120,7 +120,7 @@
                         <input maxlength="3" class="widefat" type="number" id="comment_len" name="<?php echo $this->get_field_name('comment_len'); ?>" type="number" value="<?php echo $comment_len; ?>">
                     </label>
                 </p>
-            <?php 
+            <?php
         }
 
     } // class FooWidget

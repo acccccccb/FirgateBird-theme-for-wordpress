@@ -1,12 +1,14 @@
 <?php
- require_once( 'sidebar_new_comments.php' );
- require_once( 'sidebar_new_article.php' );
- require_once( 'sidebar_hot_article.php' );
- require_once( 'sidebar_categories.php' );
- require_once( 'sidebar_tools.php' );
- require_once( 'sidebar_author.php' );
- require_once( 'sidebar_calendar.php' );
- require_once( 'sidebar_light_word.php' );
+     require_once( 'sidebar_new_comments.php' );
+     require_once( 'sidebar_new_article.php' );
+     require_once( 'sidebar_hot_article.php' );
+     require_once( 'sidebar_categories.php' );
+     require_once( 'sidebar_tools.php' );
+     require_once( 'sidebar_author.php' );
+     require_once( 'sidebar_calendar.php' );
+    if(get_option('firgatebird_light_word') == 1) {
+        require_once( 'sidebar_light_word.php' );
+    }
  /*
  *注销wp默认侧边栏小工具
  */

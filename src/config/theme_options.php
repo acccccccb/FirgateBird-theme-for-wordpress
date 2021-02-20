@@ -23,7 +23,7 @@ function firgatebird_option_function(){
                 <ul class="subsubsub">
                     <li class="all"><a href="javascript: void(0);" id="tab_0" onclick="showTab(this)" data-index="0" data-name="base_option" class="current">基本设置</a> |</li>
                     <li class="all"><a href="javascript: void(0);" id="tab_1" onclick="showTab(this)" data-index="1" data-name="high_level_option">高级设置</a> |</li>
-                    <li class="all"><a href="javascript: void(0);" id="tab_2" onclick="showTab(this)" data-index="2" data-name="board_option">看板</a></li>
+                    <li class="all"><a href="javascript: void(0);" id="tab_2" onclick="showTab(this)" data-index="2" data-name="board_option">功能</a></li>
                 </ul>
             </div>
 
@@ -99,7 +99,7 @@ function firgatebird_option_function(){
             const params = {
                 base_option: ['firgatebird_color', 'firgatebird_font_color','firgatebird_logo_img', 'firgatebird_menu_type','firgatebird_bg_img','firgatebird_bg_attachment', 'firgatebird_bg_repeat', 'firgatebird_bg_size'],
                 high_level_option: ['firgatebird_stats_code', 'firgatebird_home_keyword','firgatebird_custom_head', 'firgatebird_custom_code'],
-                board_option: ['firgatebird_live2d', 'firgatebird_live2d_message'],
+                board_option: ['firgatebird_live2d', 'firgatebird_live2d_message', 'firgatebird_light_word'],
             };
             $pageOptions.value = params[currentTab].join(',');
             document.getElementById('firgatebird_message').style.display = 'none';
