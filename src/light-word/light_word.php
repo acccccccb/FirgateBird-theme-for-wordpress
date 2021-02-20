@@ -71,7 +71,7 @@ function firgatebird_light_word_function(){
         $wpdb->insert(
             $table . '',
             array(
-                'content' => $_POST['content'],
+                'content' => htmlspecialchars(stripslashes($_POST['content'])),
                 'status' => $_POST['status'],
                 'show' => $_POST['show'],
                 'create_time' => date("Y-m-d H:i:s"),
@@ -99,7 +99,7 @@ function firgatebird_light_word_function(){
         $wpdb->update(
             $table . '',
             array(
-                'content' => $_POST['content'],
+                'content' => htmlspecialchars(stripslashes($_POST['content'])),
                 'status' => $_POST['status'],
                 'show' => $_POST['show'],
             ),
@@ -207,8 +207,8 @@ function firgatebird_light_word_function(){
                                 <input type="text" style="display: none;" value="<?php echo $item['id']?>">
                             </td>
                             <td id="td_content_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo htmlspecialchars($item['content'])?></span>
-                                <input id="edit_content_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo htmlspecialchars($item['content'])?>">
+                                <span><?php echo htmlspecialchars_decode($item['content'])?></span>
+                                <input id="edit_content_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['content']?>">
                             </td>
                             <td id="td_status_edit_<?php echo $item['id']?>" class="td_edit_false">
                                 <span><?php echo $item['status']?></span>

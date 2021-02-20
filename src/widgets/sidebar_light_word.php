@@ -23,9 +23,10 @@ class sidebar_light_word extends WP_Widget {
         ?>
         <?php echo $before_widget; ?>
         <?php $showtitle = $instance['showtitle']; ?>
+        <?php $showavatar = $instance['showavatar']; ?>
         <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
             <div class="sidebar-tit">
-                <span class="glyphicon glyphicon-comment"></span>&nbsp;<?php echo $instance['title']; ?>
+                <span class="glyphicon glyphicon-grain"></span>&nbsp;<?php echo $instance['title']; ?>
                 <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
                     <script>
                         function showSidebarLightWordEdit() {
@@ -156,9 +157,11 @@ class sidebar_light_word extends WP_Widget {
                         foreach ($list as $item) {
                             ?>
                             <div class="media">
+                                <?php if($showavatar=="true") { ?>
                                 <div class="media-left">
                                     <?php global $current_user;wp_get_current_user();echo get_avatar( $current_user->user_email, 32); ?>
                                 </div>
+                                <?php } ?>
                                 <div class="media-body">
                                     <h4 class="media-heading">
                                         <span style="font-size: 14px;font-weight: 500;"><?php echo $current_user->display_name ?></span>
@@ -176,7 +179,7 @@ class sidebar_light_word extends WP_Widget {
                                     <p style="font-size: 14px;line-height: 150%;color: #333;font-family: 'Microsoft Yahei'">
                                         <?php $commentsText = $item['content']?>
                                         <?php $commentsText = str_replace($smiley,$smileyImg,mb_substr( $commentsText, 0, 300 )); ?>
-                                        <?php echo $commentsText?>
+                                        <?php echo htmlspecialchars_decode($commentsText)?>
                                     </p>
                                 </div>
                             </div>
@@ -198,6 +201,7 @@ class sidebar_light_word extends WP_Widget {
     function form($instance) {
         $title = esc_attr($instance['title']);
         $showtitle = $instance['showtitle'];
+        $showavatar = $instance['showavatar'];
         $ArticleNum = $instance['ArticleNum'];
         ?>
         <p>
@@ -209,6 +213,13 @@ class sidebar_light_word extends WP_Widget {
                 <input checked class="checkbox" id="<?php echo $this->get_field_id('showtitle'); ?>" name="<?php echo $this->get_field_name('showtitle'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showtitle'); ?>">显示标题</label>
             <?php } else { ?>
                 <input class="checkbox" id="<?php echo $this->get_field_id('showtitle'); ?>" name="<?php echo $this->get_field_name('showtitle'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showtitle'); ?>">显示标题</label>
+            <?php } ?>
+        </p>
+        <p>
+            <?php if($showavatar=="true") { ?>
+                <input checked class="checkbox" id="<?php echo $this->get_field_id('showavatar'); ?>" name="<?php echo $this->get_field_name('showavatar'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showavatar'); ?>">显示头像</label>
+            <?php } else { ?>
+                <input class="checkbox" id="<?php echo $this->get_field_id('showavatar'); ?>" name="<?php echo $this->get_field_name('showavatar'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showavatar'); ?>">显示头像</label>
             <?php } ?>
         </p>
         <p>
