@@ -17,27 +17,27 @@ function firgatebird_light_word_function(){
         date_default_timezone_set('PRC');
         global $table_prefix;
         $table = $table_prefix . 'firgatebird_light_word';
-        if($_GET['init_data'] === 'true') {
+        if(!empty($_GET['init_data']) && $_GET['init_data'] === 'true') {
             create_table($table);
             die();
         }
-        if($_GET['add'] === 'true') {
+        if(!empty($_GET['add']) && $_GET['add'] === 'true') {
             add_item($table);
             die();
         }
-        if($_GET['delete'] === 'true') {
+        if(!empty($_GET['delete']) && $_GET['delete'] === 'true') {
             if(!empty($_POST['id'])) {
                 delete_item($table, $_POST['id']);
             }
             die();
         }
-        if($_GET['update'] === 'true') {
+        if(!empty($_GET['update']) && $_GET['update'] === 'true') {
             if(!empty($_POST['id'])) {
                 update_item($table, $_POST['id']);
             }
             die();
         }
-        if($_GET['clear'] === 'true') {
+        if(!empty($_GET['clear']) && $_GET['clear'] === 'true') {
             if($_POST['clear'] == "clear-all-data") {
                 clear_item($table);
             }
@@ -122,8 +122,8 @@ function firgatebird_light_word_function(){
         $table = $table_prefix . 'firgatebird_light_word';
         // $wpdb->show_errors();
         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table}");
-        $current_page = $_GET['current_page'] ? $_GET['current_page'] : 1;
-        $page_size = $_GET['page_size'] ? $_GET['page_size'] : 10;
+        $current_page = !empty($_GET['current_page']) ? $_GET['current_page'] : 1;
+        $page_size = !empty($_GET['page_size']) ? $_GET['page_size'] : 10;
         $total_page = ceil($count / $page_size);
         if($count === NULL) {
         ?>

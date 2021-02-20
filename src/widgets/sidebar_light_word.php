@@ -27,7 +27,14 @@ class sidebar_light_word extends WP_Widget {
             <div class="sidebar-tit">
                 <span class="glyphicon glyphicon-comment"></span>&nbsp;<?php echo $instance['title']; ?>
                 <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
-                    <a style="float: right; font-size: 14px; opacity: .5;" href="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word">管理</a>
+                    <script>
+                        function showSidebarLightWordEdit() {
+                            const display = document.getElementById('firgatebird_form_add_item').style.display;
+                            document.getElementById('firgatebird_form_add_item').style.display = (display === 'block' ? 'none' : 'block');
+                        }
+                    </script>
+                    <a style="float: right; font-size: 14px; opacity: .5;margin-left: 4px;" onclick="showSidebarLightWordEdit()" href="javascript:void();">添加</a>
+                    <a style="float: right; font-size: 14px; opacity: .5;margin-left: 4px;" href="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word">管理</a>
                 <?php }?>
             <?php echo $after_title;?>
         <?php } ?>
@@ -54,15 +61,31 @@ class sidebar_light_word extends WP_Widget {
                     if ( array_intersect( $allowed_roles, $user->roles ) ) {
                         ?>
                         <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
-                        <form method="post" name="firgatebird_form_add_item" id="firgatebird_form_add_item" target="rfFrame" onsubmit="addItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&add=true" class="validate" autocomplete="off">
+                        <form method="post" name="firgatebird_form_add_item" id="firgatebird_form_add_item" style="display: none;" target="rfFrame" onsubmit="addItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&add=true" class="validate" autocomplete="off">
                             <div class="input-group">
-                                <input type="text" name="content" class="form-control" placeholder="发表想法...">
+                                <input type="text" name="content" id="sidebarLigntWordInput" class="form-control" placeholder="发表想法...">
                                 <input type="text" name="status" class="hidden" value="0">
                                 <input type="text" name="show" class="hidden" value="1">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">提交</button>
                                 </span>
                             </div><!-- /input-group -->
+                            <div class="light-word-emoj-edit">
+                                <a href="javascript:sidebarLightWordgrin(':?:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f604.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':razz:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f61b.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':sad:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f626.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':smile:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f623.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':oops:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f633.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':grin:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f600.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':eek:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f62e.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':shock:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f62f.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':cool:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f60e.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':lol:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f606.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':mad:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f621.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':wink:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f609.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':neutral:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f610.png" width="16" /></a>
+                                <a href="javascript:sidebarLightWordgrin(':cry:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f625.png" width="16" /></a>
+                            </div>
                         </form>
                         <script>
                             function addItem() {
@@ -89,11 +112,17 @@ class sidebar_light_word extends WP_Widget {
                                     }
                                 };
                             }
+                            function sidebarLightWordgrin(emoj) {
+                                document.getElementById('sidebarLigntWordInput').value += emoj;
+                            }
                         </script>
                         <style>
                             .light-word-emoj {
                                 vertical-align: text-top;
                                 margin-top: 2px;
+                            }
+                            .light-word-emoj-edit img {
+                                width: 16px;
                             }
                         </style>
                     <?php } ?>
@@ -102,7 +131,7 @@ class sidebar_light_word extends WP_Widget {
                         $smiley = [':?:',':razz:',':sad:',':smile:',':oops:',':grin:',':eek:',':shock:',':cool:',':lol:',':mad:',':wink:',':neutral:',':cry:'];
                         $smileyImg = [
                             '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f604.png"></img>',
-                            '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
+                            '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f61b.png"></img>',
                             '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f626.png"></img>',
                             '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f603.png"></img>',
                             '<img width="16" height="16" class="light-word-emoj" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
@@ -128,7 +157,7 @@ class sidebar_light_word extends WP_Widget {
                             ?>
                             <div class="media">
                                 <div class="media-left">
-                                    <?php global $current_user;get_currentuserinfo();echo get_avatar( $current_user->user_email, 32); ?>
+                                    <?php global $current_user;wp_get_current_user();echo get_avatar( $current_user->user_email, 32); ?>
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading">

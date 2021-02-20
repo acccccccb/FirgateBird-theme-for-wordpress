@@ -178,7 +178,7 @@ function navigation(){
 // 分页代码
 function par_pagenavi($range = 6){
 	global $paged, $wp_query;
-	if ( !$max_page ) {
+	if ( empty($max_page) ) {
 		$max_page = $wp_query->max_num_pages;
 	}
 	if($max_page > 1){
@@ -379,13 +379,13 @@ if(current_user_can('level_10')){
 	}
 }
 //排除分类
-function exclude_category_home( $query ) {
-    if ( $query->is_home ) {
-		$query->set( 'cat', '-14' );//排除说说分类
-    }
-    return $query;
-}
-add_filter( 'pre_get_posts', 'exclude_category_home' );
+//function exclude_category_home( $query ) {
+//    if ( $query->is_home ) {
+//		$query->set( 'cat', '-14' );//排除说说分类
+//    }
+//    return $query;
+//}
+//add_filter( 'pre_get_posts', 'exclude_category_home' );
 
 // 首页幻灯片
 function thumb_article() {
@@ -457,7 +457,7 @@ function hot_posts($post_num=7){
 	'post_password' => '',
 	'post_status' => 'publish', // 只选公开的文章.
 	'post__not_in' => array($post->ID),//排除当前文章
-	'caller_get_posts' => 1, // 排除置顶文章.
+	'ignore_sticky_posts' => 1, // 排除置顶文章.
     'meta_key' => 'views',
     'orderby' => 'meta_value_num',
     'order'		=>	'DESC',
@@ -482,7 +482,7 @@ function same_posts($post_num=7){
 		'post_password' => '',
 		'post_status' => 'publish', // 只选公开的文章.
 		'post__not_in' => array($post->ID),//排除当前文章
-		'caller_get_posts' => 1, // 排除置顶文章.
+		'ignore_sticky_posts' => 1, // 排除置顶文章.
 		'orderby' => 'meta_value_num', // 依评点击量.
 		'order'		=>	'DESC',
 		'showposts' => $post_num

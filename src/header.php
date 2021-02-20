@@ -126,7 +126,7 @@
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-th-large"></span> 功能<span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
                                         <?php global $current_user;
-                                            get_currentuserinfo();
+                                        wp_get_current_user();
                                             if(current_user_can('level_10')){
                                             echo '
                                                 <li><a href="'.site_url().'/wp-admin/profile.php"><span class="glyphicon glyphicon-user"></span> '.$current_user->display_name.'</a><li>

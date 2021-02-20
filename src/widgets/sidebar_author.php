@@ -30,7 +30,7 @@
             }
             ?>
                 <?php echo $before_widget; ?>
-                <?php $showtitle = $instance['showtitle']; ?>
+                <?php $showtitle = !empty($instance['showtitle']) ? $instance['showtitle'] : 'undefined'; ?>
                 <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
                     <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-user"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                 <?php } ?>

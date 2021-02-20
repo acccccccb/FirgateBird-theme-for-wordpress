@@ -18,13 +18,13 @@
             if(!$instance['title']) {
                 $instance['title'] = "工具";
             }
-            if(!$num_comments) {
+            if(empty($num_comments)) {
                 $instance['num_comments'] = 5;
             }
-            if(!$comment_len) {
+            if(empty($comment_len)) {
                 $instance['comment_len'] = 80;
             }
-            if(!$avatar_size) {
+            if(empty($avatar_size)) {
                 $instance['avatar_size'] = 42;
             }
             ?>
@@ -32,7 +32,7 @@
                     <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-cog"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                     <ul class="list-unstyled line-height-30">
                     <?php global $current_user;
-                        get_currentuserinfo();
+                    wp_get_current_user();
                         if(current_user_can('level_10')){
                         echo '
                             <li><a href="'.site_url().'/wp-admin/profile.php"><span class="glyphicon glyphicon-user"></span> '.$current_user->display_name.'</a><li>

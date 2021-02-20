@@ -3,7 +3,10 @@
         <label for="firgatebird_light_word">
             <div style="margin-bottom: 10px;">是否开启轻言：</div>
         </label>
-        <p class="description">这是一个类似微博的小工具，可以在主题自带的小工具里显示简短的信息，支持HTML代码</p>
+        <p class="description">
+            这是一个类似微博的小工具，可以在主题自带的小工具里显示简短的信息，支持HTML代码
+            <a href="/wp-admin/edit.php?page=firgatebird_light_word">管理轻言</a>
+        </p>
         <select
             style="width: 100%;"
             class="postform"

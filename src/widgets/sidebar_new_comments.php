@@ -47,7 +47,7 @@
                                 $smiley = [':?:',':razz:',':sad:',':smile:',':oops:',':grin:',':eek:',':shock:',':cool:',':lol:',':mad:',':wink:',':neutral:',':cry:'];
                                 $smileyImg = [
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f604.png"></img>',
-                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
+                                    '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f61b.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f626.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f603.png"></img>',
                                     '<img width="16" height="16" src="'.get_template_directory_uri().'/static/img/smilies/1f633.png"></img>',
