@@ -586,8 +586,8 @@ function post_views($before = '', $after = '', $echo = 1) {
     global $post;
     $post_ID = $post->ID;
     $views = (int)get_post_meta($post_ID, 'views', true);
-    if ($echo) echo $before, number_format($views), $after;
-    else return $views;
+    if ($echo) echo $before, bigNumber($views), $after;
+    else return bigNumber($views);
 }
 // 记录阅读数
 function record_visitors() {
@@ -639,8 +639,16 @@ function get_post_like($before = ' ', $after = '', $echo = 1) {
     global $post;
     $post_ID = $post->ID;
     $like = (int)get_post_meta($post_ID, 'like', true);
-    if ($echo) echo $before, number_format($like), $after;
+    if ($echo) echo $before, bigNumber($like), $after;
     else return $like;
+}
+// 处理大数字
+function bigNumber($num = 0) {
+    $result = $num;
+    if($num >= 1000) {
+        $result = round($num / 1000, 1) . 'k';
+    }
+    return $result;
 }
 	// 侧栏小工具
 	//修改默认的小工具

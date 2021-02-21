@@ -117,15 +117,6 @@ class sidebar_light_word extends WP_Widget {
                                 document.getElementById('sidebarLigntWordInput').value += emoj;
                             }
                         </script>
-                        <style>
-                            .light-word-emoj {
-                                vertical-align: text-top;
-                                margin-top: 2px;
-                            }
-                            .light-word-emoj-edit img {
-                                width: 16px;
-                            }
-                        </style>
                     <?php } ?>
                     <?php
                         //评论表情路径
@@ -156,32 +147,48 @@ class sidebar_light_word extends WP_Widget {
                             ", ARRAY_A);
                         foreach ($list as $item) {
                             ?>
-                            <div class="media">
-                                <?php if($showavatar=="true") { ?>
-                                <div class="media-left">
-                                    <?php global $current_user;wp_get_current_user();echo get_avatar( $current_user->user_email, 32); ?>
+                            <div class="mt10">
+                                <div class="media">
+                                    <?php if($showavatar=="true") { ?>
+                                    <div class="media-left">
+                                        <?php echo get_avatar( $item['uid'], 32); ?>
+                                    </div>
+                                    <?php } ?>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <span style="font-size: 14px;font-weight: 500;">
+                                                <?php
+                                                    $postuser = get_user_by('id', $item['uid']);
+                                                    echo $postuser->display_name;
+                                                ?>
+                                            </span>
+                                            <small style="font-size: 12px; opacity: .5">
+                                                <?php echo $item['create_time']?>
+                                                <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
+                                                <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
+                                                    <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
+                                                    <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
+                                                </form>
+                                                <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
+                                                <?php }?>
+                                            </small>
+                                        </h4>
+                                        <p style="font-size: 14px;line-height: 150%;color: #333;font-family: 'Microsoft Yahei'">
+                                            <?php $commentsText = $item['content']?>
+                                            <?php $commentsText = str_replace($smiley,$smileyImg,mb_substr( $commentsText, 0, 300 )); ?>
+                                            <?php echo htmlspecialchars_decode($commentsText)?>
+                                        </p>
+                                    </div>
                                 </div>
-                                <?php } ?>
-                                <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <span style="font-size: 14px;font-weight: 500;"><?php echo $current_user->display_name ?></span>
-                                        <small style="font-size: 12px; opacity: .5">
-                                            <?php echo $item['create_time']?>
-                                            <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
-                                            <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
-                                                <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
-                                                <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
-                                            </form>
-                                            <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
-                                            <?php }?>
-                                        </small>
-                                    </h4>
-                                    <p style="font-size: 14px;line-height: 150%;color: #333;font-family: 'Microsoft Yahei'">
-                                        <?php $commentsText = $item['content']?>
-                                        <?php $commentsText = str_replace($smiley,$smileyImg,mb_substr( $commentsText, 0, 300 )); ?>
-                                        <?php echo htmlspecialchars_decode($commentsText)?>
-                                    </p>
-                                </div>
+                                <style>
+                                    .light-word-emoj {
+                                        vertical-align: text-top;
+                                        margin-top: 2px;
+                                    }
+                                    .light-word-emoj-edit img {
+                                        width: 16px;
+                                    }
+                                </style>
                             </div>
                     <?php } ?>
                 </div>

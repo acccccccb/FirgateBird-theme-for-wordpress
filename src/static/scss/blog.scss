@@ -592,3 +592,20 @@ pre {
         padding-top:30px;
     }
 }
+
+.sidebar-list-left {
+    display:inline-block!important;
+    vertical-align: middle;
+    overflow: hidden;
+    width: calc(100% - 70px);
+    box-sizing: border-box;
+}
+.sidebar-list-right {
+    display:inline-block!important;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: right;
+    width: 60px;
+    overflow: hidden;
+    font-size: 12px;
+}

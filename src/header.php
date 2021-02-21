@@ -175,30 +175,23 @@
                     // 填写自定义字段description时显示自定义字段的内容，否则使用文章内容前200字作为描述
                     $description = $description1 ? $description1 : $description2;
             ?>
-                        <div class="item listBoxItem">
-<!--                            <a href="--><?php //get_the_permalink();?><!--" title="--><?php //echo get_the_title();?><!--">-->
-<!--                                <img class="img-responsive-banner" alt="--><?php //echo get_the_title();  ?><!--" src="--><?php //echo the_post_thumbnail_url('codilight_lite_single_large' );?><!--">-->
-<!--                            </a>-->
+                        <div class="item listBoxItem"
+                            <?php if(has_post_thumbnail()) { ?>
+                                style="background: url(<?php echo the_post_thumbnail_url("codilight_lite_single_large");?>) center center no-repeat!important;background-size: cover!important;"
+                            <?php } ?>
+                        >
                             <div class="carousel-caption">
                                 <h1 class="hidden-xs hidden-sm text-left"><?php echo get_the_title();?></h1>
                                 <h4 class="hidden-md hidden-lg text-center">
                                     <a style="text-decoration: none;color:#fff;" href="<?php echo get_the_permalink();?>"><?php echo  get_the_title();?></a>
                                 </h4>
                                 <p class="hidden-xs hidden-sm text-left" > <?php echo $description;?></p>
-                                <a class="hidden-xs hidden-sm btn btn-default btn-md mt20" href="<?php echo get_the_permalink();?>" role="button">阅读内容</a>
+                                <div class="text-left">
+                                    <a class="hidden-xs hidden-sm btn btn-default btn-md mt20" href="<?php echo get_the_permalink();?>" role="button">阅读内容</a>
+                                </div>
                             </div>
                         </div>
-                        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                            <defs>
-                                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                            </defs>
-                            <g class="parallax">
-                                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-                                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-                                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-                                <use xlink:href="#gentle-wave" x="48" y="7" fill="#f5f5f5" />
-                            </g>
-                        </svg>
+
                     <?php
 
                 }

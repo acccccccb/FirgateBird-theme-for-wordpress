@@ -57,6 +57,7 @@ function firgatebird_light_word_function(){
         $sql = 'CREATE TABLE IF NOT EXISTS `'. $table .'` (
 			`id` int(11) NOT NULL auto_increment,
 			`content` text,
+            `uid` int(11) unsigned default 0,
             `status` int(1) unsigned default 0,
             `show` int(1) unsigned default 1,
             `create_time` datetime default NULL,
@@ -74,6 +75,7 @@ function firgatebird_light_word_function(){
                 'content' => htmlspecialchars(stripslashes($_POST['content'])),
                 'status' => $_POST['status'],
                 'show' => $_POST['show'],
+                'uid' => get_current_user_id(),
                 'create_time' => date("Y-m-d H:i:s"),
             ),
             array(
@@ -173,6 +175,7 @@ function firgatebird_light_word_function(){
                     <tr>
                         <th class="manage-column column-title column-primary" width="80">ID</th>
                         <th class="manage-column column-title column-primary">正文</th>
+                        <th class="manage-column column-title column-primary" width="160">发布人</th>
                         <th class="manage-column column-title column-primary" width="160">状态</th>
                         <th class="manage-column column-title column-primary" width="160">显示</th>
                         <th class="" width="160" align="center">创建时间</th>
@@ -209,6 +212,12 @@ function firgatebird_light_word_function(){
                             <td id="td_content_edit_<?php echo $item['id']?>" class="td_edit_false">
                                 <span><?php echo htmlspecialchars_decode($item['content'])?></span>
                                 <input id="edit_content_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['content']?>">
+                            </td>
+                            <td>
+                                <?php
+                                    $user = get_user_by('id', $item['uid']);
+                                    echo $user->display_name;
+                                ?>
                             </td>
                             <td id="td_status_edit_<?php echo $item['id']?>" class="td_edit_false">
                                 <span><?php echo $item['status']?></span>
