@@ -22,8 +22,8 @@ class sidebar_light_word extends WP_Widget {
         }
         ?>
         <?php echo $before_widget; ?>
-        <?php $showtitle = $instance['showtitle']; ?>
-        <?php $showavatar = $instance['showavatar']; ?>
+        <?php $showtitle = $instance['showtitle'] ?? false; ?>
+        <?php $showavatar = $instance['showavatar'] ?? false; ?>
         <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
             <div class="sidebar-tit">
                 <span class="glyphicon glyphicon-grain"></span>&nbsp;<?php echo $instance['title']; ?>
@@ -144,32 +144,32 @@ class sidebar_light_word extends WP_Widget {
                               WHERE 'show'=0
                               ORDER BY id DESC
                               LIMIT 0, $ArticleNum
-                            ", ARRAY_A);
-                        foreach ($list as $item) {
-                            ?>
+                            ", ARRAY_A); ?>
+                    <?php if(count($list) > 0) {?>
+                        <?php foreach ($list as $item) { ?>
                             <div class="mt10">
                                 <div class="media">
                                     <?php if($showavatar=="true") { ?>
-                                    <div class="media-left">
-                                        <?php echo get_avatar( $item['uid'], 32); ?>
-                                    </div>
+                                        <div class="media-left">
+                                            <?php echo get_avatar( $item['uid'], 32); ?>
+                                        </div>
                                     <?php } ?>
                                     <div class="media-body">
                                         <h4 class="media-heading">
                                             <span style="font-size: 14px;font-weight: 500;">
                                                 <?php
-                                                    $postuser = get_user_by('id', $item['uid']);
-                                                    echo $postuser->display_name;
+                                                $postuser = get_user_by('id', $item['uid']);
+                                                echo $postuser->display_name;
                                                 ?>
                                             </span>
                                             <small style="font-size: 12px; opacity: .5">
                                                 <?php echo $item['create_time']?>
                                                 <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
-                                                <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
-                                                    <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
-                                                    <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
-                                                </form>
-                                                <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
+                                                    <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
+                                                        <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
+                                                        <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
+                                                    </form>
+                                                    <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
                                                 <?php }?>
                                             </small>
                                         </h4>
@@ -180,16 +180,19 @@ class sidebar_light_word extends WP_Widget {
                                         </p>
                                     </div>
                                 </div>
-                                <style>
-                                    .light-word-emoj {
-                                        vertical-align: text-top;
-                                        margin-top: 2px;
-                                    }
-                                    .light-word-emoj-edit img {
-                                        width: 16px;
-                                    }
-                                </style>
                             </div>
+                        <?php } ?>
+                            <style>
+                                .light-word-emoj {
+                                    vertical-align: text-top;
+                                    margin-top: 2px;
+                                }
+                                .light-word-emoj-edit img {
+                                    width: 16px;
+                                }
+                            </style>
+                    <?php } else { ?>
+                        <div>暂无内容</div>
                     <?php } ?>
                 </div>
         <?php } ?>
@@ -207,9 +210,9 @@ class sidebar_light_word extends WP_Widget {
     /** @see WP_Widget::form 输出设置菜单 */
     function form($instance) {
         $title = esc_attr($instance['title']);
-        $showtitle = $instance['showtitle'];
-        $showavatar = $instance['showavatar'];
-        $ArticleNum = $instance['ArticleNum'];
+        $showtitle = $instance['showtitle'] ?? false;
+        $showavatar = $instance['showavatar'] ?? false;
+        $ArticleNum = $instance['ArticleNum'] ?? 5;
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">
