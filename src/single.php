@@ -104,7 +104,11 @@
 				</article>
 				<?php endif; ?>
 			</div>
-			<?php get_sidebar(); ?>
+            <div class="col-lg-3 sidebar-bg">
+                <?php if(is_active_sidebar( "sidebar-2" )) { ?>
+                    <?php dynamic_sidebar( 'sidebar-2' ); ?>
+                <?php } ?>
+            </div>
 		</div>
 	</div>
 	<?php get_footer(); ?>

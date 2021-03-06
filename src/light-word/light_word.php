@@ -250,7 +250,7 @@ function firgatebird_light_word_function(){
                                 <a href="javascript:void(0);" id="update_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, true)">修改</a>
                                 <a href="javascript:void(0);" style="display: none;" id="cancel_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, false)">取消</a>
 
-                                <form style="display: none;" method="post" id="firgatebird_form_firgatebird_light_word_delete_item" name="firgatebird_form_firgatebird_light_word_delete_item" target="rfFrame" onsubmit="deleteItem()" action="edit.php?page=firgatebird_light_word&delete=true" class="validate">
+                                <form style="display: none;" method="post" id="firgatebird_form_firgatebird_light_word_delete_item_<?php echo $item['id']?>" name="firgatebird_form_firgatebird_light_word_delete_item" target="rfFrame" onsubmit="deleteItem()" action="edit.php?page=firgatebird_light_word&delete=true" class="validate">
                                     <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
                                     <button type="submit" id="firgatebird_form_firgatebird_light_word_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
                                 </form>

@@ -25,6 +25,10 @@ function firgatebird_bookshelf_function(){
             firgatebird_bookshelf_add_item($firgatebird_bookshelf_table);
             die();
         }
+        if(!empty($_GET['add']) && $_GET['add'] === 'json' && $_GET['page'] === 'firgatebird_bookshelf') {
+            firgatebird_bookshelf_add_item_json($firgatebird_bookshelf_table);
+            die();
+        }
         if(!empty($_GET['delete']) && $_GET['delete'] === 'true' && $_GET['page'] === 'firgatebird_bookshelf') {
             if(!empty($_POST['id'])) {
                 firgatebird_bookshelf_delete_item($firgatebird_bookshelf_table, $_POST['id']);
@@ -103,6 +107,42 @@ function firgatebird_bookshelf_function(){
             )
         );
     }
+    function firgatebird_bookshelf_add_item_json($firgatebird_bookshelf_table) {
+        $json_str = $_POST['json'];
+        $list = json_decode(stripslashes($json_str), true);
+        global $wpdb;
+        foreach( $list as $item ) {
+            $wpdb->insert(
+                $firgatebird_bookshelf_table . '',
+                array(
+                    'name' => htmlspecialchars(stripslashes($item['name'])),
+                    'thumb' => $item['thumb'],
+                    'link' => $item['link'],
+                    'description' => $item['description'],
+                    'comment' => $item['comment'],
+                    'add_time' => $item['add_time'],
+                    'score' => $item['score'],
+                    'type' => $item['type'],
+                    'show' => $item['show'],
+                    'uid' => get_current_user_id(),
+                    'create_time' => date("Y-m-d H:i:s"),
+                ),
+                array(
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%s',
+                )
+            );
+        }
+    }
     function firgatebird_bookshelf_delete_item($firgatebird_bookshelf_table, $id) {
         global $wpdb;
         $wpdb->delete( $firgatebird_bookshelf_table.'', array( 'id' => $id ) );
@@ -118,15 +158,29 @@ function firgatebird_bookshelf_function(){
         $wpdb->update(
             $firgatebird_bookshelf_table . '',
             array(
-                'content' => htmlspecialchars(stripslashes($_POST['content'])),
-                'status' => $_POST['status'],
+                'name' => htmlspecialchars(stripslashes($_POST['name'])),
+                'thumb' => $_POST['thumb'],
+                'link' => $_POST['link'],
+                'description' => $_POST['description'],
+                'comment' => $_POST['comment'],
+                'add_time' => $_POST['add_time'],
+                'score' => $_POST['score'],
+                'type' => $_POST['type'],
                 'show' => $_POST['show'],
+                'uid' => get_current_user_id(),
             ),
             array( 'id' => $id ),
             array(
                 '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
                 '%d',
                 '%d',
+                '%d',
+                '%d'
             )
         );
     }
@@ -147,7 +201,7 @@ function firgatebird_bookshelf_function(){
         if($count === NULL) {
         ?>
             <div style="margin-top: 20px;">
-                <p>这是一个类似微博的小工具，可以在主题自带的小工具里显示简短的信息，支持HTML代码</p>
+                <p>这是书架</p>
                 <form method="post" name="firgatebird_form" id="firgatebird_form" target="rfFrame" onsubmit="firgatebird_bookshelf_init_data()" action="edit.php?page=firgatebird_bookshelf&init_data=true" class="validate">
                     <div style="border: 2px dashed #b4b9be;margin-bottom: 20px;padding: 16px;">
                         <p><strong>此功能尚未启用，继续操作前请先 <span style="color: red;">备份数据库</span>。</strong></p>
@@ -157,41 +211,6 @@ function firgatebird_bookshelf_function(){
             </div>
         <?php } else { ?>
             <div class="tablenav top">
-                <form method="post" name="firgatebird_form_firgatebird_bookshelf_add_item" id="firgatebird_form_firgatebird_bookshelf_add_item" target="rfFrame" onsubmit="addItem()" action="edit.php?page=firgatebird_bookshelf&add=true" class="validate">
-                    <div class="alignleft actions">
-                        <input name="name" type="text" style="width: 300px;" placeholder="名称" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="thumb" type="text" style="width: 300px;" placeholder="缩略图" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="link" type="text" style="width: 300px;" placeholder="超链接" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="description" type="text" style="width: 300px;" placeholder="描述" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="comment" type="text" style="width: 300px;" placeholder="评价" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="score" type="text" style="width: 300px;" placeholder="评分" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="type" type="text" style="width: 300px;" placeholder="类型" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <input name="add_time" type="text" style="width: 300px;" placeholder="加入时间" value="">
-                    </div>
-                    <div class="alignleft actions">
-                        <select name="show">
-                            <option value="1" selected>显示</option>
-                            <option value="0">隐藏</option>
-                        </select>
-                    </div>
-                    <div class="alignleft actions">
-                        <button type="submit" class="button button-primary">添加</button>
-                    </div>
-                </form>
                 <div class="alignright actions">
                     <form method="post" target="rfFrame" onsubmit="submitClearAll()" action="edit.php?page=firgatebird_bookshelf&clear=true" class="validate hidden">
                         <input name="clear" type="text" value="clear-all-data">
@@ -200,137 +219,162 @@ function firgatebird_bookshelf_function(){
                     <button type="button" onclick="clearAllData()" class="button button-link">清空数据</button>
                 </div>
             </div>
-            <table class="wp-list-table widefat fixed striped table-view-list posts">
-                <thead>
-                    <tr>
-                        <th class="manage-column column-title column-primary" width="80">ID</th>
-                        <th class="manage-column column-title column-primary" width="50">缩略图</th>
-                        <th class="manage-column column-title column-primary">名称</th>
-                        <th class="manage-column column-title column-primary">链接</th>
-                        <th class="manage-column column-title column-primary" >描述</th>
-                        <th class="manage-column column-title column-primary" width="160">评价</th>
-                        <th class="manage-column column-title column-primary" width="50">评分</th>
-                        <th class="manage-column column-title column-primary" width="50">类型</th>
-                        <th class="" width="160" align="center">加入时间</th>
-                        <th class="" width="160" align="center">显示</th>
-                        <th class="" width="160" align="center">创建人</th>
-                        <th class="" width="160" align="center">创建时间</th>
-                        <th class="" width="100" align="center">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $start = ($current_page - 1) * $page_size;
-                        $list = $wpdb->get_results( "
-                          SELECT *
-                          FROM {$firgatebird_bookshelf_table}
-                          ORDER BY id DESC
-                          LIMIT {$start}, {$page_size}
-                        ", ARRAY_A);
-
-                    ?>
-                    <?php if(count($list) == 0) {?>
+            <div style="width: 100%;height: 600px;overflow: scroll;">
+                <table class="wp-list-table widefat fixed striped table-view-list posts">
+                    <thead>
                         <tr>
-                            <td></td>
-                            <td style="text-align: center;">准备工作已经完成，现在试着添加一条内容吧。也可以去站点页面的小工具处新增/删除内容</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <th class="manage-column column-title column-primary" width="50">ID</th>
+                            <th class="manage-column column-title column-primary" width="50">缩略图</th>
+                            <th class="manage-column column-title column-primary" width="100">名称</th>
+                            <th class="manage-column column-title column-primary" width="50">链接</th>
+                            <th class="manage-column column-title column-primary" width="100">描述</th>
+                            <th class="manage-column column-title column-primary" width="160">评价</th>
+                            <th class="manage-column column-title column-primary" width="50">评分</th>
+                            <th class="manage-column column-title column-primary" width="50">类型</th>
+                            <th class="" width="80" align="center">加入时间</th>
+                            <th class="" width="40" align="center">显示</th>
+                            <th class="" width="60" align="center">创建人</th>
+                            <th class="" width="120" align="center">创建时间</th>
+                            <th class="" width="100" align="center">操作</th>
                         </tr>
-                    <?php } ?>
-                    <?php foreach ($list as $item) { ?>
-                        <tr>
-                            <td>
-                                <?php echo $item['id']?>
-                                <input type="text" style="display: none;" value="<?php echo $item['id']?>">
-                            </td>
-                            <td id="td_thumb_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span>
-                                    <img src="<?php echo esc_html($item['thumb'])?>" height="50">
-                                </span>
-                                <input id="edit_name_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['thumb']?>">
-                            </td>
-                            <td id="td_name_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span>
-                                    <a href="<?php echo esc_html($item['link'])?>"><?php echo esc_html($item['name'])?></a>
-                                </span>
-                                <input id="edit_name_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['name']?>">
-                            </td>
-                            <td id="td_link_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span>
-                                    <a href="<?php echo esc_html($item['link'])?>"><?php echo esc_html($item['link'])?></a>
-                                </span>
-                                <input id="edit_link_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['link']?>">
-                            </td>
-                            <td id="td_description_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo esc_html($item['description'])?></span>
-                                <input id="edit_description_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['description']?>">
-                            </td>
-                            <td id="td_comment_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo esc_html($item['comment'])?></span>
-                                <input id="edit_comment_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['comment']?>">
-                            </td>
-                            <td id="td_score_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo esc_html($item['score'])?></span>
-                                <input id="edit_score_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['score']?>">
-                            </td>
-                            <td id="td_type_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo $item['type'] == 1 ? '类型1' : '类型2'?></span>
-                                <select id="edit_type_<?php echo $item['id']?>" name="type" style="width: 100%;">
-                                    <option value="1" <?php echo $item['type'] == 1 ? 'selected' : ''?>>类型1</option>
-                                    <option value="0" <?php echo $item['type'] == 0 ? 'selected' : ''?>>类型2</option>
-                                </select>
-                            </td>
-                            <td id="td_add_time_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo esc_html($item['add_time'])?></span>
-                                <input id="edit_add_time_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['add_time']?>">
-                            </td>
-                            <td id="td_show_edit_<?php echo $item['id']?>" class="td_edit_false">
-                                <span><?php echo $item['show'] == 1 ? '显示' : '隐藏'?></span>
-                                <select id="edit_show_<?php echo $item['id']?>" name="show" style="width: 100%;">
-                                    <option value="1" <?php echo $item['show'] == 1 ? 'selected' : ''?>>显示</option>
-                                    <option value="0" <?php echo $item['show'] == 0 ? 'selected' : ''?>>隐藏</option>
-                                </select>
-                            </td>
-                            <td>
-                                <?php
-                                $user = get_user_by('id', $item['uid']);
-                                echo $user->display_name;
-                                ?>
-                            </td>
-                            <td>
-                                <?php echo $item['create_time']?>
-                            </td>
-                            <td>
-                                <form style="display: none;" method="post" id="firgatebird_form_firgatebird_bookshelf_update_item_<?php echo $item['id']?>" name="firgatebird_form_firgatebird_bookshelf_update_item_<?php echo $item['id']?>" target="rfFrame" onsubmit="updateItem()" action="edit.php?page=firgatebird_bookshelf&update=true" class="validate">
-                                    <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
-                                    <input id="update_content_<?php echo $item['id']?>" name="content" style="display: none;" type="text" value="<?php echo htmlspecialchars($item['content']) ?>">
-                                    <input id="update_show_<?php echo $item['id']?>" name="show" style="display: none;" type="text" value="<?php echo $item['show']?>">
-                                    <input id="update_status_<?php echo $item['id']?>" name="status" style="display: none;" type="text" value="<?php echo $item['status']?>">
-                                    <button type="submit" id="firgatebird_form_bookshelf_update_item_btn_<?php echo $item['id']?>" style="display: none;">保存</button>
-                                </form>
-                                <a href="javascript:void(0);" style="display: none;" id="save_<?php echo $item['id']?>" onclick="submitUpdate(<?php echo $item['id']?>)">保存</a>
-                                <a href="javascript:void(0);" id="update_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, true)">修改</a>
-                                <a href="javascript:void(0);" style="display: none;" id="cancel_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, false)">取消</a>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $start = ($current_page - 1) * $page_size;
+                            $keyword = $_GET['keyword'];
+                            if(empty($keyword)) {
+                                $list = $wpdb->get_results( "
+                                  SELECT *
+                                  FROM {$firgatebird_bookshelf_table}
+                                  ORDER BY id DESC
+                                  LIMIT {$start}, {$page_size}
+                                ", ARRAY_A);
+                            } else {
+                                $list = $wpdb->get_results( "
+                                  SELECT *
+                                  FROM {$firgatebird_bookshelf_table}
+                                  WHERE `name` LIKE '{$keyword}'
+                                  ORDER BY id DESC
+                                  LIMIT {$start}, {$page_size}
+                                ", ARRAY_A);
+                            }
+                        ?>
+                        <?php if(count($list) == 0) {?>
+                            <tr>
+                                <td></td>
+                                <td style="text-align: center;">准备工作已经完成，现在试着添加一条内容吧。也可以去站点页面的小工具处新增/删除内容</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <?php } ?>
+                        <?php foreach ($list as $item) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $item['id']?>
+                                    <input type="text" style="display: none;" value="<?php echo $item['id']?>">
+                                </td>
+                                <td id="td_thumb_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span>
+                                        <img src="<?php echo esc_html($item['thumb'])?>" height="50">
+                                    </span>
+                                    <input id="edit_thumb_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['thumb']?>">
+                                </td>
+                                <td id="td_name_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span>
+                                        <a target="_blank" href="<?php echo esc_html($item['link']) ?>" title="<?php echo esc_html($item['name'])?>"><?php echo esc_html($item['name'])?></a>
+                                    </span>
+                                    <input id="edit_name_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['name']?>">
+                                </td>
+                                <td id="td_link_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span>
+                                        <a target="_blank" href="<?php echo esc_html($item['link'])?>" title="<?php echo esc_html($item['name'])?>">Link</a>
+                                    </span>
+                                    <input id="edit_link_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['link']?>">
+                                </td>
+                                <td id="td_description_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span><?php echo esc_html($item['description'])?></span>
+                                    <input id="edit_description_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['description']?>">
+                                </td>
+                                <td id="td_comment_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span><?php echo esc_html($item['comment'])?></span>
+                                    <input id="edit_comment_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['comment']?>">
+                                </td>
+                                <td id="td_score_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span><?php echo esc_html($item['score'])?></span>
+                                    <input id="edit_score_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['score']?>">
+                                </td>
+                                <td id="td_type_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span>
+                                        <?php if($item['type'] == 1) { echo '书籍'; }?>
+                                        <?php if($item['type'] == 2) { echo '电影'; }?>
+                                        <?php if($item['type'] == 0) { echo '未分类'; }?>
+                                    </span>
+                                    <select id="edit_type_<?php echo $item['id']?>" name="type" style="width: 100%;">
+                                        <option value="1" <?php echo $item['type'] == 1 ? 'selected' : ''?>>书籍</option>
+                                        <option value="2" <?php echo $item['type'] == 2 ? 'selected' : ''?>>电影</option>
+                                    </select>
+                                </td>
+                                <td id="td_add_time_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span><?php echo date('Y-m-d',strtotime($item['add_time']));?></span>
+                                    <input id="edit_add_time_<?php echo $item['id']?>" type="text" style="width: 100%;" value="<?php echo $item['add_time']?>">
+                                </td>
+                                <td id="td_show_edit_<?php echo $item['id']?>" class="td_edit_false">
+                                    <span><?php echo $item['show'] == 1 ? '显示' : '隐藏'?></span>
+                                    <select id="edit_show_<?php echo $item['id']?>" name="show" style="width: 100%;">
+                                        <option value="1" <?php echo $item['show'] == 1 ? 'selected' : ''?>>显示</option>
+                                        <option value="0" <?php echo $item['show'] == 0 ? 'selected' : ''?>>隐藏</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <?php
+                                    $user = get_user_by('id', $item['uid']);
+                                    echo $user->display_name;
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $item['create_time']?>
+                                </td>
+                                <td>
+                                    <form style="display: none;" method="post" id="firgatebird_form_firgatebird_bookshelf_update_item_<?php echo $item['id']?>" name="firgatebird_form_firgatebird_bookshelf_update_item_<?php echo $item['id']?>" target="rfFrame" onsubmit="updateItem()" action="edit.php?page=firgatebird_bookshelf&update=true" class="validate">
+                                        <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
+                                        <input id="update_name_<?php echo $item['id']?>" name="name" style="display: none;" type="text" value="<?php echo $item['name']?>">
+                                        <input id="update_thumb_<?php echo $item['id']?>" name="thumb" style="display: none;" type="text" value="<?php echo $item['thumb']?>">
+                                        <input id="update_link_<?php echo $item['id']?>" name="link" style="display: none;" type="text" value="<?php echo $item['link']?>">
+                                        <input id="update_description_<?php echo $item['id']?>" name="description" style="display: none;" type="text" value="<?php echo $item['description']?>">
+                                        <input id="update_comment_<?php echo $item['id']?>" name="comment" style="display: none;" type="text" value="<?php echo $item['comment']?>">
+                                        <input id="update_score_<?php echo $item['id']?>" name="score" style="display: none;" type="text" value="<?php echo $item['score']?>">
+                                        <input id="update_add_time_<?php echo $item['id']?>" name="add_time" style="display: none;" type="text" value="<?php echo $item['add_time']?>">
+                                        <input id="update_type_<?php echo $item['id']?>" name="type" style="display: none;" type="text" value="<?php echo $item['type']?>">
 
-                                <form style="display: none;" method="post" id="firgatebird_form_firgatebird_bookshelf_delete_item" name="firgatebird_form_firgatebird_bookshelf_delete_item" target="rfFrame" onsubmit="deleteItem()" action="edit.php?page=firgatebird_bookshelf&delete=true" class="validate">
-                                    <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
-                                    <button type="submit" id="firgatebird_form_firgatebird_bookshelf_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
-                                </form>
-                                <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+
+                                        <input id="update_show_<?php echo $item['id']?>" name="show" style="display: none;" type="text" value="<?php echo $item['show']?>">
+                                        <input id="update_status_<?php echo $item['id']?>" name="status" style="display: none;" type="text" value="<?php echo $item['status']?>">
+                                        <button type="submit" id="firgatebird_form_bookshelf_update_item_btn_<?php echo $item['id']?>" style="display: none;">保存</button>
+                                    </form>
+                                    <a href="javascript:void(0);" style="display: none;" id="save_<?php echo $item['id']?>" onclick="submitUpdate(<?php echo $item['id']?>)">保存</a>
+                                    <a href="javascript:void(0);" id="update_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, true)">修改</a>
+                                    <a href="javascript:void(0);" style="display: none;" id="cancel_<?php echo $item['id']?>" onclick="toggleEdit(<?php echo $item['id']?>, false)">取消</a>
+
+                                    <form style="display: none;" method="post" id="firgatebird_form_firgatebird_bookshelf_delete_item_<?php echo $item['id']?>" name="firgatebird_form_firgatebird_bookshelf_delete_item" target="rfFrame" onsubmit="deleteItem()" action="edit.php?page=firgatebird_bookshelf&delete=true" class="validate">
+                                        <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
+                                        <button type="submit" id="firgatebird_form_firgatebird_bookshelf_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
+                                    </form>
+                                    <a id="delete_<?php echo $item['id']?>" href="javascript:void(0);" onclick="submitDelete(<?php echo $item['id']?>)">删除</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
             <!--分页-->
             <div class="tablenav bottom">
                 <div class="tablenav-pages">
@@ -371,6 +415,55 @@ function firgatebird_bookshelf_function(){
                 </div>
             </div>
         <?php } ?>
+        <form method="post" autocomplete="off" name="firgatebird_form_firgatebird_bookshelf_add_item" id="firgatebird_form_firgatebird_bookshelf_add_item" target="rfFrame" onsubmit="addItem()" action="edit.php?page=firgatebird_bookshelf&add=true" class="validate">
+            <div class="actions">
+                <input name="name" type="text" style="width: 300px;" placeholder="名称" value="">
+            </div>
+            <div class="actions">
+                <input name="thumb" type="text" style="width: 300px;" placeholder="缩略图" value="">
+            </div>
+            <div class="actions">
+                <input name="link" type="text" style="width: 300px;" placeholder="超链接" value="">
+            </div>
+            <div class="actions">
+                <input name="description" type="text" style="width: 300px;" placeholder="描述" value="">
+            </div>
+            <div class="actions">
+                <input name="comment" type="text" style="width: 300px;" placeholder="评价" value="">
+            </div>
+            <div class="actions">
+                <input name="score" type="text" style="width: 300px;" placeholder="评分" value="">
+            </div>
+            <div class="actions">
+                <select name="type">
+                    <option value="1" selected>书籍</option>
+                    <option value="2">电影</option>
+                </select>
+            </div>
+            <div class="actions">
+                <input name="add_time" type="text" style="width: 300px;" placeholder="加入时间" value="">
+            </div>
+            <div class="actions">
+                <select name="show">
+                    <option value="1" selected>显示</option>
+                    <option value="0">隐藏</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button type="submit" class="button button-primary">添加</button>
+            </div>
+        </form>
+
+        <div class="margin-top: 20px;">
+            <form method="post" autocomplete="off" name="firgatebird_form_firgatebird_bookshelf_add_item" id="firgatebird_form_firgatebird_bookshelf_add_item_json" target="rfFrame" onsubmit="addItem()" action="edit.php?page=firgatebird_bookshelf&add=json" class="validate">
+                <div class="actions">
+                    <textarea style="width: 100%;" rows="20" name="json"></textarea>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="button button-primary">添加JSON</button>
+                </div>
+            </form>
+        </div>
     </div>
     <script>
         function firgatebird_bookshelf_init_data() {
@@ -414,15 +507,22 @@ function firgatebird_bookshelf_function(){
         }
 
         function submitUpdate(id) {
-            document.getElementById('update_content_' + id).value = document.getElementById('edit_content_' + id).value;
+            document.getElementById('update_name_' + id).value = document.getElementById('edit_name_' + id).value;
+            document.getElementById('update_thumb_' + id).value = document.getElementById('edit_thumb_' + id).value;
+            document.getElementById('update_link_' + id).value = document.getElementById('edit_link_' + id).value;
+            document.getElementById('update_description_' + id).value = document.getElementById('edit_description_' + id).value;
+            document.getElementById('update_comment_' + id).value = document.getElementById('edit_comment_' + id).value;
+            document.getElementById('update_score_' + id).value = document.getElementById('edit_score_' + id).value;
+            document.getElementById('update_add_time_' + id).value = document.getElementById('edit_add_time_' + id).value;
+            document.getElementById('update_type_' + id).value = document.getElementById('edit_type_' + id).value;
+
             document.getElementById('update_show_' + id).value = document.getElementById('edit_show_' + id).value;
-            document.getElementById('update_status_' + id).value = document.getElementById('edit_status_' + id).value;
             document.getElementById('firgatebird_form_bookshelf_update_item_btn_' + id).click();
         }
         function updateItem() {
             document.getElementById('rfFrame').onload = function(res){
                 if(res.returnValue) {
-                    window.location.reload();
+                    // window.location.reload();
                 } else {
                     window.alert('修改失败');
                 }

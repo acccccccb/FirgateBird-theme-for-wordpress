@@ -172,12 +172,22 @@ header{
     .article-info small {
         color: #9d9d9d;
     }
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid  #000;
+    color: #000;
+  }
+  b, strong {
+    color: #000;
+  }
     p {
         a {
+          text-decoration: underline;
             img {
                 max-width:100%!important;
                 height:auto;
-                cursor:zoom-in!important;
                 background-color: #fff;
                 border: 1px solid #ddd;
                 //border-radius: 4px;
@@ -187,14 +197,10 @@ header{
                 transition: all 0.2s ease-in-out 0s;
                 margin:10px auto;
             }
-            img:hover {
-                opacity: 0.8;
-            }
         }
         img {
             max-width:100%!important;
             height:auto;
-            cursor:zoom-in!important;
             background-color: #fff;
             border: 1px solid #ddd;
             //border-radius: 4px;
@@ -203,9 +209,6 @@ header{
             padding: 4px;
             transition: all 0.2s ease-in-out 0s;
             margin:10px auto;
-            }
-        img:hover {
-            opacity: 0.8;
         }
     }
 }

@@ -1,4 +1,4 @@
-let distPath = 'E:\\test-project\\wordpress\\wp-content\\themes\\FirgateBird';
+let distPath = './dist';
 let srcPath = './src';
 let config = {
     scss:srcPath + '/static/scss/',

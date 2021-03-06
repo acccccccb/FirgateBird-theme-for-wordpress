@@ -141,10 +141,10 @@ class sidebar_light_word extends WP_Widget {
                         $list = $wpdb->get_results( "
                               SELECT *
                               FROM {$table}
-                              WHERE 'show'=0
+                              WHERE `show`=1
                               ORDER BY id DESC
                               LIMIT 0, $ArticleNum
-                            ", ARRAY_A); ?>
+                            ", ARRAY_A ); ?>
                     <?php if(count($list) > 0) {?>
                         <?php foreach ($list as $item) { ?>
                             <div class="mt10">
@@ -165,7 +165,7 @@ class sidebar_light_word extends WP_Widget {
                                             <small style="font-size: 12px; opacity: .5">
                                                 <?php echo $item['create_time']?>
                                                 <?php if ( array_intersect( $allowed_roles, $user->roles ) ) {?>
-                                                    <form style="display: none;" method="post" id="firgatebird_form_delete_item" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
+                                                    <form style="display: none;" method="post" name="firgatebird_form_delete_item" target="rfFrame" onsubmit="deleteItem()" action="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word&delete=true" class="validate">
                                                         <input name="id" style="display: none;" type="text" value="<?php echo $item['id']?>">
                                                         <button type="submit" id="firgatebird_form_delete_item_btn_<?php echo $item['id']?>" style="display: none;">删除</button>
                                                     </form>

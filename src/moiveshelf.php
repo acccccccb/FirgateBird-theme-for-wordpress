@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: 书架
+Template Name: 电影
 
 */
 ?>
@@ -28,7 +28,7 @@ Template Name: 书架
                         global $table_prefix;
                         $table = $table_prefix . 'firgatebird_bookshelf';
                         // $wpdb->show_errors();
-                        $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE `show`=1 and `type`=1");
+                        $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE `show`=1 and `type`=2");
                         if($count === NULL) {
                             ?>
                             <div>
@@ -37,13 +37,13 @@ Template Name: 书架
                             </div>
                         <?php } else { ?>
                             <div class="col-xs-12" style="text-align: right; padding: 20px;font-size: 14px;">
-                                迄今为止，共读过<?php echo $count?>本
+                                迄今为止，看过<?php echo $count?>部电影
                             </div>
                             <?php
                             $list = $wpdb->get_results( "
                                   SELECT *
                                   FROM {$table}
-                                  WHERE `show`=1 and `type`=1
+                                  WHERE `show`=1 and `type`=2
                                   ORDER BY add_time DESC
                                 ", ARRAY_A );
                             foreach ($list as $item) {
@@ -77,10 +77,10 @@ Template Name: 书架
                                             <span class="score-value"><?php echo sprintf("%.1f",$score);?>分</span>
                                         </div>
                                         <div class="book-desc">
-                                            作者：<?php echo $item['description']?>
+                                            <?php echo $item['description']?>
                                         </div>
                                         <div class="book-desc">
-                                            阅读日期：<?php echo date('Y-m-d',strtotime($item['add_time']));?>
+                                            观看日期：<?php echo date('Y-m-d',strtotime($item['add_time']));?>
                                         </div>
                                     </a>
                                 </div>

@@ -5,11 +5,6 @@
             <div class="col-lg-10 col-lg-offset-1">
                 <?php navigation();?>
             </div>
-            <div class="col-lg-10 col-lg-offset-1">
-                <?php if(is_active_sidebar( "sidebar-2" )) { ?>
-                    <?php dynamic_sidebar( 'sidebar-2' ); ?>
-                <?php } ?>
-            </div>
 			<div class="col-lg-7 col-lg-offset-1" id="ajax-box">
                 <div class="row">
                     <div class="col-lg-12">

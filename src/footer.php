@@ -43,7 +43,7 @@
 			</div>
 		</div>
 	</footer>
-	<div id="go_top"><a href="#top"><img src="<?php echo get_template_directory_uri(); ?>/static/img/gotop.gif" width=81 height=91 alt="回到顶部"/></a></div>
+	<div id="go_top"><a href="#top"><img src="<?php echo get_template_directory_uri(); ?>/static/img/top.svg" width="50" alt="回到顶部"/></a></div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<div id="img-mask" >
 		<div id="img-url"></div>
