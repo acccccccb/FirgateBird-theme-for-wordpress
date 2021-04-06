@@ -109,6 +109,9 @@ let build = {
                         fs.copy('./node_modules/jquery/dist/jquery.min.js', config.exportJs + 'jquery.min.js',{ filter: this.filterFunc })
                             .then(() => console.log('copy:./node_modules/jquery/dist/jquery.min.js'.green))
                             .catch(err => console.error(err));
+                        fs.copy('./node_modules/vue/dist/vue.min.js', config.exportJs + 'vue.min.js',{ filter: this.filterFunc })
+                            .then(() => console.log('copy:./node_modules/vue/dist/vue.min.js'.green))
+                            .catch(err => console.error(err));
                     })
                     .catch(err => {
                         console.error(err);

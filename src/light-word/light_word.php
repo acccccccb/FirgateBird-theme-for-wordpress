@@ -123,6 +123,7 @@ function firgatebird_light_word_function(){
         global $table_prefix;
         $firgatebird_light_word_table = $table_prefix . 'firgatebird_light_word';
         // $wpdb->show_errors();
+        $wpdb->hide_errors();
         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$firgatebird_light_word_table}");
         $current_page = !empty($_GET['current_page']) ? $_GET['current_page'] : 1;
         $page_size = !empty($_GET['page_size']) ? $_GET['page_size'] : 10;

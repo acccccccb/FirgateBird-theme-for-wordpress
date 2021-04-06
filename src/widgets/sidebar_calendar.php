@@ -20,7 +20,7 @@ class sidebar_calendar extends WP_Widget {
         }
         ?>
         <?php echo $before_widget; ?>
-        <?php $showtitle = $instance['showtitle']; ?>
+        <?php $showtitle = $instance['showtitle'] ?? false; ?>
         <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
             <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-calendar"></span>&nbsp;' . $instance['title'] . $after_title; ?>
         <?php } ?>
@@ -42,7 +42,7 @@ class sidebar_calendar extends WP_Widget {
     /** @see WP_Widget::form 输出设置菜单 */
     function form($instance) {
         $title = esc_attr($instance['title']);
-        $showtitle = $instance['showtitle'];
+        $showtitle = $instance['showtitle'] ?? false;
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">

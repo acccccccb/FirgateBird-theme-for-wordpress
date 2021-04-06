@@ -129,7 +129,7 @@
 		    'comment_notes_before' => '<div class="comment-notes col-lg-12">' .
 		    __( '<div>
 			    <span class="glyphicon glyphicon-bell"></span> <strong>注意：</strong><i>"评论内容</i>、<i>昵称</i>、<i>邮箱"</i>&nbsp;&nbsp;为必填项，邮件地址不会被公开。
-			</div>' ) . ( $req ? $required_text : '' ) .
+			</div>' ) . ( $req ? (isset($required_text) ? $required_text : '') : '' ) .
 		    '</div>'.'<div class="form-allowed-tags small col-lg-12 hidden">'.
 		    sprintf(
 		      __( '你可以使用这些<abbr title="HyperText Markup Language">HTML</abbr>标签: %s' ),

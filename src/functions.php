@@ -1,18 +1,14 @@
 <?php
+// 小工具
 require_once( 'widgets/sidebar_default.php' );
+// 主题设置
 require_once ('config/theme_options.php');
+// 轻言
 require_once ('light-word/light_word.php');
+// 展架
 require_once ('bookshelf/bookshelf.php');
-// 精简顶部
-//remove_action( ‘wp_head’, ‘feed_links_extra’, 3 ); // Display the links to the extra feeds such as category feeds
-//remove_action( ‘wp_head’, ‘feed_links’, 2 ); // Display the links to the general feeds: Post and Comment Feed
-//remove_action( ‘wp_head’, ‘rsd_link’ ); // Display the link to the Really Simple Discovery service endpoint, EditURI link
-//remove_action( ‘wp_head’, ‘wlwmanifest_link’ ); // Display the link to the Windows Live Writer manifest file.
-//remove_action( ‘wp_head’, ‘index_rel_link’ ); // index link
-//remove_action( ‘wp_head’, ‘parent_post_rel_link’, 10, 0 ); // prev link
-//remove_action( ‘wp_head’, ‘start_post_rel_link’, 10, 0 ); // start link
-//remove_action( ‘wp_head’, ‘adjacent_posts_rel_link’, 10, 0 ); // Display relational links for the posts adjacent to the current post.
-//remove_action( ‘wp_head’, ‘wp_generator’ ); // Display the XHTML generator that is generated on the wp_head hook, WP version
+// rest_api
+require_once ('api/api.php');
 // 关闭前台顶部导航
 show_admin_bar(false);
 // 主题色设置
@@ -138,7 +134,6 @@ function themeColor() {
 // 面包屑导航
 function navigation(){
 	$blogurl = get_bloginfo('url');
-	$blogname = get_bloginfo('name');
 	echo '<ol class="breadcrumb">';
 	echo '<li><small><a href="'.$blogurl.'"><span class="glyphicon glyphicon-home"></span> 首页</a></small></li>';
 	if(is_tag()){
@@ -160,9 +155,7 @@ function navigation(){
 		echo '</li></small>';
 	}
 	if(is_page()) {
-		echo '<li><small>';
-		single_post_title();
-		echo '</li></small>';
+		echo '<li><small>' . single_post_title() . '</li></small>';
 	}
 	if(is_archive() && !is_category()) {
 		echo '<li><small>';
@@ -330,7 +323,7 @@ function fa_get_wpsmiliestrans(){
 
 //替换头像路径（多说挂了 暂时不用这个）
  function fox_get_https_avatar($avatar) {
-     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'cn.gravatar.com', $avatar);
+     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'cdn.v2ex.com/gravatar', $avatar);
      return $avatar;
  }
 add_filter('get_avatar', 'fox_get_https_avatar');

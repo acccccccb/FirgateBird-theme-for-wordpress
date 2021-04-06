@@ -193,7 +193,7 @@ function firgatebird_bookshelf_function(){
         global $wpdb;
         global $table_prefix;
         $firgatebird_bookshelf_table = $table_prefix . 'firgatebird_bookshelf';
-        // $wpdb->show_errors();
+        $wpdb->hide_errors();
         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$firgatebird_bookshelf_table}");
         $current_page = !empty($_GET['current_page']) ? $_GET['current_page'] : 1;
         $page_size = !empty($_GET['page_size']) ? $_GET['page_size'] : 10;

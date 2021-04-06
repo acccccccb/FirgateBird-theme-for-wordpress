@@ -24,6 +24,7 @@ function firgatebird_option_function(){
                     <li class="all"><a href="javascript: void(0);" id="tab_0" onclick="showTab(this)" data-index="0" data-name="base_option" class="current">基本设置</a> |</li>
                     <li class="all"><a href="javascript: void(0);" id="tab_1" onclick="showTab(this)" data-index="1" data-name="high_level_option">高级设置</a> |</li>
                     <li class="all"><a href="javascript: void(0);" id="tab_2" onclick="showTab(this)" data-index="2" data-name="board_option">功能</a></li>
+                    <li class="all"><a href="javascript: void(0);" id="tab_2" onclick="showTab(this)" data-index="3" data-name="wx_public">扫码登录</a></li>
                 </ul>
             </div>
 
@@ -33,10 +34,12 @@ function firgatebird_option_function(){
             <div class="tabs_body card" data-index="1" style="display: none;max-width: 100%;">
                 <?php require_once( 'model/high_level_option.php' );?>
             </div>
-            <div class="tabs_body card" data-index="1" style="display: none;max-width: 100%;">
+            <div class="tabs_body card" data-index="2" style="display: none;max-width: 100%;">
                 <?php require_once( 'model/board_option.php' );?>
             </div>
-
+            <div class="tabs_body card" data-index="3" style="display: none;max-width: 100%;">
+                <?php require_once( 'model/wx_public.php' );?>
+            </div>
             <input type="hidden" name="action" value="update" />
             <input
                 id="page_options"
@@ -100,6 +103,7 @@ function firgatebird_option_function(){
                 base_option: ['firgatebird_color', 'firgatebird_font_color','firgatebird_logo_img', 'firgatebird_menu_type','firgatebird_bg_img','firgatebird_bg_attachment', 'firgatebird_bg_repeat', 'firgatebird_bg_size'],
                 high_level_option: ['firgatebird_stats_code', 'firgatebird_home_keyword','firgatebird_custom_head', 'firgatebird_custom_code'],
                 board_option: ['firgatebird_live2d', 'firgatebird_live2d_message', 'firgatebird_light_word'],
+                wx_public: ['firgatebird_wx_secret', 'firgatebird_wx_appid'],
             };
             $pageOptions.value = params[currentTab].join(',');
             document.getElementById('firgatebird_message').style.display = 'none';

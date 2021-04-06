@@ -27,7 +27,7 @@ Template Name: 电影
                         global $wpdb;
                         global $table_prefix;
                         $table = $table_prefix . 'firgatebird_bookshelf';
-                        // $wpdb->show_errors();
+                        $wpdb->hide_errors();
                         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE `show`=1 and `type`=2");
                         if($count === NULL) {
                             ?>

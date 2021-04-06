@@ -1,77 +1,77 @@
-$(document).ready(function(){
-	$(".ajax-article-delete").click(function(){
-		let ajaxLink = $(this).attr("data-link");
-		let ajaxHtml = $.ajax({
+jQuery(document).ready(function(jQuery){
+	jQuery(".ajax-article-delete").click(function(){
+		let ajaxLink = jQuery(this).attr("data-link");
+		let ajaxHtml = jQuery.ajax({
 				type: "GET",
 				url: "" + ajaxLink + "",
 				dataType: "html",
-				success:function(data) {  
-					//let ajaxEgg = $("#data-target").html();
-					$("#ajax-box").html(data);
-					let ddd = $("#ajax-target").html();
-					$("#ajax-box").html(ddd);
+				success:function(data) {
+					//let ajaxEgg = jQuery("#data-target").html();
+					jQuery("#ajax-box").html(data);
+					let ddd = jQuery("#ajax-target").html();
+					jQuery("#ajax-box").html(ddd);
 				},
-				error:function() {   
-					console.log("异常！");  
+				error:function() {
+					console.log("异常！");
 				}
 			});
 		//let ajaxOrange = ajaxHtml.html();
-		//let ajaxApple = $(ajaxHtml.html).attr("#ajax-target").html();
-		//$("#ajax-box").html(ajaxHtml.responseHTML);				
-		//$('#ajax-box').html(ajaxApple);
+		//let ajaxApple = jQuery(ajaxHtml.html).attr("#ajax-target").html();
+		//jQuery("#ajax-box").html(ajaxHtml.responseHTML);
+		//jQuery('#ajax-box').html(ajaxApple);
 	});
-	
-	//$('.index-article>p>a>img').click(function(){
-	//	let imgUrl = $(this).parents('a').attr('href');
-	//	$('#img-url').html('<p><img src="' + imgUrl + '" class="img-thumbnail"  /></p><p><a href="'+ imgUrl +'" target="_blank" class="btn btn-default" >查看原图</a></p>');
-	//	$('#img-mask').fadeIn(300);
+
+	//jQuery('.index-article>p>a>img').click(function(){
+	//	let imgUrl = jQuery(this).parents('a').attr('href');
+	//	jQuery('#img-url').html('<p><img src="' + imgUrl + '" class="img-thumbnail"  /></p><p><a href="'+ imgUrl +'" target="_blank" class="btn btn-default" >查看原图</a></p>');
+	//	jQuery('#img-mask').fadeIn(300);
 	//	return false;
 	//});
-	//$('.index-article>p>img').click(function(){
-	//	let imgSrc = $(this).attr('src');
-	//	$('#img-url').html('<p><img src="' + imgSrc + '" class="img-thumbnail" /></p><p><a href="'+ imgSrc +'" target="_blank" class="btn btn-default btn-xs" >查看原图</a></p>');
-	//	$('#img-mask').fadeIn(300);
+	//jQuery('.index-article>p>img').click(function(){
+	//	let imgSrc = jQuery(this).attr('src');
+	//	jQuery('#img-url').html('<p><img src="' + imgSrc + '" class="img-thumbnail" /></p><p><a href="'+ imgSrc +'" target="_blank" class="btn btn-default btn-xs" >查看原图</a></p>');
+	//	jQuery('#img-mask').fadeIn(300);
 	//	return false;
 	//});
 
-	//$('#img-mask').click(function(){
-	//	$('#img-mask').fadeOut(300);
+	//jQuery('#img-mask').click(function(){
+	//	jQuery('#img-mask').fadeOut(300);
 	//});
 
-	$(window).on('scroll',function(){
-	    if(($(window).scrollTop()>50)) {
-	        //$("#go_top").fadeIn(300);
-	        $("#go_top").stop(true).show().removeClass('plane-out').addClass('plane').animate({
+	jQuery(window).on('scroll',function(){
+	    if((jQuery(window).scrollTop()>50)) {
+	        //jQuery("#go_top").fadeIn(300);
+	        jQuery("#go_top").stop(true).show().removeClass('plane-out').addClass('plane').animate({
 				right:20
 			},200);
 	    }
 	    else {
-	        //$("#go_top").fadeOut(300);
-			$("#go_top").stop(true).removeClass('plane').addClass('plane-out').animate({
+	        //jQuery("#go_top").fadeOut(300);
+			jQuery("#go_top").stop(true).removeClass('plane').addClass('plane-out').animate({
 				right:-150
 			},200,function(){
-				$("#go_top").hide();
+				jQuery("#go_top").hide();
 			});
 	    }
 	});
-	$('#go_top>a').on('click',function(){
-		$('body,html').animate({ scrollTop: 0 }, 400);
+	jQuery('#go_top>a').on('click',function(){
+		jQuery('body,html').animate({ scrollTop: 0 }, 400);
 		return false;
 	});
-	
-$("input[type=submit]").bind("click", function(e){
-        $("input[required=required],textarea[required=required]").trigger("blur");
+
+jQuery("input[type=submit]").bind("click", function(e){
+        jQuery("input[required=required],textarea[required=required]").trigger("blur");
         let inputV = [];
         //遍历input[type=required]的value长度并填入数组
-            $("input[required=required],textarea[required=required]").each(function(){
-            let inputLeng = $(this).val().length;
+            jQuery("input[required=required],textarea[required=required]").each(function(){
+            let inputLeng = jQuery(this).val().length;
             inputV.push(inputLeng);
         });
         //判断数组中是否包含数值0
         let KeyNum = inputV.indexOf(0);
         if(KeyNum==-1){
             //验证成功时提交当前表单
-            $(this).closest("form").submit();
+            jQuery(this).closest("form").submit();
         } else {
             //验证失败时执行
             console.info("必填项没有填写");
@@ -79,51 +79,51 @@ $("input[type=submit]").bind("click", function(e){
     });
 
     //失去焦点时验证表单
-    $("input[required=required],textarea[required=required]").blur(function(){
-        let inputValue = $(this).val().length;
+    jQuery("input[required=required],textarea[required=required]").blur(function(){
+        let inputValue = jQuery(this).val().length;
         if(inputValue == 0) {
-            $(this).css("border-color","#F64646");
+            jQuery(this).css("border-color","#F64646");
         } else {
-            $(this).css("border-color","");
+            jQuery(this).css("border-color","");
         }
-    });	
+    });
     //修改评论区表情的显示位置
-    let smiley = $('.smiley').clone();
-    $('.smiley').remove();
-    $('.form-group').before(smiley);
+    let smiley = jQuery('.smiley').clone();
+    jQuery('.smiley').remove();
+    jQuery('.form-group').before(smiley);
 	//二级导航
-	$('.menu-item-has-children').addClass('dropdown blog-nav-hover');
-	$('.menu-item-has-children>a').attr({
+	jQuery('.menu-item-has-children').addClass('dropdown blog-nav-hover');
+	jQuery('.menu-item-has-children>a').attr({
 		'data-toggle':'dropdown',
 		'aria-expanded':'false'
 	}).append('<span class="caret"></span>');
-	$('.sub-menu').addClass('dropdown-menu').attr('row','menu');
-	
-	$('.article-body>p>a').hover(function(){
-		$(this).attr({
+	jQuery('.sub-menu').addClass('dropdown-menu').attr('row','menu');
+
+	jQuery('.article-body>p>a').hover(function(){
+		jQuery(this).attr({
 			"data-toggle":"tooltip",
-			"data-original-title":"LinkTo: " + $(this).attr('href')
+			"data-original-title":"LinkTo: " + jQuery(this).attr('href')
 		});
-		$(function () { $("[data-toggle='tooltip']").tooltip(); });
-		$(this).tooltip('show');
+		jQuery(function () { jQuery("[data-toggle='tooltip']").tooltip(); });
+		jQuery(this).tooltip('show');
 	});
 	// 文章评论特效
-	$('.comment').mouseenter(function(){
-		$(this).find('.avatar').addClass('avatar-antimate');
+	jQuery('.comment').mouseenter(function(){
+		jQuery(this).find('.avatar').addClass('avatar-antimate');
 	});
-	$('.comment').mouseleave(function(){
-		$(this).find('.avatar').removeClass('avatar-antimate');
+	jQuery('.comment').mouseleave(function(){
+		jQuery(this).find('.avatar').removeClass('avatar-antimate');
 	});
 	//瀑布流
     function Mymasnory(){
-        $('.masonry').masonry({
+        jQuery('.masonry').masonry({
             itemSelector: '.item',
             gutterWidth: 220,
             isAnimated: true,
         })
     }
     Mymasnory();
-    $(window).resize(function() {
+    jQuery(window).resize(function() {
         Mymasnory();
     });
 	// scrollreveal
@@ -181,4 +181,23 @@ $("input[type=submit]").bind("click", function(e){
 	sr.reveal('.sidebar-bg>aside',{
         origin: 'right',
     });
+	// 确认对话框
+    window.$confirmModal = (params) => {
+        const title = params.title || '';
+        const content = params.content || '';
+        document.getElementById('confirmModalTitle').innerText = title;
+        document.getElementById('confirmModalContent').innerText = content;
+        const confirm = () => {
+            params.confirm();
+            jQuery('#confirmModal').modal('hide');
+        };
+        document.getElementById('confirmModalOnOk').addEventListener('click', confirm);
+        jQuery('#confirmModal').on('hidden.bs.modal', function (e) {
+            document.getElementById('confirmModalOnOk').removeEventListener('click', confirm);
+            if(typeof params.cancel === 'function') {
+                params.cancel();
+            }
+        });
+        jQuery('#confirmModal').modal('show');
+    }
 });

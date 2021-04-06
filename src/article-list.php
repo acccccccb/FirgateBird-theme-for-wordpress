@@ -39,7 +39,6 @@ function checkStr($str,$target) {
                 }
             ?>
             <div class="index-article">
-
                 <div class="article-tit mb10 mt10"><a href="<?php the_permalink() ?>" data-link="<?php the_permalink() ?>"  class="ajax-article" title="<?php the_title(); ?>"><?php the_title(); ?></a>
                     <?php $id = $post->ID; show_edit_button($id); ?>
                 </div>

@@ -93,13 +93,13 @@
 
         /** @see WP_Widget::form 输出设置菜单 */
         function form($instance) {
-            $title = esc_attr($instance['title']);
-            $about_author = $instance['about_author'];
-            $about_author_tags = $instance['about_author_tags'];
-            $github = $instance['github'];
-            $gitee = $instance['gitee'];
-            $email = $instance['email'];
-            $showtitle = $instance['showtitle'];
+            $title = esc_attr($instance['title']) ?? '';
+            $about_author = $instance['about_author'] ?? '';
+            $about_author_tags = $instance['about_author_tags'] ?? '';
+            $github = $instance['github'] ?? '';
+            $gitee = $instance['gitee'] ?? '';
+            $email = $instance['email'] ?? '';
+            $showtitle = $instance['showtitle'] ?? '';
             ?>
                 <p>
                     <label for="<?php echo $this->get_field_id('title'); ?>">

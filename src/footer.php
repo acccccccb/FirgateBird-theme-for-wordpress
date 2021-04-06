@@ -3,8 +3,6 @@
 			<div class="row">
 				<div class="col-lg-12 footer-info text-left">
 					<div class="row">
-
-
 						<div class="col-lg-3 col-lg-offset-1 mb20">
 							<p>
 								<strong><span class="glyphicon glyphicon-home"></span> 关于本站：</strong><br>
@@ -41,6 +39,22 @@
 					</div>
 				</div>
 			</div>
+<!-- 确认对话框 -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalTitle">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="confirmModalTitle"></h4>
+                        </div>
+                        <div class="modal-body" id="confirmModalContent"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="confirmModalOnOk">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</footer>
 	<div id="go_top"><a href="#top"><img src="<?php echo get_template_directory_uri(); ?>/static/img/top.svg" width="50" alt="回到顶部"/></a></div>
@@ -48,9 +62,6 @@
 	<div id="img-mask" >
 		<div id="img-url"></div>
 	</div>
-    <script src="<?php echo get_template_directory_uri(); ?>/static/js/bootstrap.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/static/js/blog.min.js?v=1.0.1"></script>
-
     <?php if (!empty(get_option('firgatebird_live2d'))) {?>
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/plug-in/Live2D-master/live2d/css/live2d.css">
         <div id="landlord" style="position:fixed;left:20px;bottom:0;">
@@ -92,5 +103,14 @@
             initLive2d ();
         </script>
     <?php }?>
-    <?php echo get_option('firgatebird_custom_code'); ?>
+    <?php
+        wp_print_scripts('jquery-core');
+        wp_print_scripts('jquery-migrate');
+    ?>
     <?php wp_footer(); ?>
+    <?php echo get_option('firgatebird_custom_code'); ?>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/static/js/blog.min.js?v=1.0.1"></script>

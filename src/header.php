@@ -80,16 +80,13 @@
     <link href="<?php echo get_template_directory_uri(); ?>/static/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/css/blog.min.css?v=1.0.1" />
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/static/plug-in/FrigateBird-LightBox-master/gallery.css" />
+    <script src="<?php echo get_template_directory_uri(); ?>/static/js/vue.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="<?php echo get_template_directory_uri(); ?>/static/js/jquery.min.js"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/scrollreveal/scrollreveal.min.js?v=1.0.0"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/lazyload/lazyload.min.js?v=1.0.0"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/static/plug-in/masonry/masonry.pkgd.min.js?v=1.0.0"></script>
     <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
     <?php echo get_option('firgatebird_custom_head'); ?>
     <?php themeColor() ?>
@@ -216,13 +213,15 @@
             wp_reset_query();
         ?>
 	<script>
-		var sildeN = $('.carousel-inner>.item').length;
-		if (sildeN > 0) {
-			for(i=0;i<sildeN; i++) {
-				var sildeHTML = '<li data-target="#carousel-example-generic" data-slide-to="'+ i +'"></li>';
-				$('.carousel-indicators').append(sildeHTML);
-			}
-			$('.item:eq(0),.carousel-indicators>li:eq(0)').addClass('active');
-		}
+		window.onload = () => {
+            var sildeN = $('.carousel-inner>.item').length;
+            if (sildeN > 0) {
+                for(i=0;i<sildeN; i++) {
+                    var sildeHTML = '<li data-target="#carousel-example-generic" data-slide-to="'+ i +'"></li>';
+                    $('.carousel-indicators').append(sildeHTML);
+                }
+                $('.item:eq(0),.carousel-indicators>li:eq(0)').addClass('active');
+            }
+        }
 	</script>
     <?php } ?>

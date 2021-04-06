@@ -27,11 +27,11 @@ Template Name: 书架
                         global $wpdb;
                         global $table_prefix;
                         $table = $table_prefix . 'firgatebird_bookshelf';
-                        // $wpdb->show_errors();
+                        $wpdb->hide_errors();
                         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE `show`=1 and `type`=1");
                         if($count === NULL) {
                             ?>
-                            <div>
+                            <div class="ml20 mr20">
                                 <p>此功能尚未启用, 请先去后台<strong>启用此功能</strong></p>
                                 <a href="<?php echo site_url(); ?>/wp-admin/edit.php?page=firgatebird_light_word" class="btn btn-danger" style="color: #fff;">启用</a>
                             </div>
