@@ -14,14 +14,14 @@
     </div>
     <div class="form-field term-description-wrap">
         <label for="firgatebird_custom_head">
-            <div style="margin-bottom: 10px;">插入head标签的代码：</div>
+            <div style="margin-bottom: 10px;">插入head标签上方的代码：</div>
         </label>
         <textarea
             name="firgatebird_custom_head"
             id="firgatebird_custom_head"
             cols="100"
             rows="5"
-            placeholder="插入head标签的代码"
+            placeholder="插入head标签上方的代码"
         ><?php echo get_option('firgatebird_custom_head'); ?></textarea>
     </div>
     <div class="form-field term-description-wrap">

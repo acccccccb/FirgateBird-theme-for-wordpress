@@ -11,6 +11,8 @@ require_once ('bookshelf/bookshelf.php');
 require_once ('api/api.php');
 // 关闭前台顶部导航
 show_admin_bar(false);
+
+remove_theme_support('widgets-block-editor');
 // 主题色设置
 function themeColor() {
     $themeColor = !empty(get_option('firgatebird_color')) ? get_option('firgatebird_color') : '#b93a00';
@@ -525,6 +527,10 @@ function random_posts($posts_num=6,$before='<li class="">',$after='</li>'){
 				<div><strong>文档信息：</strong>'.get_the_title().'</div>
 				<div><strong>版权声明：</strong><a href = "https://creativecommons.org/licenses/by-nc-nd/3.0/">自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）<img src="'.get_template_directory_uri().'/static/img/licensebuttons.png" /></a></div>
 				<div><strong>本文链接：</strong><a href="'.get_permalink().'" target="_self" >'.get_permalink().'</a></div>
+				<div class="mt10">
+                    本站部分原创文章，部分文章整理自网络。如有转载的文章侵犯了您的版权，请联系删除处理。如果您有优质文章，欢迎发稿给我！
+                    愿本站的内容能为您的学习、工作带来绵薄之力。
+                </div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

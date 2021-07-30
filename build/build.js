@@ -175,10 +175,10 @@ let build = {
         filterFunc(src, dest){
             let reg = new RegExp(/^[^.]+$|\.(?!(tiff|tif|psd|thumb)$)([^.]+$)/); //自己的匹配规则
             if (reg.test(src)) {
-                return true; //通过过滤条件，该目录允许复制到dest目录
+                return true; //通过过滤条件，该目录允许复制到dist目录
             } else {
                 console.log(('ignore:'+ src).gray);
-                return false; //丢弃，不复制到dest目录
+                return false; //丢弃，不复制到dist目录
             };
         },
         isDir:function(filePath){

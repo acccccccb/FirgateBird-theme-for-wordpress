@@ -70,7 +70,7 @@ class sidebar_light_word extends WP_Widget {
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':?:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f604.png" width="16" /></a>
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':razz:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f61b.png" width="16" /></a>
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':sad:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f626.png" width="16" /></a>
-                                            <a href="javascript:;" @click="sidebarLightWordgrin(':smile:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f623.png" width="16" /></a>
+<!--                                            <a href="javascript:;" @click="sidebarLightWordgrin(':emoticons:')"><img src="--><?php //echo get_template_directory_uri(); ?><!--/static/img/smilies/1f623.png" width="16" /></a>-->
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':oops:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f633.png" width="16" /></a>
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':grin:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f600.png" width="16" /></a>
                                             <a href="javascript:;" @click="sidebarLightWordgrin(':eek:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f62e.png" width="16" /></a>
