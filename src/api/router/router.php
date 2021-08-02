@@ -32,5 +32,10 @@
             'callback' => 'getList',
             'permission_callback' => 'noCheck'
         ));
+        register_rest_route( 'fb', 'bookshelf/getList', array(
+            'methods' => 'POST',
+            'callback' => 'getBookshelf',
+            'permission_callback' => 'noCheck'
+        ));
     });
 ?>

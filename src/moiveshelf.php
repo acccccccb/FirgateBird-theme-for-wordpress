@@ -5,6 +5,16 @@ Template Name: 电影
 */
 ?>
 <?php get_header(); ?>
+<style>
+    .time-line-title {
+        width: 100%;
+        clear: both;
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        padding: 20px 0;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
@@ -27,7 +37,7 @@ Template Name: 电影
                         global $wpdb;
                         global $table_prefix;
                         $table = $table_prefix . 'firgatebird_bookshelf';
-                        $wpdb->hide_errors();
+                        // $wpdb->show_errors();
                         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE `show`=1 and `type`=2");
                         if($count === NULL) {
                             ?>
@@ -40,53 +50,86 @@ Template Name: 电影
                                 迄今为止，看过<?php echo $count?>部电影
                             </div>
                             <?php
-                            $list = $wpdb->get_results( "
-                                  SELECT *
+                            $show_all = htmlspecialchars($_GET['show_all']);
+                            if($show_all == 'true') {
+                                $sql = "
+                                  SELECT
+                                  *,
+                                  DATE_FORMAT(add_time, '%Y-%m-%d') AS 'add_time',
+                                  DATE_FORMAT(add_time, '%Y') AS 'timeline'
                                   FROM {$table}
-                                  WHERE `show`=1 and `type`=2
+                                  WHERE (`show`=1 and `type`=2)
                                   ORDER BY add_time DESC
-                                ", ARRAY_A );
-                            foreach ($list as $item) {
+                                ";
+                            } else {
+                                $sql = "
+                                  SELECT
+                                  *,
+                                  DATE_FORMAT(add_time, '%Y-%m-%d') AS 'add_time',
+                                  DATE_FORMAT(add_time, '%Y') AS 'timeline'
+                                  FROM {$table}
+                                  WHERE (`show`=1 and `type`=2) and (date_format(`add_time`,'%Y') = date_format(now(),'%Y'))
+                                  ORDER BY add_time DESC
+                                ";
+                            }
+                            $list = $wpdb->get_results($sql, ARRAY_A );
+                            function dataGroup(array $dataArr,$keyStr){
+                                $newArr=[];
+                                foreach ($dataArr as $k => $val) {    //数据根据日期分组
+                                    $newArr[$val[$keyStr]][] = $val;
+                                }
+                                return $newArr;
+                            }
+                            $group = dataGroup($list, 'timeline');
                             ?>
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 mb20">
-                                    <a href="<?php echo $item['link']?>" target="_blank" rel="external nofollow" class="book-list">
-                                        <div class="book-thumb">
-                                            <img
-                                                class="lazyload"
-                                                data-container="body"
-                                                data-toggle="tooltip"
-                                                data-placement="right"
-                                                title="<?php echo $item['comment']?>"
-                                                data-src="<?php echo $item['thumb']?>"
-                                                src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs="
-                                                alt="<?php echo $item['name']?>"
-                                            >
-                                        </div>
-                                        <div class="book-title">
-                                            《<?php echo $item['name']?>》
-                                        </div>
-                                        <div class="score-box">
-                                            <?php $score = (int)$item['score']; ?>
-                                            <?php for ($n = 0; $n < 5; $n++) {?>
-                                                <?php if($n < $score) {?>
-                                                    <i class="glyphicon glyphicon-star score-full"></i>
-                                                <?php } else { ?>
-                                                    <i class="glyphicon glyphicon-star-empty score-empty"></i>
-                                                <?php } ?>
-                                            <?php } ?>
-                                            <span class="score-value"><?php echo sprintf("%.1f",$score);?>分</span>
-                                        </div>
-                                        <div class="book-desc">
-                                            <?php echo $item['description']?>
-                                        </div>
-                                        <div class="book-desc">
-                                            观看日期：<?php echo date('Y-m-d',strtotime($item['add_time']));?>
-                                        </div>
-                                    </a>
+                            <?php foreach ($group as $key => $groupitem) {?>
+                                <div class="time-line-title">
+                                    - <?php echo $key?> -
                                 </div>
-                            <?php }?>
+                                <?php foreach ($groupitem as $item) {?>
+                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 mb20">
+                                        <a href="<?php echo $item['link']?>" title="<?php echo $item['name']?>" target="_blank" rel="external nofollow" class="book-list">
+                                            <div class="book-thumb">
+                                                <img
+                                                    class="lazyload"
+                                                    data-container="body"
+                                                    data-toggle="tooltip"
+                                                    data-placement="right"
+                                                    title="<?php echo $item['comment']?>"
+                                                    data-src="<?php echo $item['thumb']?>"
+                                                    src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs="
+                                                    alt="<?php echo $item['name']?>"
+                                                >
+                                            </div>
+                                            <div class="book-title">
+                                                《<?php echo $item['name']?>》
+                                            </div>
+                                            <div class="score-box">
+                                                <?php $score = (int)$item['score']; ?>
+                                                <?php for ($n = 0; $n < 5; $n++) {?>
+                                                    <?php if($n < $score) {?>
+                                                        <i class="glyphicon glyphicon-star score-full"></i>
+                                                    <?php } else { ?>
+                                                        <i class="glyphicon glyphicon-star-empty score-empty"></i>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                                <span class="score-value"><?php echo sprintf("%.1f",$score);?>分</span>
+                                            </div>
+                                            <div class="book-desc">
+                                                <?php echo $item['description']?>
+                                            </div>
+                                            <div class="book-desc">
+                                                观看日期：<?php echo date('Y-m-d',strtotime($item['add_time']));?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php }?>
+                            <?php } ?>
                         <?php }?>
                         <div class="clearboth"></div>
+                        <div class="text-center">
+                            <a target="_self" href="?show_all=true" class="btn btn-default">查看全部</a>
+                        </div>
                     </div>
                 </article>
             <?php else: ?>

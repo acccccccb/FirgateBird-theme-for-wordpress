@@ -13,6 +13,7 @@
 							<a href="<?php echo site_url(); ?>">返回首页</a>
                             | <a href="#top">回到顶部</a>
                             | <a href="/comments-html">联系作者</a>
+                            | <a href="/privacy-policy">隐私政策</a>
                             <?php if(!empty(get_option( 'firgatebird_stats_code' ))) { ?>
                                 | <?php echo get_option( 'firgatebird_stats_code' ); ?>
                             <?php } ?>

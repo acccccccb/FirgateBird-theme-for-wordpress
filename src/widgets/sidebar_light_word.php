@@ -106,7 +106,7 @@ class sidebar_light_word extends WP_Widget {
                                                     >
                                                 </div>
                                             <?php } ?>
-                                            <div class="media-body">
+                                            <div class="media-body" :style="loading === true ? 'opacity: .1' : ''">
                                                 <h4 class="media-heading">
                                                     <span style="font-size: 14px;font-weight: 500;">
                                                         {{ item.display_name }}
@@ -128,7 +128,10 @@ class sidebar_light_word extends WP_Widget {
                                         <li class="next" :class="page === totalPage ? 'disabled' : ''"><a href="javascript:;" @click="jumpTo(page + 1)">下一页</a></li>
                                     </ul>
                                 </div>
-                                <div v-else>暂无内容</div>
+                                <div v-else>
+                                    <div v-if="loading === true">加载中</div>
+                                    <div v-else>暂无内容</div>
+                                </div>
                                 <style>
                                     .light-word-emoj {
                                         vertical-align: text-top;
@@ -145,7 +148,7 @@ class sidebar_light_word extends WP_Widget {
                                     data() {
                                         return {
                                             addShow: false,
-                                            loading: false,
+                                            loading: true,
                                             list: [],
                                             page: 1,
                                             totalPage: 1,
@@ -176,6 +179,7 @@ class sidebar_light_word extends WP_Widget {
                                         },
                                         getList() {
                                             const _this = this;
+                                            _this.loading = true;
                                             jQuery.ajax({
                                                 url: '/wp-json/fb/light_word/getList',
                                                 method: 'POST',
@@ -189,6 +193,7 @@ class sidebar_light_word extends WP_Widget {
                                                 success: (res) => {
                                                     _this.list = res.data.rows;
                                                     _this.totalPage = res.data.totalPage;
+                                                    _this.loading = false;
                                                 }
                                             });
                                         },

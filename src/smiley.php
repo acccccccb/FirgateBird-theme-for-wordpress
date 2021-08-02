@@ -37,7 +37,7 @@
 <a href="javascript:grin(':razz:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f61b.png" alt="" /></a>
 <a href="javascript:grin(':sad:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f626.png" alt="" /></a>
 <a href="javascript:grin(':smile:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f623.png" alt="" /></a>
-<a href="javascript:grin(':emoticons:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f623.png" alt="" /></a>
+<!--<a href="javascript:grin(':emoticons:')"><img src="--><?php //echo get_template_directory_uri(); ?><!--/static/img/smilies/1f623.png" alt="" /></a>-->
 <a href="javascript:grin(':oops:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f633.png" alt="" /></a>
 <a href="javascript:grin(':grin:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f600.png" alt="" /></a>
 <a href="javascript:grin(':eek:')"><img src="<?php echo get_template_directory_uri(); ?>/static/img/smilies/1f62e.png" alt="" /></a>

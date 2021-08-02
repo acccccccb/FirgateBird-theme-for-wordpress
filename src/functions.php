@@ -12,7 +12,7 @@ require_once ('api/api.php');
 // 关闭前台顶部导航
 show_admin_bar(false);
 
-remove_theme_support('widgets-block-editor');
+//remove_theme_support('widgets-block-editor');
 // 主题色设置
 function themeColor() {
     $themeColor = !empty(get_option('firgatebird_color')) ? get_option('firgatebird_color') : '#b93a00';
@@ -141,7 +141,7 @@ function navigation(){
 	if(is_tag()){
 		echo '<li><small> 标签 : ';
 		single_tag_title();
-		echo '</li></small>';
+		echo '</small></li>';
 	}
 	if(is_category()) {
 		echo '<li><small>';
@@ -151,23 +151,23 @@ function navigation(){
 	if(is_single()) {
 		echo '<li><small>';
 		the_category(', ');
-		echo '</li></small>';
+		echo '</small></li>';
 		echo '<li><small>';
 		single_post_title();
-		echo '</li></small>';
+		echo '</small></li>';
 	}
 	if(is_page()) {
-		echo '<li><small>' . single_post_title() . '</li></small>';
+		echo '<li><small>' . single_post_title('', false) . '</small></li>';
 	}
 	if(is_archive() && !is_category()) {
 		echo '<li><small>';
 		wp_title('',true);
-		echo '</li></small>';
+		echo '</small></li>';
 	}
 	if(is_search()) {
 		echo '<li><small>';
 		wp_title('',true);
-		echo '</li></small>';
+		echo '</small></li>';
 	}
 	echo '</ol>';
 }
@@ -325,7 +325,7 @@ function fa_get_wpsmiliestrans(){
 
 //替换头像路径（多说挂了 暂时不用这个）
  function fox_get_https_avatar($avatar) {
-     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'cdn.v2ex.com/gravatar', $avatar);
+     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'sdn.geekzu.org/avatar', $avatar);
      return $avatar;
  }
 add_filter('get_avatar', 'fox_get_https_avatar');
@@ -674,7 +674,7 @@ function bigNumber($num = 0) {
 	add_filter( 'widget_tag_cloud_args', 'sidebar_tag_cloud_filter' );
     // 修改日历
     function sidebar_calendar_filter($calendar_output){
-        $calendar_output = str_replace('id="wp-calendar"','id="wp-calendar" class="table"',$calendar_output);
+        $calendar_output = str_replace('id="wp-calendar"','id="wp-calendar" class="table firgate-bird-calendar"',$calendar_output);
         $calendar_output = str_replace('<td><a ','<td class="active"><a ',$calendar_output);
         $calendar_output = str_replace('id="next"','id="next" class="text-right"',$calendar_output);
         $new_calendar_output = str_replace('id="today"','id="today" class="warning"',$calendar_output);

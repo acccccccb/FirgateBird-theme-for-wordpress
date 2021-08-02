@@ -31,16 +31,19 @@
             ?>
                 <?php echo $before_widget; ?>
                 <?php $showtitle = !empty($instance['showtitle']) ? $instance['showtitle'] : 'undefined'; ?>
+                <?php $showAvatar = !empty($instance['show_avatar']) ? $instance['show_avatar'] : 'undefined'; ?>
                 <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
                     <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-user"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                 <?php } ?>
 
-                <nav class="nav pt20">
+                <nav class="nav pt10">
+                    <?php if($showAvatar == "true") { ?>
                     <div class="site-ico col-lg-4 col-lg-offset-4 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
                         <a href="<?php bloginfo('url'); ?>">
-                            <img src="<?php echo get_site_icon_url(); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
+                            <img src="<?php echo get_avatar_url(1, array('size' => 100)); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
                         </a>
                     </div>
+                    <?php } ?>
                     <div class="col-lg-12 col-xs-12 col-md-12">
                         <h3 class="text-center"><?php the_author_meta( 'nickname', 0  );?></h3>
                         <div class="col-lg-12 text-center mb10">
@@ -100,6 +103,7 @@
             $gitee = $instance['gitee'] ?? '';
             $email = $instance['email'] ?? '';
             $showtitle = $instance['showtitle'] ?? '';
+            $showAvatar = $instance['show_avatar'] ?? '';
             ?>
                 <p>
                     <label for="<?php echo $this->get_field_id('title'); ?>">
@@ -110,6 +114,11 @@
                             <input checked class="checkbox" id="<?php echo $this->get_field_id('showtitle'); ?>" name="<?php echo $this->get_field_name('showtitle'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showtitle'); ?>">显示标题</label>
                             <?php } else { ?>
                             <input class="checkbox" id="<?php echo $this->get_field_id('showtitle'); ?>" name="<?php echo $this->get_field_name('showtitle'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('showtitle'); ?>">显示标题</label>
+                    <?php } ?>
+                    <?php if($showAvatar=="true") { ?>
+                        <input checked class="checkbox" id="<?php echo $this->get_field_id('show_avatar'); ?>" name="<?php echo $this->get_field_name('show_avatar'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('show_avatar'); ?>">显示头像</label>
+                    <?php } else { ?>
+                        <input class="checkbox" id="<?php echo $this->get_field_id('show_avatar'); ?>" name="<?php echo $this->get_field_name('show_avatar'); ?>" type="checkbox" value="true"> <label for="<?php echo $this->get_field_id('show_avatar'); ?>">显示头像</label>
                     <?php } ?>
                 </p>
                 <p>

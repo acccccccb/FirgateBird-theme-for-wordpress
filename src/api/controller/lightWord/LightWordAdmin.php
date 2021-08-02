@@ -5,8 +5,8 @@
  * Date: 2021/3/30
  * Time: 11:25
  */
+//namespace controller\lightWord\LightWordAdmin;
 use common\ReturnData\ReturnData;
-use common\Auth\Auth;
 use common\FilterParam\FilterParam;
 
 class LightWordAdmin {
@@ -117,6 +117,16 @@ class LightWordAdmin {
         }
     }
     // user
+    function _html($_string){
+        if(is_array($_string)){
+            foreach($_string as $_key => $_value){
+                $_string[$_key] = _html($_value);//自己去执行自己-递归
+            }
+        }else{
+            $_string = htmlspecialchars($_string);
+        }
+        return $_string;
+    }
     function getList() {
         global $wpdb;
         global $table_prefix;
@@ -140,18 +150,13 @@ class LightWordAdmin {
                         ", ARRAY_A);
 
         foreach ($list as $key => $value) {
-            $list[$key]['content'] = str_replace($this->smiley,$this->smileyImg,mb_substr( $value['content'], 0, 300 ));;
+            $list[$key]['content'] = str_replace($this->smiley,$this->smileyImg,mb_substr( htmlspecialchars_decode($value['content']), 0, 300 ));;
             $list[$key]['avatar'] = fox_get_https_avatar(get_avatar_url( (int)($value['uid']), 32));
         }
         return ReturnData::page($list, $current_page, $page_size, $total);
     }
 }
-function check() {
-    return Auth::check();
-};
-function noCheck() {
-    return true;
-}
+
 // admin
 function add() {
     $LightWordAdmin = new LightWordAdmin;
