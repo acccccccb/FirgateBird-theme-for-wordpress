@@ -1,7 +1,7 @@
 <?php
  /**
    * 最新评论
-   * 
+   *
    * */
     class sidebar_new_article extends WP_Widget {
         /** 构造函数 */
@@ -13,13 +13,13 @@
             parent::__construct('sidebar_new_article' ,__('Theme:最新文章','bb10'), $widget_ops);
         }
         /** @see WP_Widget::widget */
-        function widget($args, $instance) {		
+        function widget($args, $instance) {
             extract( $args );
             if(!$instance['title']) {
                 $instance['title'] = "最新文章";
             }
             if(!$instance['ArticleNum']) {
-                $instance['ArticleNum'] = 10; 
+                $instance['ArticleNum'] = 10;
             }
             ?>
                 <?php echo '<aside class="mb20">' ?>
@@ -30,7 +30,17 @@
 
                             query_posts('showposts='.$ArticleNum);
                             if ( have_posts() ) : while ( have_posts() ) : the_post();
-                                echo '<li><a href="' . get_the_permalink() . '">'. get_the_title() . '</a></li>';
+//                                echo '<li><a href="' . get_the_permalink() . '">'. get_the_title() . '</a></li>';
+                                echo '
+                                <li>
+                                    <a title="'.get_the_title().'" class="sidebar-list-left-time" href="'.get_the_permalink().'">
+                                        '.get_the_title().'
+                                    </a>
+                                    <span class="sidebar-list-right-time">
+                                        '.get_the_time("Y-m-d").'
+                                    </span>
+                                </li>
+                            ';
                             endwhile; else:
                                 echo '<li>暂无文章</li>';
                             endif;
@@ -42,12 +52,12 @@
         }
 
         /** @see WP_Widget::update 后台保存内容 */
-        function update($new_instance, $old_instance) {				
+        function update($new_instance, $old_instance) {
             return $new_instance;
         }
 
         /** @see WP_Widget::form 输出设置菜单 */
-        function form($instance) {				
+        function form($instance) {
             $title = esc_attr($instance['title']);
             $ArticleNum = $instance['ArticleNum'];
             ?>
@@ -63,7 +73,7 @@
                         <input class="widefat" type="text" maxlength="2" id="ArticleNum" name="<?php echo $this->get_field_name('ArticleNum'); ?>" type="number" value="<?php echo $ArticleNum; ?>">
                     </label>
                 </p>
-            <?php 
+            <?php
         }
 
     } // class FooWidget

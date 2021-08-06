@@ -3,6 +3,7 @@
 @import "_module/_fixBootstrap";
 @import "_module/_aiowps";
 @import "_module/_siderbar_calendar";
+@import "_module/_siderbar_author";
 @import "_module/_banner";
 @import "_module/_bookshelf";
 
@@ -21,7 +22,18 @@
 .mt10 {
     margin-top: 10px;
 }
-
+.mt20 {
+    margin-top: 20px;
+}
+.mt30 {
+    margin-top: 30px;
+}
+.mt40 {
+    margin-top: 40px;
+}
+.mt50 {
+    margin-top: 50px;
+}
 .mb10 {
     margin-bottom: 10px;
 }
@@ -330,7 +342,9 @@ header {
         }
         ul, ol {
             padding-left:10px;
-            margin-left:0;
+            margin-left:10px;
+        }
+        ul{
             list-style-position: inside!important;
             list-style-type: circle!important;
         }
@@ -847,6 +861,23 @@ pre {
     font-size: 12px;
 }
 
+.sidebar-list-left-time {
+    display: inline-block !important;
+    vertical-align: middle;
+    overflow: hidden;
+    width: calc(100% - 130px);
+    box-sizing: border-box;
+}
+.sidebar-list-right-time {
+    display: inline-block !important;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: right;
+    width: 120px;
+    overflow: hidden;
+    font-size: 12px;
+    color: .45;
+}
 .sidebar-pager li a, .sidebar-pager li {
     font-size: 10px;
     line-height: 14px;

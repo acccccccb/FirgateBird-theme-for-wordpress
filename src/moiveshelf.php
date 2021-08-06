@@ -127,9 +127,11 @@ Template Name: 电影
                             <?php } ?>
                         <?php }?>
                         <div class="clearboth"></div>
-                        <div class="text-center">
-                            <a target="_self" href="?show_all=true" class="btn btn-default">查看全部</a>
-                        </div>
+                        <?php if($show_all !== 'true') { ?>
+                            <div class="text-center">
+                                <a target="_self" href="?show_all=true" class="btn btn-default">查看全部</a>
+                            </div>
+                        <?php } ?>
                     </div>
                 </article>
             <?php else: ?>
@@ -140,15 +142,13 @@ Template Name: 电影
         </div>
     </div>
 </div>
+<?php get_footer(); ?>
 <script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    window.addEventListener("load", function(event) {
+    jQuery('[data-toggle="tooltip"]').tooltip();
+    window.addEventListener("load", function() {
         lazyload();
     });
 </script>
-<?php get_footer(); ?>
 </body>
 </html>
 

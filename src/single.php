@@ -39,7 +39,7 @@
                             } else {
                                 var wpnonce = '<?php echo wp_create_nonce('wpnonce');?>';
                                 var $el = document.getElementById('single_like');
-                                $.ajax({
+                                jQuery.ajax({
                                     type: 'POST',
                                     url: "<?php echo admin_url( 'admin-ajax.php' );?>?wpnonce="+wpnonce,    // ajaxurl为内置js变量，值为"/wp-admin/admin-ajax.php"
                                     dataType:'json',

@@ -507,6 +507,7 @@ function firgatebird_bookshelf_function(){
         }
 
         function submitUpdate(id) {
+            console.log('保存');
             document.getElementById('update_name_' + id).value = document.getElementById('edit_name_' + id).value;
             document.getElementById('update_thumb_' + id).value = document.getElementById('edit_thumb_' + id).value;
             document.getElementById('update_link_' + id).value = document.getElementById('edit_link_' + id).value;
@@ -522,7 +523,7 @@ function firgatebird_bookshelf_function(){
         function updateItem() {
             document.getElementById('rfFrame').onload = function(res){
                 if(res.returnValue) {
-                    // window.location.reload();
+                    window.location.reload();
                 } else {
                     window.alert('修改失败');
                 }

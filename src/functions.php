@@ -229,6 +229,22 @@ function par_pagenavi($range = 6){
 	}
 }
 
+// 获取浏览量 views 点赞量 like
+function get_all($name){
+    global $wpdb;
+    $count=0;
+    $views= $wpdb->get_results("SELECT * FROM $wpdb->postmeta WHERE meta_key='" . $name . "'");
+    foreach($views as $key=>$value){
+        $meta_value=$value->meta_value;
+        if($meta_value!=' '){
+            $count+=(int)$meta_value;
+        }
+    }
+    if($count > 10000) {
+        $count = number_format(($count / 1000), 1) . 'k';
+    }
+    return $count;
+}
 
 //评论数
 /*   获取文章的评论人数 by zwwooooo | zww.me
@@ -325,7 +341,7 @@ function fa_get_wpsmiliestrans(){
 
 //替换头像路径（多说挂了 暂时不用这个）
  function fox_get_https_avatar($avatar) {
-     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'sdn.geekzu.org/avatar', $avatar);
+     $avatar = str_replace(array('secure.gravatar.com', 'www.gravatar.com', '0.gravatar.com', '1.gravatar.com', '2.gravatar.com'), 'cravatar.cn/avatar', $avatar);
      return $avatar;
  }
 add_filter('get_avatar', 'fox_get_https_avatar');
@@ -472,9 +488,13 @@ function hot_posts($post_num=7){
 //相关文章
 function same_posts($post_num=7){
 	global $post;
-    $post_category = get_the_category($post->ID);
+    $tag_obj = get_the_tags($post->ID);
+    function tag_map($v) {
+        return $v->term_id;
+    }
+    $tag_arr = array_map('tag_map', $tag_obj);
 	$args = array(
-		'category_name' => $post_category[0]->name,
+		'tag__in' => $tag_arr,
 		'post_password' => '',
 		'post_status' => 'publish', // 只选公开的文章.
 		'post__not_in' => array($post->ID),//排除当前文章
@@ -663,7 +683,7 @@ function bigNumber($num = 0) {
 			'separator'   => " ",   //分隔每一项的分隔符
 			'orderby'     => 'name',//排序字段，可以是name或count
 			'order'       => 'ASC', //升序或降序，ASC或DESC
-			'exclude'     => null,   //结果中排除某些标签
+			'exclude'     => array('photoShop', 'PhotoShop', 'photo shop'),   //结果中排除某些标签
 			'include'     => null,  //结果中只包含这些标签
 			'link'        => 'view', //taxonomy链接，view或edit
 			'taxonomy'    => 'post_tag', //调用哪些分类法作为标签云

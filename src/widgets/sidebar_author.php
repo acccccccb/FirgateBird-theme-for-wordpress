@@ -32,20 +32,20 @@
                 <?php echo $before_widget; ?>
                 <?php $showtitle = !empty($instance['showtitle']) ? $instance['showtitle'] : 'undefined'; ?>
                 <?php $showAvatar = !empty($instance['show_avatar']) ? $instance['show_avatar'] : 'undefined'; ?>
-                <?php if($showtitle=="true" || $showtitle == "undefined") { ?>
+                <?php if($showtitle !== "undefined") { ?>
                     <?php echo '<div class="sidebar-tit">' . '<span class="glyphicon glyphicon-user"></span>&nbsp;' . $instance['title'] . $after_title; ?>
                 <?php } ?>
 
-                <nav class="nav pt10">
+                <nav class="nav pt10 about_author">
                     <?php if($showAvatar == "true") { ?>
                     <div class="site-ico col-lg-4 col-lg-offset-4 col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
                         <a href="<?php bloginfo('url'); ?>">
-                            <img src="<?php echo get_avatar_url(1, array('size' => 100)); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
+                            <img src="<?php echo fox_get_https_avatar(get_avatar_url(1, array('size' => 100))); ?>" alt="<?php bloginfo('name'); ?>" class="img-responsive img-circle  sidebar-site-img" />
                         </a>
                     </div>
                     <?php } ?>
                     <div class="col-lg-12 col-xs-12 col-md-12">
-                        <h3 class="text-center"><?php the_author_meta( 'nickname', 0  );?></h3>
+                        <h4 class="text-center"><?php the_author_meta( 'nickname', 0  );?></h4>
                         <div class="col-lg-12 text-center mb10">
                             <?php
                                 function randrgb() {
@@ -69,18 +69,47 @@
 
                         <p><?php echo $about_author;?></p>
                         <hr>
+                        <div class="mt10 site-info mb10">
+                            <div class="site-info-article">
+                                <div><?php echo wp_count_posts()->publish;?></div>
+                                <div class="site-info-title">文章</div>
+                            </div>
+                            <div class="site-info-comments">
+                                <div><?php global $wpdb;echo $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments");?></div>
+                                <div class="site-info-title">评论</div>
+                            </div>
+                            <div class="site-info-view">
+                                <div><?php echo get_all('views') ?></div>
+                                <div class="site-info-title">浏览</div>
+                            </div>
+                            <div class="site-info-like">
+                                <div><?php echo get_all('like') ?></div>
+                                <div class="site-info-title">点赞</div>
+                            </div>
+                        </div>
+                        <hr>
                         <address class="mt10">
                             <?php if($github) { ?>
-                                <strong>github:</strong><br>
-                                <a href="<?php echo $github;?>"><small><?php echo $github;?></small></a><br><br>
+                                <div><strong>github:</strong></div>
+                                <div>
+                                    <a href="<?php echo $github;?>"><small><?php echo $github;?></small></a>
+                                </div>
                             <?php } ?>
                             <?php if($gitee) { ?>
-                                <strong>gitee:</strong><br>
-                                <a href="<?php echo $gitee;?>"><small><?php echo $gitee;?></small></a><br><br>
+                                <div class="mt20">
+                                    <strong>gitee:</strong>
+                                </div>
+                                <div>
+                                    <a href="<?php echo $gitee;?>"><small><?php echo $gitee;?></small></a>
+                                </div>
                             <?php } ?>
                             <?php if($email) { ?>
-                                <strong>E-mail:</strong><br>
-                                <a href="mailto:<?php echo $email;?>"><small><?php echo $email;?></small></a><br><br>
+                                <div class="mt20">
+                                    <strong>E-mail:</strong>
+                                </div>
+                                <div>
+                                    <a href="mailto:<?php echo $email;?>"><small><?php echo $email;?></small></a>
+                                </div>
                             <?php } ?>
                         </address>
                     </div>

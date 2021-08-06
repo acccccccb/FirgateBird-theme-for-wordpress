@@ -1,0 +1,26 @@
+.about_author {
+    .site-info {
+        display: flex;
+        justify-content: flex-start;
+
+        .site-info-article,
+        .site-info-comments,
+        .site-info-view,
+        .site-info-like {
+            width: 25%;
+            text-align: center;
+
+            .site-info-title {
+                opacity: .45;
+            }
+
+            border-right: 1px solid #f2f2f2;
+        }
+        .site-info-article {}
+        .site-info-comments {}
+        .site-info-view {}
+        .site-info-like {
+            border-right: none;
+        }
+    }
+}
