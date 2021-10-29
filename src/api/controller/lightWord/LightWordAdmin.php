@@ -6,6 +6,7 @@
  * Time: 11:25
  */
 //namespace controller\lightWord\LightWordAdmin;
+use common\Auth\Auth;
 use common\ReturnData\ReturnData;
 use common\FilterParam\FilterParam;
 
