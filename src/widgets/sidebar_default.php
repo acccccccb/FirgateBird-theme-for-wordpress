@@ -6,6 +6,7 @@
      require_once( 'sidebar_tools.php' );
      require_once( 'sidebar_author.php' );
      require_once( 'sidebar_calendar.php' );
+     require_once( 'sidebar_attack_statistic.php' );
     if(get_option('firgatebird_light_word') == 1) {
         require_once( 'sidebar_light_word.php' );
     }
