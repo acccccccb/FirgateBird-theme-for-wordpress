@@ -167,6 +167,9 @@ let build = {
                     fs.copy('./node_modules/bootstrap/dist/css/bootstrap.min.css', config.exportCss + 'bootstrap.min.css',{ filter: this.filterFunc })
                         .then(() => console.log('copy ./node_modules/bootstrap/dist/css/bootstrap.min.css'.green))
                         .catch(err => console.error(err.red));
+                    fs.copy('./node_modules/bootstrap/dist/css/bootstrap.min.css.map', config.exportCss + 'bootstrap.min.css.map',{ filter: this.filterFunc })
+                        .then(() => console.log('copy ./node_modules/bootstrap/dist/css/bootstrap.min.css.map'.green))
+                        .catch(err => console.error(err.red));
                 }).catch((e)=>{
                     console.log(e.toString().red);
                 });
