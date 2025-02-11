@@ -11,7 +11,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
-<?php echo get_option('firgatebird_custom_head'); ?>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +18,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1,user-scalable=no,maximum-scale=1.0, minimum-scale=1.0"
     >
+    <?php echo get_option('firgatebird_custom_head'); ?>
     <?php
     $description = '';
     $keywords = '';
