@@ -68,7 +68,7 @@
                                     $commentHTML .= get_avatar($comment, $avatar_size);
                                     $commentHTML .= '</a>';
                                     $commentHTML .= '<div class="media-body siderbar_comments">';
-                                    $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a>'. '</b> <small>' .get_comment_date("Y-d-m H:i:s",$comment->comment_ID) .'</small></h4><p>';
+                                    $commentHTML .= '<h4 class="media-heading"><b><a href="'.get_permalink($comment->comment_post_ID).'">'.get_comment_author( $comment->comment_ID ).'</a>'. '</b> <small>' .get_comment_date("Y-m-d H:i:s",$comment->comment_ID) .'</small></h4><p>';
 //                                    $commentHTML .= substr( $commentsText, 0, $comment_len );
                                     $commentHTML .= str_replace($smiley,$smileyImg,mb_substr( $commentsText, 0, $comment_len ));
                                     $commentHTML .= '</p></div>';

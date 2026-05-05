@@ -68,8 +68,8 @@
                     function get_data($showtype) {
                         global $wpdb;
                         global $table_prefix;
-                        $tabName = $showtype == '1' ? 'aiowps_failed_logins' : 'aiowps_events';
-                        $timeColName = $showtype == '1' ? 'failed_login_date' : 'event_date';
+                        $tabName = $showtype == '1' ? 'aiowps_audit_log' : 'aiowps_events';
+                        $timeColName = $showtype == '1' ? 'created' : 'event_date';
 
                         $bulk_actions = $table_prefix . $tabName;
                         $wpdb->show_errors();
@@ -78,8 +78,17 @@
                         $pre_year = date("Y",strtotime("-1 year"));
                         $year = date("Y");
                         $total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$bulk_actions}");
-
-                        $sql = "
+                        
+                        $sql = $showtype == '1' ? "
+                              SELECT
+                              *,
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y-%m-%d') AS 'day',
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y') AS 'year',
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y-%m') AS 'month'
+                              FROM {$bulk_actions}
+                              WHERE YEAR(FROM_UNIXTIME(`". $timeColName ."`)) = {$year}
+                              ORDER BY ". $timeColName ." ASC
+                        " : "
                               SELECT
                               *,
                               DATE_FORMAT(". $timeColName .", '%Y-%m-%d') AS 'day',
@@ -88,9 +97,19 @@
                               FROM {$bulk_actions}
                               WHERE YEAR(`". $timeColName ."`) = {$year}
                               ORDER BY ". $timeColName ." ASC
-                        ";
+                        "
+                            ;
 
-                        $sql2 = "
+                        $sql2 = $showtype == '1' ? "
+                              SELECT
+                              *,
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y-%m-%d') AS 'day',
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y') AS 'year',
+                              DATE_FORMAT(FROM_UNIXTIME(". $timeColName ."), '%Y-%m') AS 'month'
+                              FROM {$bulk_actions}
+                              WHERE YEAR(FROM_UNIXTIME(`". $timeColName ."`)) = {$pre_year}
+                              ORDER BY ". $timeColName ." ASC
+                        " : "
                               SELECT
                               *,
                               DATE_FORMAT(". $timeColName .", '%Y-%m-%d') AS 'day',
@@ -132,7 +151,7 @@
                 <div>
                     <div id="container" style="height: 300px;width: 100%;"></div>
                     <div id="container2" style="height: 300px;width: 100%;"></div>
-                    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+                    <script type="text/javascript" src="/wp-content/themes/FrigateBird/static/js/echarts.min.js"></script>
                     <script>
                         (() => {
                             let dom = document.getElementById("container");

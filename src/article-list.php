@@ -27,17 +27,18 @@ function checkStr($str,$target) {
             }
         ?>
             <?php
-                if ( has_post_thumbnail()) { // check if the post has a Post Thumbnail assigned to it.
-                    $theThumbnail = get_the_post_thumbnail( $post_id, thumbnail,array( 'class' => 'lazyload','alt' => get_the_title(),'size'=>'thumbnail' ));
-                    $theThumbnail = str_replace('srcset="','data-srcset="',$theThumbnail);
-                    $theThumbnail = str_replace('src="','srcset="',$theThumbnail);
-                    echo '<div class="article-list-thumbnail">';
-                    echo '<a href="'.get_the_permalink().'" title="'.get_the_title().'">';
-                    echo $theThumbnail;
-                    echo '</a>';
-                    echo '</div>';
-                }
-            ?>
+if ( has_post_thumbnail()) {
+    // 修复：$post_id → get_the_ID() ， thumbnail → 'thumbnail'
+    $theThumbnail = get_the_post_thumbnail( get_the_ID(), 'thumbnail', array( 'class' => 'lazyload','alt' => get_the_title(),'size'=>'thumbnail' ));
+    $theThumbnail = str_replace('srcset="','data-srcset="',$theThumbnail);
+    $theThumbnail = str_replace('src="','srcset="',$theThumbnail);
+    echo '<div class="article-list-thumbnail">';
+    echo '<a href="'.get_the_permalink().'" title="'.get_the_title().'">';
+    echo $theThumbnail;
+    echo '</a>';
+    echo '</div>';
+}
+?>
             <div class="index-article">
                 <div class="article-tit mb10 mt10"><a href="<?php the_permalink() ?>" data-link="<?php the_permalink() ?>"  class="ajax-article" title="<?php the_title(); ?>"><?php the_title(); ?></a>
                     <?php $id = $post->ID; show_edit_button($id); ?>

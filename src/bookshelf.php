@@ -50,7 +50,7 @@ Template Name: 书架
                                 迄今为止，共读过<?php echo $count?>本
                             </div>
                             <?php
-                            $show_all = htmlspecialchars($_GET['show_all']);
+                            $show_all = htmlspecialchars( isset($_GET['show_all']) ? $_GET['show_all'] : '' );
                             if($show_all == 'true') {
                                 $sql = "
                                   SELECT

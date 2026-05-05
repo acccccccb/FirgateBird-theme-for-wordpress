@@ -11,7 +11,9 @@
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
+
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta
@@ -19,6 +21,7 @@
         content="width=device-width, initial-scale=1,user-scalable=no,maximum-scale=1.0, minimum-scale=1.0"
     >
     <?php echo get_option('firgatebird_custom_head'); ?>
+    
     <?php
     $description = '';
     $keywords = '';
@@ -29,11 +32,11 @@
         $keywords = get_option('firgatebird_home_keyword');
     } elseif (is_page()) {
         $description = get_the_excerpt();
-        $keywords = get_the_tags();
-        if ($keywords) {
-            foreach ($keywords as $tag) {
+        $keywords = ''; // 先清空
+        $page_tags = get_the_tags(); // 用新变量接收数组
+        if ($page_tags) {
+            foreach ($page_tags as $tag) {
                 $keywords .= $tag->name . ',';
-                $keywords = str_replace("Array", "", $keywords);
             }
         }
         $keywords = rtrim($keywords, ",");
@@ -166,7 +169,7 @@
                                                 <li><a href="' . wp_logout_url() . '"><span class="glyphicon glyphicon-off"></span> 注销</a></li>
                                             ';
                                     } else {
-                                        echo '<li><a href="' . wp_login_url() . '"><span class="glyphicon glyphicon-off"></span> 登陆</a></li>';
+                                        echo '<li><a href="/wp-login.php"><span class="glyphicon glyphicon-off"></span> 登陆</a></li>';
                                     }
                                     ?>
                                 </ul>

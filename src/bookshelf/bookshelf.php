@@ -241,22 +241,30 @@ function firgatebird_bookshelf_function(){
                     <tbody>
                         <?php
                             $start = ($current_page - 1) * $page_size;
-                            $keyword = $_GET['keyword'];
+
+                            // 修复：判断 keyword 是否存在，不存在则为空
+                            $keyword = isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '';
+
                             if(empty($keyword)) {
                                 $list = $wpdb->get_results( "
-                                  SELECT *
-                                  FROM {$firgatebird_bookshelf_table}
-                                  ORDER BY id DESC
-                                  LIMIT {$start}, {$page_size}
+                                    SELECT *
+                                    FROM {$firgatebird_bookshelf_table}
+                                    ORDER BY id DESC
+                                    LIMIT {$start}, {$page_size}
                                 ", ARRAY_A);
                             } else {
-                                $list = $wpdb->get_results( "
-                                  SELECT *
-                                  FROM {$firgatebird_bookshelf_table}
-                                  WHERE `name` LIKE '{$keyword}'
-                                  ORDER BY id DESC
-                                  LIMIT {$start}, {$page_size}
-                                ", ARRAY_A);
+                                // 修复：加 LIKE 通配符 % 并使用 $wpdb->prepare 防SQL注入
+                                $like_keyword = "%$keyword%";
+                                $list = $wpdb->get_results(
+                                    $wpdb->prepare("
+                                        SELECT *
+                                        FROM {$firgatebird_bookshelf_table}
+                                        WHERE `name` LIKE %s
+                                        ORDER BY id DESC
+                                        LIMIT {$start}, {$page_size}
+                                    ", $like_keyword),
+                                    ARRAY_A
+                                );
                             }
                         ?>
                         <?php if(count($list) == 0) {?>

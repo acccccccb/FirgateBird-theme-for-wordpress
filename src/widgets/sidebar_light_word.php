@@ -132,6 +132,20 @@ class sidebar_light_word extends WP_Widget {
                                     <div v-if="loading === true">加载中</div>
                                     <div v-else>暂无内容</div>
                                 </div>
+                                <div>
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9248990617008906"
+                                         crossorigin="anonymous"></script>
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-format="fluid"
+                                         data-ad-layout-key="-gw-3+1f-3d+2z"
+                                         data-ad-client="ca-pub-9248990617008906"
+                                         data-ad-slot="5148365412"></ins>
+                                    <script>
+                                         (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                    
+                                </div>
                                 <style>
                                     .light-word-emoj {
                                         vertical-align: text-top;
@@ -183,6 +197,7 @@ class sidebar_light_word extends WP_Widget {
                                             jQuery.ajax({
                                                 url: '/wp-json/fb/light_word/getList',
                                                 method: 'POST',
+                                                dataType: "json",
                                                 data: {
                                                     page: this.page,
                                                     pageSize: <?php echo $instance['ArticleNum'] ? $instance['ArticleNum'] : 5 ;?>
