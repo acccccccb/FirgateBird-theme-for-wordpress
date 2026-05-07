@@ -27,7 +27,7 @@
     "colors": "^1.4.0",
     "fs-extra": "^9.0.0",
     "jquery": "^3.5.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "node-watch": "^0.6.4",
     "uglify-es": "^3.3.9"
   },
